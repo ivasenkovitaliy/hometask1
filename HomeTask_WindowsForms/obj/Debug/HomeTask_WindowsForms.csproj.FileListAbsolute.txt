@@ -1,0 +1,8 @@
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\bin\Debug\HomeTask_WindowsForms.exe.config
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\bin\Debug\HomeTask_WindowsForms.exe
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\bin\Debug\HomeTask_WindowsForms.pdb
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.csprojResolveAssemblyReference.cache
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.Properties.Resources.resources
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.csproj.GenerateResource.Cache
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.exe
+c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.pdb
