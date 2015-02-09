@@ -38,6 +38,7 @@ namespace HomeTask_WindowsForms
             this._notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this._iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.тестToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelWelcome = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,6 +46,8 @@ namespace HomeTask_WindowsForms
             this.PanelWelcomeYesButton = new System.Windows.Forms.Button();
             this.WelcomeTextLabel = new System.Windows.Forms.Label();
             this.PanelTest = new System.Windows.Forms.Panel();
+            this.buttonAnotherTryNo = new System.Windows.Forms.Button();
+            this.buttonAnotherTryYes = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonDontSure = new System.Windows.Forms.Button();
@@ -56,11 +59,15 @@ namespace HomeTask_WindowsForms
             this.radioButtonAnswer1 = new System.Windows.Forms.RadioButton();
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
-            this.buttonAnotherTryYes = new System.Windows.Forms.Button();
-            this.buttonAnotherTryNo = new System.Windows.Forms.Button();
+            this.PanelSetttings = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+            this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
+            this.buttonCancel_PanelSettings = new System.Windows.Forms.Button();
             this._iconContextMenuStrip.SuspendLayout();
             this.PanelWelcome.SuspendLayout();
             this.PanelTest.SuspendLayout();
+            this.PanelSetttings.SuspendLayout();
             this.SuspendLayout();
             // 
             // _notifyIcon
@@ -74,9 +81,10 @@ namespace HomeTask_WindowsForms
             // 
             this._iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.тестToolStripMenuItem,
+            this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(121, 48);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(121, 70);
             // 
             // тестToolStripMenuItem
             // 
@@ -84,6 +92,13 @@ namespace HomeTask_WindowsForms
             this.тестToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.тестToolStripMenuItem.Text = "Start test";
             this.тестToolStripMenuItem.Click += new System.EventHandler(this.тестToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -160,9 +175,31 @@ namespace HomeTask_WindowsForms
             this.PanelTest.Controls.Add(this.CategoryNameLabel);
             this.PanelTest.Location = new System.Drawing.Point(12, 8);
             this.PanelTest.Name = "PanelTest";
-            this.PanelTest.Size = new System.Drawing.Size(306, 231);
+            this.PanelTest.Size = new System.Drawing.Size(292, 231);
             this.PanelTest.TabIndex = 3;
             this.PanelTest.Visible = false;
+            // 
+            // buttonAnotherTryNo
+            // 
+            this.buttonAnotherTryNo.Location = new System.Drawing.Point(169, 192);
+            this.buttonAnotherTryNo.Name = "buttonAnotherTryNo";
+            this.buttonAnotherTryNo.Size = new System.Drawing.Size(75, 23);
+            this.buttonAnotherTryNo.TabIndex = 12;
+            this.buttonAnotherTryNo.Text = "No";
+            this.buttonAnotherTryNo.UseVisualStyleBackColor = true;
+            this.buttonAnotherTryNo.Visible = false;
+            this.buttonAnotherTryNo.Click += new System.EventHandler(this.buttonAnotherTryNo_Click);
+            // 
+            // buttonAnotherTryYes
+            // 
+            this.buttonAnotherTryYes.Location = new System.Drawing.Point(61, 192);
+            this.buttonAnotherTryYes.Name = "buttonAnotherTryYes";
+            this.buttonAnotherTryYes.Size = new System.Drawing.Size(75, 23);
+            this.buttonAnotherTryYes.TabIndex = 11;
+            this.buttonAnotherTryYes.Text = "Yes";
+            this.buttonAnotherTryYes.UseVisualStyleBackColor = true;
+            this.buttonAnotherTryYes.Visible = false;
+            this.buttonAnotherTryYes.Click += new System.EventHandler(this.buttonAnotherTryYes_Click);
             // 
             // labelResult
             // 
@@ -283,36 +320,86 @@ namespace HomeTask_WindowsForms
             this.CategoryNameLabel.TabIndex = 0;
             this.CategoryNameLabel.Text = "CategoryName";
             // 
-            // buttonAnotherTryYes
+            // PanelSetttings
             // 
-            this.buttonAnotherTryYes.Location = new System.Drawing.Point(61, 192);
-            this.buttonAnotherTryYes.Name = "buttonAnotherTryYes";
-            this.buttonAnotherTryYes.Size = new System.Drawing.Size(75, 23);
-            this.buttonAnotherTryYes.TabIndex = 11;
-            this.buttonAnotherTryYes.Text = "Yes";
-            this.buttonAnotherTryYes.UseVisualStyleBackColor = true;
-            this.buttonAnotherTryYes.Visible = false;
-            this.buttonAnotherTryYes.Click += new System.EventHandler(this.buttonAnotherTryYes_Click);
+            this.PanelSetttings.Controls.Add(this.buttonCancel_PanelSettings);
+            this.PanelSetttings.Controls.Add(this.buttonSubmit_PanelSettings);
+            this.PanelSetttings.Controls.Add(this.domainUpDown1);
+            this.PanelSetttings.Controls.Add(this.label2);
+            this.PanelSetttings.Location = new System.Drawing.Point(15, 11);
+            this.PanelSetttings.Name = "PanelSetttings";
+            this.PanelSetttings.Size = new System.Drawing.Size(303, 239);
+            this.PanelSetttings.TabIndex = 4;
+            this.PanelSetttings.Visible = false;
             // 
-            // buttonAnotherTryNo
+            // label2
             // 
-            this.buttonAnotherTryNo.Location = new System.Drawing.Point(169, 192);
-            this.buttonAnotherTryNo.Name = "buttonAnotherTryNo";
-            this.buttonAnotherTryNo.Size = new System.Drawing.Size(75, 23);
-            this.buttonAnotherTryNo.TabIndex = 12;
-            this.buttonAnotherTryNo.Text = "No";
-            this.buttonAnotherTryNo.UseVisualStyleBackColor = true;
-            this.buttonAnotherTryNo.Visible = false;
-            this.buttonAnotherTryNo.Click += new System.EventHandler(this.buttonAnotherTryNo_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(21, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Time interval (minutes)";
+            // 
+            // domainUpDown1
+            // 
+            this.domainUpDown1.Items.Add("20");
+            this.domainUpDown1.Items.Add("19");
+            this.domainUpDown1.Items.Add("18");
+            this.domainUpDown1.Items.Add("17");
+            this.domainUpDown1.Items.Add("16");
+            this.domainUpDown1.Items.Add("15");
+            this.domainUpDown1.Items.Add("14");
+            this.domainUpDown1.Items.Add("13");
+            this.domainUpDown1.Items.Add("12");
+            this.domainUpDown1.Items.Add("11");
+            this.domainUpDown1.Items.Add("10");
+            this.domainUpDown1.Items.Add("9");
+            this.domainUpDown1.Items.Add("8");
+            this.domainUpDown1.Items.Add("7");
+            this.domainUpDown1.Items.Add("6");
+            this.domainUpDown1.Items.Add("5");
+            this.domainUpDown1.Items.Add("4");
+            this.domainUpDown1.Items.Add("3");
+            this.domainUpDown1.Items.Add("2");
+            this.domainUpDown1.Items.Add("1");
+            this.domainUpDown1.Location = new System.Drawing.Point(154, 24);
+            this.domainUpDown1.Name = "domainUpDown1";
+            this.domainUpDown1.Size = new System.Drawing.Size(47, 20);
+            this.domainUpDown1.TabIndex = 1;
+            this.domainUpDown1.Text = "3";
+            this.domainUpDown1.SelectedItemChanged += new System.EventHandler(this.domainUpDown1_SelectedItemChanged);
+            // 
+            // buttonSubmit_PanelSettings
+            // 
+            this.buttonSubmit_PanelSettings.Location = new System.Drawing.Point(16, 202);
+            this.buttonSubmit_PanelSettings.Name = "buttonSubmit_PanelSettings";
+            this.buttonSubmit_PanelSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonSubmit_PanelSettings.TabIndex = 2;
+            this.buttonSubmit_PanelSettings.Text = "submit";
+            this.buttonSubmit_PanelSettings.UseVisualStyleBackColor = true;
+            this.buttonSubmit_PanelSettings.Click += new System.EventHandler(this.buttonSubmitTestPanel_Click);
+            // 
+            // buttonCancel_PanelSettings
+            // 
+            this.buttonCancel_PanelSettings.Location = new System.Drawing.Point(113, 202);
+            this.buttonCancel_PanelSettings.Name = "buttonCancel_PanelSettings";
+            this.buttonCancel_PanelSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel_PanelSettings.TabIndex = 3;
+            this.buttonCancel_PanelSettings.Text = "close";
+            this.buttonCancel_PanelSettings.UseVisualStyleBackColor = true;
+            this.buttonCancel_PanelSettings.Click += new System.EventHandler(this.buttonCancel_PanelSettings_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 262);
+            this.ContextMenuStrip = this._iconContextMenuStrip;
+            this.Controls.Add(this.PanelSetttings);
+            this.Controls.Add(this.WelcomeTextLabel);
             this.Controls.Add(this.PanelTest);
             this.Controls.Add(this.PanelWelcome);
-            this.Controls.Add(this.WelcomeTextLabel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -322,6 +409,8 @@ namespace HomeTask_WindowsForms
             this.PanelWelcome.PerformLayout();
             this.PanelTest.ResumeLayout(false);
             this.PanelTest.PerformLayout();
+            this.PanelSetttings.ResumeLayout(false);
+            this.PanelSetttings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,6 +445,12 @@ namespace HomeTask_WindowsForms
         private Label labelResult;
         private Button buttonAnotherTryNo;
         private Button buttonAnotherTryYes;
+        private Panel PanelSetttings;
+        private ToolStripMenuItem settingsToolStripMenuItem;
+        private Label label2;
+        private DomainUpDown domainUpDown1;
+        private Button buttonSubmit_PanelSettings;
+        private Button buttonCancel_PanelSettings;
     }
 }
 

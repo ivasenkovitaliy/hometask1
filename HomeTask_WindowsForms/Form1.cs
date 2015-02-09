@@ -25,18 +25,16 @@ namespace HomeTask_WindowsForms
         private Word _wordToTranslate;
         private Control _checkedRadioButton;
         private int _wrongAnswers;
-        private int _testInterval = 10000; // 10 sec
+        private int _testInterval; // in miliseconds
         
-        //private Word _randomWord;
-
+        
         Timer TimerToShowWelcomePanel = new Timer();
-        Timer TimerAnswers = new Timer();
-        Timer TimerTest= new Timer();
+        Timer TimerAfterAnswers = new Timer();
+        Timer TimerToShowTestWindow= new Timer();
 
         WordsRepository repository = new WordsRepository(); // singleton
-
         List<Word> _programmWords = new List<Word>();
-        //private Word wordToTranslate;
+        
         
         
         Random rndCounter = new Random();
@@ -46,6 +44,8 @@ namespace HomeTask_WindowsForms
         public MainForm(string windowName)
         {
             InitializeComponent();
+
+            _testInterval = Convert.ToInt16(domainUpDown1.Text)*60000;
             this.Text = windowName;
             
             // setting "welcome" timer
@@ -54,8 +54,8 @@ namespace HomeTask_WindowsForms
             TimerToShowWelcomePanel.Tick += TimerToShowWelcomePanel_Tick;
             
             //setting timer displaying test window
-            TimerTest.Interval = _testInterval;
-            TimerTest.Tick += TimerTest_Tick;
+            TimerToShowTestWindow.Interval = _testInterval;
+            TimerToShowTestWindow.Tick += TimerTest_Tick;
             
             this.FormClosing+=MainForm_FormClosing;
 
@@ -63,9 +63,77 @@ namespace HomeTask_WindowsForms
             
         }
 
+        // ----------------------------------------------------------------------------
+        void StartTesting()
+        {
+            TimerToShowTestWindow.Stop();
+            
+            //preparing form
+            this.WelcomeTextLabel.Visible = false;
+            this.PanelTest.Visible = true;
+            this.labelResult.Visible = false;
+
+            this.radioButtonAnswer1.Checked = false;
+            this.radioButtonAnswer2.Checked = false;
+            this.radioButtonAnswer3.Checked = false;
+            this.radioButtonAnswer4.Checked = false;
+            this.radioButtonAnswer5.Checked = false;
+
+
+            // initializing
+            _testWordsHashSet = new HashSet<Word>();
+            _wordToTranslate = new Word(); // word to translate
+            _wrongAnswers = 0;
+
+            // getting all words
+            _programmWords = repository.GetAllWords();
+
+            // put word to translate first in hashset
+            _testWordsHashSet.Add(_programmWords[rndCounter.Next(_programmWords.Count)]);
+
+            // select another 5 un-repeating words
+            while (_testWordsHashSet.Count < 5)
+            {
+                _testWordsHashSet.Add(_programmWords[rndCounter.Next(_programmWords.Count)]);
+            }
+
+            _wordToTranslate = _testWordsHashSet.First();  // making one word as original
+
+
+            //setting radiobuttons captions
+            for (int i = 0; i < 5; i++)
+            {
+                Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
+                int thisStepRandom = rndCounter.Next(_testWordsHashSet.Count);
+                rbutton[0].Text = (_testWordsHashSet.ElementAt(thisStepRandom).GetTranslate());
+                _testWordsHashSet.Remove(_testWordsHashSet.ElementAt(thisStepRandom));
+
+            }
+
+            // displaying 
+            CategoryNameLabel.Text = _wordToTranslate.GetCategory();
+            OriginaWordLabel.Text = _wordToTranslate.GetOriginal();
+
+            this.Show();
+        }
+
+        void CancelTest()
+        {
+            // adding "wrong" to statistic
+            TimerToShowTestWindow.Start();
+            this.PanelTest.Visible = false;
+            this.Hide();
+        }
+
+        //-------------------------------------------------------------------------
+
+
         // user-clik to close form -> hiding window
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // auto-closing panels
+            if (PanelSetttings.Visible)
+                PanelSetttings.Visible = false;
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
@@ -76,7 +144,8 @@ namespace HomeTask_WindowsForms
                 TimerToShowWelcomePanel.Stop();
                 this.WelcomeTextLabel.Text = "Programm is already executing";
 
-                TimerTest.Start();
+                TimerToShowTestWindow.Interval = _testInterval;
+                TimerToShowTestWindow.Start();
                 Hide();
             }
             //throw new NotImplementedException();
@@ -98,7 +167,7 @@ namespace HomeTask_WindowsForms
             TimerToShowWelcomePanel.Stop();
 
 
-            TimerTest.Start();
+            TimerToShowTestWindow.Start();
             this.Hide();
         }
 
@@ -112,97 +181,29 @@ namespace HomeTask_WindowsForms
         private void FirstLayoutYesButton_Click(object sender, EventArgs e)
         {
             this.PanelWelcome.Visible = false;
-            Testing();
+            StartTesting();
             // here will be activating panel for test
         }
 
         // showing window -> start test with context menu
         private void тестToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Testing();
+            StartTesting();
         }
 
         // showing window -> start test on timer
         void TimerTest_Tick(object sender, EventArgs e)
         {
-            var neddedInterval = TimerTest.Interval * 0.0007;
+            var neddedInterval = TimerToShowTestWindow.Interval * 0.0009;
             if (Program.GetLastInputTime() < neddedInterval)
-                Testing();
-        }
-
-        void Testing()
-        {
-            TimerTest.Stop();
-            this.WelcomeTextLabel.Visible = false;
-            this.PanelTest.Visible = true;
-            this.labelResult.Visible = false;
-
-            this.radioButtonAnswer1.Checked = false;
-            this.radioButtonAnswer2.Checked = false;
-            this.radioButtonAnswer3.Checked = false;
-            this.radioButtonAnswer4.Checked = false;
-            this.radioButtonAnswer5.Checked = false;
-
-            // local
-
-
-
-            // initializing
-            _testWordsHashSet = new HashSet<Word>(); 
-            _wordToTranslate = new Word(); // word to translate
-            _wrongAnswers = 0;
-
-            //Word[] wordsForVariants = new Word[5]; // words for answer variants
-            
-            // getting all words
-            _programmWords = repository.GetAllWords();
-            
-            // put word to translate first in hashset
-            _testWordsHashSet.Add(_programmWords[rndCounter.Next(_programmWords.Count)]);
-
-            // select another 5 un-repeating words
-            while (_testWordsHashSet.Count < 5)
-            {
-                _testWordsHashSet.Add(_programmWords[rndCounter.Next(_programmWords.Count)] );
-            }
-
-            _wordToTranslate = _testWordsHashSet.First();  // making one word as original
-            
-            
-            //setting radiobuttons captions
-            for (int i = 0; i < 5; i++)
-            {
-                Control[] rbutton = this.Controls.Find("radioButtonAnswer"+(i+1), true);
-                int thisStepRandom = rndCounter.Next(_testWordsHashSet.Count);
-                rbutton[0].Text = (_testWordsHashSet.ElementAt(thisStepRandom).GetTranslate());
-                _testWordsHashSet.Remove(_testWordsHashSet.ElementAt(thisStepRandom));
-
-            }
-            
-
-            
-
-            // displaying 
-            CategoryNameLabel.Text = _wordToTranslate.GetCategory();
-            OriginaWordLabel.Text = _wordToTranslate.GetOriginal();
-
-
-            
-            this.Show();
-        }
-
-        void CancelTest()
-        {
-            // adding "wrong" to statistic
-            TimerTest.Start();
-            this.Hide();
+                StartTesting();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            TimerAnswers.Interval = 1500;
-            TimerAnswers.Tick += TimerWrongAnswers_Tick;
+            TimerAfterAnswers.Interval = 1500;
+            TimerAfterAnswers.Tick += TimerWrongAnswers_Tick;
 
             if (_checkedRadioButton == null)
             {
@@ -215,7 +216,7 @@ namespace HomeTask_WindowsForms
                 labelResult.Text = "Wright!";
                 
                 // adding "right" to statistic 
-                TimerAnswers.Start();
+                TimerAfterAnswers.Start();
 
             }
             
@@ -240,7 +241,10 @@ namespace HomeTask_WindowsForms
                         this.buttonAnotherTryYes.Visible = false;
                         this.buttonAnotherTryNo.Visible = false;
                         labelResult.Text = "sorry, you haven't any try";
-                        TimerAnswers.Start();
+
+                        //adding "wrong" to statistic
+
+                        TimerAfterAnswers.Start();
                     }
                         
                 }
@@ -250,7 +254,7 @@ namespace HomeTask_WindowsForms
 
         void TimerWrongAnswers_Tick(object sender, EventArgs e)
         {
-            TimerAnswers.Stop();
+            TimerAfterAnswers.Stop();
             this.buttonSubmit.Visible = true;
             this.buttonDontSure.Visible = true;
             this.buttonCancel.Visible = true;
@@ -306,19 +310,47 @@ namespace HomeTask_WindowsForms
 
         private void buttonDontSure_Click(object sender, EventArgs e)
         {
-            TimerAnswers.Interval = 1500;
-            TimerAnswers.Tick += TimerWrongAnswers_Tick;
+            TimerAfterAnswers.Interval = 1500;
+            TimerAfterAnswers.Tick += TimerWrongAnswers_Tick;
 
             labelResult.Visible = true;
             this.buttonAnotherTryYes.Visible = false;
             this.buttonAnotherTryNo.Visible = false;
             labelResult.Text = "sorry, you don't khow....";
-            TimerAnswers.Start();
+
+            
+
+            // adding "wrong" to statistic
+
+            TimerAfterAnswers.Start();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimerToShowTestWindow.Stop();
+            PanelSetttings.Visible = true;
+            this.Show();
+        }
+
+        private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void buttonSubmitTestPanel_Click(object sender, EventArgs e)
+        {
+            _testInterval = Convert.ToInt16(domainUpDown1.Text) * 60000;
+
+            this.Close();
+        }
+
+        private void buttonCancel_PanelSettings_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         
 
-        
         
     }
 }
