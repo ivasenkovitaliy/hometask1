@@ -17,8 +17,6 @@ namespace HomeTask_WindowsForms
     {
 
 
-     
-
         public List<Word> GetAllWords()
         {
             List<Word> wordsList = new List<Word>();
@@ -27,34 +25,20 @@ namespace HomeTask_WindowsForms
             using (var connection = new SqlCeConnection(connectionString))
             {
                 connection.Open();
-
                 using (var command = connection.CreateCommand())
                 {
-                    
-
                     command.CommandText = "SELECT original, translate, category FROM words JOIN categories ON words.category_id=categories.category_id";
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         Word tempWord = new Word(reader["Original"].ToString().Trim(), reader["Translate"].ToString().Trim(), reader["Category"].ToString().Trim());
                         wordsList.Add(tempWord);
-                        
                     }
                 }
-
-
                 connection.Close();
-
                 return wordsList;
-
             }
-
-
         } 
-
-
     }
-
-    
 
 }

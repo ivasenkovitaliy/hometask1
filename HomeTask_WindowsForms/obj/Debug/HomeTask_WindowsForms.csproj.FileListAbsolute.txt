@@ -7,3 +7,4 @@ c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\Hom
 c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.exe
 c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.pdb
 C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.MainForm.resources
+C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.Settings.resources

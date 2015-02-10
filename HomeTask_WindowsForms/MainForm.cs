@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -9,30 +10,24 @@ namespace HomeTask_WindowsForms
 {
 
         
-    
-
     public partial class MainForm : Form
     {
         private HashSet<Word> _testWordsHashSet;
+        private HashSet<Category> _categories;
         private Word _wordToTranslate;
-        private Control _checkedRadioButton;
+        private Control _checkedRadioButton; // to see checked answer
         private int _wrongAnswers;
         private int _testInterval; // in miliseconds
-        
         
         Timer TimerToShowWelcomePanel = new Timer();
         Timer TimerAfterAnswers = new Timer();
         Timer TimerToShowTestWindow= new Timer();
 
-        WordsRepository repository = new WordsRepository(); // singleton
-        List<Word> _programmWords = new List<Word>();
-        
-        
+        WordsRepository repository = new WordsRepository(); // will be singleton later ))
+        List<Word> _Words = new List<Word>();
         
         Random rndCounter = new Random();
-        
 
-        
         public MainForm(string windowName)
         {
             InitializeComponent();
@@ -48,10 +43,20 @@ namespace HomeTask_WindowsForms
             //setting timer displaying test window
             TimerToShowTestWindow.Interval = _testInterval;
             TimerToShowTestWindow.Tick += TimerTest_Tick;
-            
-            this.FormClosing+=MainForm_FormClosing;
 
+            // getting all words from database
+            _Words = repository.GetAllWords();
+
+            // getting all categories in hashset
+            CategoryComparer comparer = new CategoryComparer();
+            _categories = new HashSet<Category>(comparer);
             
+            foreach (var currentWord in _Words)
+            {
+                //var x = new Category(currentWord.GetCategory(), true);
+                _categories.Add(new Category(currentWord.GetCategory(), true));
+            }
+            this.FormClosing+=MainForm_FormClosing;
             
         }
 
@@ -64,6 +69,11 @@ namespace HomeTask_WindowsForms
             this.WelcomeTextLabel.Visible = false;
             this.PanelTest.Visible = true;
             this.labelResult.Visible = false;
+            this.buttonAnotherTryNo.Visible = false;
+            this.buttonAnotherTryYes.Visible = false;
+            this.buttonCancel.Visible = true;
+            this.buttonSubmit.Visible = true;
+            this.buttonDontSure.Visible = true;
 
             this.radioButtonAnswer1.Checked = false;
             this.radioButtonAnswer2.Checked = false;
@@ -77,32 +87,41 @@ namespace HomeTask_WindowsForms
             _wordToTranslate = new Word(); // word to translate
             _wrongAnswers = 0;
 
-            // getting all words
-            _programmWords = repository.GetAllWords();
+            // making hashset of words using nedded categories
+            List<Word> wordsWithCategories = new List<Word>();
+
+
+            foreach (var category in _categories)
+            {
+                if (category.GetCategoryUsed())
+                    foreach (var word in _Words)
+                    {
+                        if(word.GetCategory()==category.GetCategory())
+                        wordsWithCategories.Add(word);
+                    }
+            }
 
             // put word to translate first in hashset
-            _testWordsHashSet.Add(_programmWords[rndCounter.Next(_programmWords.Count)]);
-
+            _testWordsHashSet.Add(wordsWithCategories[rndCounter.Next(wordsWithCategories.Count)]);
+            
             // select another 5 un-repeating words
             while (_testWordsHashSet.Count < 5)
             {
-                _testWordsHashSet.Add(_programmWords[rndCounter.Next(_programmWords.Count)]);
+                _testWordsHashSet.Add(wordsWithCategories[rndCounter.Next(wordsWithCategories.Count)]);
             }
 
             _wordToTranslate = _testWordsHashSet.First();  // making one word as original
-
-
-            //setting radiobuttons captions
+            
+            //displaying radiobuttons captions as variants of right answer
             for (int i = 0; i < 5; i++)
             {
                 Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
                 int thisStepRandom = rndCounter.Next(_testWordsHashSet.Count);
                 rbutton[0].Text = (_testWordsHashSet.ElementAt(thisStepRandom).GetTranslate());
                 _testWordsHashSet.Remove(_testWordsHashSet.ElementAt(thisStepRandom));
-
             }
 
-            // displaying 
+            // displaying test word
             CategoryNameLabel.Text = _wordToTranslate.GetCategory();
             OriginaWordLabel.Text = _wordToTranslate.GetOriginal();
 
@@ -112,6 +131,7 @@ namespace HomeTask_WindowsForms
         void CancelTest()
         {
             // adding "wrong" to statistic
+
             TimerToShowTestWindow.Start();
             this.PanelTest.Visible = false;
             this.Hide();
@@ -124,8 +144,8 @@ namespace HomeTask_WindowsForms
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // auto-closing panels
-            if (PanelSetttings.Visible)
                 PanelSetttings.Visible = false;
+                panelWordsManagment.Visible = false;
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
@@ -157,8 +177,7 @@ namespace HomeTask_WindowsForms
             this.WelcomeTextLabel.Text = "Programm is already executing";
             this.PanelWelcome.Visible = false;
             TimerToShowWelcomePanel.Stop();
-
-
+            
             TimerToShowTestWindow.Start();
             this.Hide();
         }
@@ -174,7 +193,6 @@ namespace HomeTask_WindowsForms
         {
             this.PanelWelcome.Visible = false;
             StartTesting();
-            // here will be activating panel for test
         }
 
         // showing window -> start test with context menu
@@ -208,6 +226,7 @@ namespace HomeTask_WindowsForms
                 labelResult.Text = "Wright!";
                 
                 // adding "right" to statistic 
+
                 TimerAfterAnswers.Start();
 
             }
@@ -320,94 +339,47 @@ namespace HomeTask_WindowsForms
 
 
 
-
-
-
-
-
-
-
-        static DataTable ConvertListToDataTable(List<string[]> list)
-        {
-            // New table.
-            DataTable table = new DataTable();
-
-            // Get max columns.
-            int columns = 0;
-            foreach (var array in list)
-            {
-                if (array.Length > columns)
-                {
-                    columns = array.Length;
-                }
-            }
-
-            // Add columns.
-            for (int i = 0; i < columns; i++)
-            {
-                table.Columns.Add();
-            }
-
-            // Add rows.
-            foreach (var array in list)
-            {
-                table.Rows.Add(array);
-            }
-
-            return table;
-        }
-
-
-
-
-
-
-
-
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //List<string[]> list = new List<string[]>();
-            //list.Add(new string[] { "Column 1", "Column 2", "Column 3" });
-            //list.Add(new string[] { "Row 2", "Row 2" });
-            //list.Add(new string[] { "Row 3" });
-
-
-            //DataTable table = ConvertListToDataTable(list);
-            //dataGridView1.DataSource = table;
-
-            DataGridViewCheckBoxColumn columnCheckBox = new DataGridViewCheckBoxColumn();
-            {
-                //column.HeaderText = "OutOfOffice";
-                //column.Name = "OutOfOffice";
-                //column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                //column.FlatStyle = FlatStyle.Standard;
-                //column.ThreeState = true;
-                columnCheckBox.CellTemplate = new DataGridViewCheckBoxCell();
-                //column.CellTemplate.Style.BackColor = Color.Beige;
-                
-                //var x = column.TrueValue;
-            }
-
-            DataGridViewColumn col = new DataGridViewTextBoxColumn();
-            {
-                col.CellTemplate = new DataGridViewTextBoxCell();
-                col.ReadOnly = true;
-            }
-            //DataGridViewCheckBoxColumn columnCheckBox = new DataGridViewCheckBoxColumn();
-
-
-             dataGridView1.AllowUserToAddRows = false;
-             dataGridView1.AllowUserToDeleteRows = false;
-
-             dataGridView1.Columns.Insert(0, columnCheckBox);
-             dataGridView1.Columns.Insert(0, col);
-
-            DataGridViewCell cell = dataGridView1.Rows[0].Cells[0];
-
             TimerToShowTestWindow.Stop();
             PanelSetttings.Visible = true;
+
+            // making first column
+            DataGridViewColumn columnCategoryName = new DataGridViewTextBoxColumn();
+            {
+                columnCategoryName.CellTemplate = new DataGridViewTextBoxCell();
+                columnCategoryName.ReadOnly = true;
+                columnCategoryName.Width = 187;
+            }
+
+            // making second column
+            DataGridViewCheckBoxColumn columnCheckBox = new DataGridViewCheckBoxColumn();
+            {
+                columnCheckBox.CellTemplate = new DataGridViewCheckBoxCell();
+                columnCheckBox.Width = 50;
+            }
+
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged; // using for cleaning cursor in datagridview
+
+            dataGridView1.Rows.Clear();   //  cleaning table
+
+            // adding columns
+            dataGridView1.Columns.Insert(0, columnCheckBox);
+            dataGridView1.Columns.Insert(0, columnCategoryName);
+            
+            foreach (var category in _categories)
+            {
+                dataGridView1.Rows.Add(category.GetCategory(), category.GetCategoryUsed());
+            }
+
             this.Show();
+        }
+
+        // using for cleaning cursor in datagridview
+        void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
+            //throw new NotImplementedException();
         }
 
         private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
@@ -418,8 +390,9 @@ namespace HomeTask_WindowsForms
         private void buttonSubmitTestPanel_Click(object sender, EventArgs e)
         {
             _testInterval = Convert.ToInt16(domainUpDown1.Text) * 60000;
-
+            PanelSetttings.Visible = false;
             this.Close();
+            
         }
 
         private void buttonCancel_PanelSettings_Click(object sender, EventArgs e)
@@ -427,7 +400,23 @@ namespace HomeTask_WindowsForms
             this.Close();
         }
 
-        
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            List<Category> tempCategories = _categories.ToList();
+            tempCategories[e.RowIndex].ChangeIsUsed();
+            _categories.Clear();
+            _categories = new HashSet<Category>(tempCategories);
+        }
+
+        private void wordsManagmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            TimerToShowTestWindow.Stop();
+            panelWordsManagment.Visible = true;
+
+
+            this.Show();
+        }
 
         
     }

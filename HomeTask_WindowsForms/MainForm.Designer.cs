@@ -59,15 +59,20 @@ namespace HomeTask_WindowsForms
             this.radioButtonAnswer1 = new System.Windows.Forms.RadioButton();
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
+            this.panelWordsManagment = new System.Windows.Forms.Panel();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.wordsManagmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelSetttings = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonCancel_PanelSettings = new System.Windows.Forms.Button();
             this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this._iconContextMenuStrip.SuspendLayout();
             this.PanelWelcome.SuspendLayout();
             this.PanelTest.SuspendLayout();
+            this.panelWordsManagment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.PanelSetttings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -83,29 +88,30 @@ namespace HomeTask_WindowsForms
             // 
             this._iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.тестToolStripMenuItem,
+            this.wordsManagmentToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(121, 70);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(173, 92);
             // 
             // тестToolStripMenuItem
             // 
             this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
-            this.тестToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.тестToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.тестToolStripMenuItem.Text = "Start test";
             this.тестToolStripMenuItem.Click += new System.EventHandler(this.тестToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -175,9 +181,9 @@ namespace HomeTask_WindowsForms
             this.PanelTest.Controls.Add(this.radioButtonAnswer1);
             this.PanelTest.Controls.Add(this.OriginaWordLabel);
             this.PanelTest.Controls.Add(this.CategoryNameLabel);
-            this.PanelTest.Location = new System.Drawing.Point(12, 8);
+            this.PanelTest.Location = new System.Drawing.Point(15, 256);
             this.PanelTest.Name = "PanelTest";
-            this.PanelTest.Size = new System.Drawing.Size(292, 231);
+            this.PanelTest.Size = new System.Drawing.Size(303, 231);
             this.PanelTest.TabIndex = 3;
             this.PanelTest.Visible = false;
             // 
@@ -322,6 +328,30 @@ namespace HomeTask_WindowsForms
             this.CategoryNameLabel.TabIndex = 0;
             this.CategoryNameLabel.Text = "CategoryName";
             // 
+            // panelWordsManagment
+            // 
+            this.panelWordsManagment.Controls.Add(this.dataGridView2);
+            this.panelWordsManagment.Location = new System.Drawing.Point(338, 12);
+            this.panelWordsManagment.Name = "panelWordsManagment";
+            this.panelWordsManagment.Size = new System.Drawing.Size(306, 238);
+            this.panelWordsManagment.TabIndex = 5;
+            this.panelWordsManagment.Visible = false;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(17, 68);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(271, 131);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // wordsManagmentToolStripMenuItem
+            // 
+            this.wordsManagmentToolStripMenuItem.Name = "wordsManagmentToolStripMenuItem";
+            this.wordsManagmentToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.wordsManagmentToolStripMenuItem.Text = "Words managment";
+            this.wordsManagmentToolStripMenuItem.Click += new System.EventHandler(this.wordsManagmentToolStripMenuItem_Click);
+            // 
             // PanelSetttings
             // 
             this.PanelSetttings.Controls.Add(this.dataGridView1);
@@ -329,11 +359,29 @@ namespace HomeTask_WindowsForms
             this.PanelSetttings.Controls.Add(this.buttonSubmit_PanelSettings);
             this.PanelSetttings.Controls.Add(this.domainUpDown1);
             this.PanelSetttings.Controls.Add(this.label2);
-            this.PanelSetttings.Location = new System.Drawing.Point(15, 11);
+            this.PanelSetttings.Location = new System.Drawing.Point(12, 11);
             this.PanelSetttings.Name = "PanelSetttings";
             this.PanelSetttings.Size = new System.Drawing.Size(303, 239);
-            this.PanelSetttings.TabIndex = 4;
+            this.PanelSetttings.TabIndex = 6;
             this.PanelSetttings.Visible = false;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridView1.ColumnHeadersVisible = false;
+            this.dataGridView1.Location = new System.Drawing.Point(24, 67);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView1.Size = new System.Drawing.Size(240, 103);
+            this.dataGridView1.TabIndex = 4;
             // 
             // buttonCancel_PanelSettings
             // 
@@ -343,7 +391,6 @@ namespace HomeTask_WindowsForms
             this.buttonCancel_PanelSettings.TabIndex = 3;
             this.buttonCancel_PanelSettings.Text = "close";
             this.buttonCancel_PanelSettings.UseVisualStyleBackColor = true;
-            this.buttonCancel_PanelSettings.Click += new System.EventHandler(this.buttonCancel_PanelSettings_Click);
             // 
             // buttonSubmit_PanelSettings
             // 
@@ -353,7 +400,6 @@ namespace HomeTask_WindowsForms
             this.buttonSubmit_PanelSettings.TabIndex = 2;
             this.buttonSubmit_PanelSettings.Text = "submit";
             this.buttonSubmit_PanelSettings.UseVisualStyleBackColor = true;
-            this.buttonSubmit_PanelSettings.Click += new System.EventHandler(this.buttonSubmitTestPanel_Click);
             // 
             // domainUpDown1
             // 
@@ -382,7 +428,6 @@ namespace HomeTask_WindowsForms
             this.domainUpDown1.Size = new System.Drawing.Size(47, 20);
             this.domainUpDown1.TabIndex = 1;
             this.domainUpDown1.Text = "3";
-            this.domainUpDown1.SelectedItemChanged += new System.EventHandler(this.domainUpDown1_SelectedItemChanged);
             // 
             // label2
             // 
@@ -393,23 +438,16 @@ namespace HomeTask_WindowsForms
             this.label2.TabIndex = 0;
             this.label2.Text = "Time interval (minutes)";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(24, 67);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 103);
-            this.dataGridView1.TabIndex = 4;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 262);
+            this.ClientSize = new System.Drawing.Size(664, 496);
             this.ContextMenuStrip = this._iconContextMenuStrip;
             this.Controls.Add(this.PanelSetttings);
-            this.Controls.Add(this.WelcomeTextLabel);
+            this.Controls.Add(this.panelWordsManagment);
             this.Controls.Add(this.PanelTest);
+            this.Controls.Add(this.WelcomeTextLabel);
             this.Controls.Add(this.PanelWelcome);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -420,6 +458,8 @@ namespace HomeTask_WindowsForms
             this.PanelWelcome.PerformLayout();
             this.PanelTest.ResumeLayout(false);
             this.PanelTest.PerformLayout();
+            this.panelWordsManagment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.PanelSetttings.ResumeLayout(false);
             this.PanelSetttings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -457,13 +497,16 @@ namespace HomeTask_WindowsForms
         private Label labelResult;
         private Button buttonAnotherTryNo;
         private Button buttonAnotherTryYes;
-        private Panel PanelSetttings;
         private ToolStripMenuItem settingsToolStripMenuItem;
-        private Label label2;
-        private DomainUpDown domainUpDown1;
-        private Button buttonSubmit_PanelSettings;
-        private Button buttonCancel_PanelSettings;
+        private ToolStripMenuItem wordsManagmentToolStripMenuItem;
+        private Panel panelWordsManagment;
+        private DataGridView dataGridView2;
+        private Panel PanelSetttings;
         private DataGridView dataGridView1;
+        private Button buttonCancel_PanelSettings;
+        private Button buttonSubmit_PanelSettings;
+        private DomainUpDown domainUpDown1;
+        private Label label2;
     }
 }
 
