@@ -60,14 +60,16 @@ namespace HomeTask_WindowsForms
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
             this.PanelSetttings = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
-            this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
             this.buttonCancel_PanelSettings = new System.Windows.Forms.Button();
+            this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
+            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this._iconContextMenuStrip.SuspendLayout();
             this.PanelWelcome.SuspendLayout();
             this.PanelTest.SuspendLayout();
             this.PanelSetttings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // _notifyIcon
@@ -322,6 +324,7 @@ namespace HomeTask_WindowsForms
             // 
             // PanelSetttings
             // 
+            this.PanelSetttings.Controls.Add(this.dataGridView1);
             this.PanelSetttings.Controls.Add(this.buttonCancel_PanelSettings);
             this.PanelSetttings.Controls.Add(this.buttonSubmit_PanelSettings);
             this.PanelSetttings.Controls.Add(this.domainUpDown1);
@@ -332,14 +335,25 @@ namespace HomeTask_WindowsForms
             this.PanelSetttings.TabIndex = 4;
             this.PanelSetttings.Visible = false;
             // 
-            // label2
+            // buttonCancel_PanelSettings
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Time interval (minutes)";
+            this.buttonCancel_PanelSettings.Location = new System.Drawing.Point(113, 202);
+            this.buttonCancel_PanelSettings.Name = "buttonCancel_PanelSettings";
+            this.buttonCancel_PanelSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel_PanelSettings.TabIndex = 3;
+            this.buttonCancel_PanelSettings.Text = "close";
+            this.buttonCancel_PanelSettings.UseVisualStyleBackColor = true;
+            this.buttonCancel_PanelSettings.Click += new System.EventHandler(this.buttonCancel_PanelSettings_Click);
+            // 
+            // buttonSubmit_PanelSettings
+            // 
+            this.buttonSubmit_PanelSettings.Location = new System.Drawing.Point(16, 202);
+            this.buttonSubmit_PanelSettings.Name = "buttonSubmit_PanelSettings";
+            this.buttonSubmit_PanelSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonSubmit_PanelSettings.TabIndex = 2;
+            this.buttonSubmit_PanelSettings.Text = "submit";
+            this.buttonSubmit_PanelSettings.UseVisualStyleBackColor = true;
+            this.buttonSubmit_PanelSettings.Click += new System.EventHandler(this.buttonSubmitTestPanel_Click);
             // 
             // domainUpDown1
             // 
@@ -370,25 +384,22 @@ namespace HomeTask_WindowsForms
             this.domainUpDown1.Text = "3";
             this.domainUpDown1.SelectedItemChanged += new System.EventHandler(this.domainUpDown1_SelectedItemChanged);
             // 
-            // buttonSubmit_PanelSettings
+            // label2
             // 
-            this.buttonSubmit_PanelSettings.Location = new System.Drawing.Point(16, 202);
-            this.buttonSubmit_PanelSettings.Name = "buttonSubmit_PanelSettings";
-            this.buttonSubmit_PanelSettings.Size = new System.Drawing.Size(75, 23);
-            this.buttonSubmit_PanelSettings.TabIndex = 2;
-            this.buttonSubmit_PanelSettings.Text = "submit";
-            this.buttonSubmit_PanelSettings.UseVisualStyleBackColor = true;
-            this.buttonSubmit_PanelSettings.Click += new System.EventHandler(this.buttonSubmitTestPanel_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(21, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Time interval (minutes)";
             // 
-            // buttonCancel_PanelSettings
+            // dataGridView1
             // 
-            this.buttonCancel_PanelSettings.Location = new System.Drawing.Point(113, 202);
-            this.buttonCancel_PanelSettings.Name = "buttonCancel_PanelSettings";
-            this.buttonCancel_PanelSettings.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel_PanelSettings.TabIndex = 3;
-            this.buttonCancel_PanelSettings.Text = "close";
-            this.buttonCancel_PanelSettings.UseVisualStyleBackColor = true;
-            this.buttonCancel_PanelSettings.Click += new System.EventHandler(this.buttonCancel_PanelSettings_Click);
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(24, 67);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(240, 103);
+            this.dataGridView1.TabIndex = 4;
             // 
             // MainForm
             // 
@@ -411,6 +422,7 @@ namespace HomeTask_WindowsForms
             this.PanelTest.PerformLayout();
             this.PanelSetttings.ResumeLayout(false);
             this.PanelSetttings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -451,6 +463,7 @@ namespace HomeTask_WindowsForms
         private DomainUpDown domainUpDown1;
         private Button buttonSubmit_PanelSettings;
         private Button buttonCancel_PanelSettings;
+        private DataGridView dataGridView1;
     }
 }
 

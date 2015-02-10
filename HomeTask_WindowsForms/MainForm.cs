@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -315,8 +317,94 @@ namespace HomeTask_WindowsForms
             TimerAfterAnswers.Start();
         }
 
+
+
+
+
+
+
+
+
+
+
+        static DataTable ConvertListToDataTable(List<string[]> list)
+        {
+            // New table.
+            DataTable table = new DataTable();
+
+            // Get max columns.
+            int columns = 0;
+            foreach (var array in list)
+            {
+                if (array.Length > columns)
+                {
+                    columns = array.Length;
+                }
+            }
+
+            // Add columns.
+            for (int i = 0; i < columns; i++)
+            {
+                table.Columns.Add();
+            }
+
+            // Add rows.
+            foreach (var array in list)
+            {
+                table.Rows.Add(array);
+            }
+
+            return table;
+        }
+
+
+
+
+
+
+
+
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //List<string[]> list = new List<string[]>();
+            //list.Add(new string[] { "Column 1", "Column 2", "Column 3" });
+            //list.Add(new string[] { "Row 2", "Row 2" });
+            //list.Add(new string[] { "Row 3" });
+
+
+            //DataTable table = ConvertListToDataTable(list);
+            //dataGridView1.DataSource = table;
+
+            DataGridViewCheckBoxColumn columnCheckBox = new DataGridViewCheckBoxColumn();
+            {
+                //column.HeaderText = "OutOfOffice";
+                //column.Name = "OutOfOffice";
+                //column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                //column.FlatStyle = FlatStyle.Standard;
+                //column.ThreeState = true;
+                columnCheckBox.CellTemplate = new DataGridViewCheckBoxCell();
+                //column.CellTemplate.Style.BackColor = Color.Beige;
+                
+                //var x = column.TrueValue;
+            }
+
+            DataGridViewColumn col = new DataGridViewTextBoxColumn();
+            {
+                col.CellTemplate = new DataGridViewTextBoxCell();
+                col.ReadOnly = true;
+            }
+            //DataGridViewCheckBoxColumn columnCheckBox = new DataGridViewCheckBoxColumn();
+
+
+             dataGridView1.AllowUserToAddRows = false;
+             dataGridView1.AllowUserToDeleteRows = false;
+
+             dataGridView1.Columns.Insert(0, columnCheckBox);
+             dataGridView1.Columns.Insert(0, col);
+
+            DataGridViewCell cell = dataGridView1.Rows[0].Cells[0];
+
             TimerToShowTestWindow.Stop();
             PanelSetttings.Visible = true;
             this.Show();

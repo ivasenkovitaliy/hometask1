@@ -8,7 +8,7 @@ namespace HomeTask_WindowsForms
 {
     public class Word
     {
-        private int _id;
+        //private int _id;
         private string _original, _translate, _category;
 
         public string GetTranslate()
@@ -32,11 +32,11 @@ namespace HomeTask_WindowsForms
 
         }
 
-        public Word(int id, string original, string translate, string category)
+        public Word(string original, string translate, string category)
         {
             Random _rndTranslate = new Random();
 
-            this._id = id;
+            //this._id = id;
             this._original = original;
             this._translate = translate;
             this._category = category;
