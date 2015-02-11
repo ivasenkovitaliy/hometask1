@@ -9,7 +9,7 @@ namespace HomeTask_WindowsForms
     public partial class Settings : Form
     {
         readonly private MainForm _parentForm;
-
+       
         public Settings(MainForm parentform)
         {
             InitializeComponent();

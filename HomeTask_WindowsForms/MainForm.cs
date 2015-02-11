@@ -12,12 +12,14 @@ namespace HomeTask_WindowsForms
         private Word _wordToTranslate;
         private Control _checkedRadioButton; // to see checked answer
         private int _wrongAnswers;
-        public HashSet<Category> Categories { get; set; }
-        public int TestInterval { get; set; }
-        public Repository repository = new Repository(); // will be singleton later ))
-        public Timer TimerToShowTestWindow = new Timer(); // ask question to Artur or Yura
-        public List<Word> Words = new List<Word>(); // ask question to Artur or Yura
+        private Repository Repository = new Repository();
 
+        public HashSet<Category> Categories { get; set; }
+        public List<Word> Words { get; private set; }
+        public int TestInterval { get; set; }
+        
+        public Timer TimerToShowTestWindow = new Timer(); // ask question to Artur or Yura
+        
         Timer TimerToShowWelcomePanel = new Timer();
         Timer TimerAfterAnswers = new Timer();
         
@@ -39,7 +41,7 @@ namespace HomeTask_WindowsForms
             TimerToShowTestWindow.Tick += TimerTest_Tick;
 
             // getting all words from database
-            Words = repository.GetAllWords();
+            Words = Repository.GetAllWords();
 
             // getting all categories in hashset
             CategoryComparer comparer = new CategoryComparer();
@@ -64,19 +66,13 @@ namespace HomeTask_WindowsForms
             
             //preparing form
             this.WelcomeTextLabel.Visible = false;
-            this.PanelTest.Visible = true;
             this.labelResult.Visible = false;
             this.buttonAnotherTryNo.Visible = false;
             this.buttonAnotherTryYes.Visible = false;
+            this.PanelTest.Visible = true;
             this.buttonCancel.Visible = true;
             this.buttonSubmit.Visible = true;
             this.buttonDontSure.Visible = true;
-
-            this.radioButtonAnswer1.Checked = false;
-            this.radioButtonAnswer2.Checked = false;
-            this.radioButtonAnswer3.Checked = false;
-            this.radioButtonAnswer4.Checked = false;
-            this.radioButtonAnswer5.Checked = false;
             
             // initializing
             _testWordsHashSet = new HashSet<Word>();

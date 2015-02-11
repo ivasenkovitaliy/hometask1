@@ -10,7 +10,7 @@ namespace HomeTask_WindowsForms
     public partial class CategoriesManagement : Form
     {
         readonly private MainForm _parentForm;
-        
+        readonly private Repository _repository = new Repository();
 
         public CategoriesManagement(MainForm parentform)
         {
@@ -86,7 +86,7 @@ namespace HomeTask_WindowsForms
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" "))
             {
                 _parentForm.Categories.Add(new Category(textBoxNewCategoryName.Text.Trim(), false));
-                _parentForm.repository.AddCategory(textBoxNewCategoryName.Text.Trim());
+                _repository.AddCategory(textBoxNewCategoryName.Text.Trim());
             }
                 
         }

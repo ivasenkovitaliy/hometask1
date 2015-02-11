@@ -21,7 +21,6 @@ namespace HomeTask_WindowsForms
         {
             List<Word> wordsList = new List<Word>();
 
-
             using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
@@ -44,7 +43,6 @@ namespace HomeTask_WindowsForms
 
         public void AddCategory(string Category)
         {
-
             using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
