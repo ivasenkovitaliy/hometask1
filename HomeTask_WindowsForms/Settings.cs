@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
@@ -19,7 +14,7 @@ namespace HomeTask_WindowsForms
         {
             InitializeComponent();
             _parentForm = parentform;
-            domainUpDown1.Text = (parentform.TestInterval/60000).ToString();
+            domainUpDownTimeInterval.Text = (parentform.TestInterval/60000).ToString();
 
             // making first column
             DataGridViewColumn columnCategoryName = new DataGridViewTextBoxColumn();
@@ -36,16 +31,16 @@ namespace HomeTask_WindowsForms
                 columnCheckBox.Width = 50;
             }
 
-            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged; // using for cleaning cursor in datagridview
-            dataGridView1.Rows.Clear();   //  cleaning table
+            dataGridViewSettings.SelectionChanged += dataGridViewSettings_SelectionChanged; // using for cleaning cursor in datagridview
+            dataGridViewSettings.Rows.Clear();   //  cleaning table
 
             // adding columns
-            dataGridView1.Columns.Insert(0, columnCheckBox);
-            dataGridView1.Columns.Insert(0, columnCategoryName);
+            dataGridViewSettings.Columns.Insert(0, columnCheckBox);
+            dataGridViewSettings.Columns.Insert(0, columnCategoryName);
 
             foreach (var category in parentform.Categories)
             {
-                dataGridView1.Rows.Add(category.GetCategory(), category.GetCategoryUsed());
+                dataGridViewSettings.Rows.Add(category.GetCategory(), category.GetCategoryUsed());
             }
             this.Closing += Settings_Closing;
         }
@@ -57,19 +52,19 @@ namespace HomeTask_WindowsForms
         }
 
         // using for cleaning cursor in datagridview
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void dataGridViewSettings_SelectionChanged(object sender, EventArgs e)
         {
-            dataGridView1.ClearSelection();
+            dataGridViewSettings.ClearSelection();
             //throw new NotImplementedException();
         }
 
         private void buttonSubmit_PanelSettings_Click(object sender, EventArgs e)
         {
-            _parentForm.TestInterval = Convert.ToInt16(domainUpDown1.Text) * 60000;
+            _parentForm.TestInterval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
             this.Close();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewSettings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             List<Category> tempCategories = _parentForm.Categories.ToList();
             tempCategories[e.RowIndex].ChangeIsUsed();
@@ -81,6 +76,8 @@ namespace HomeTask_WindowsForms
         {
             this.Close();
         }
+
+        
 
     }
 }

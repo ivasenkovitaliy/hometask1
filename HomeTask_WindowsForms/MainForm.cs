@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
 {
-
-        
+    
     public partial class MainForm : Form
     {
         private HashSet<Word> _testWordsHashSet;
@@ -18,13 +14,12 @@ namespace HomeTask_WindowsForms
         private int _wrongAnswers;
         public HashSet<Category> Categories { get; set; }
         public int TestInterval { get; set; }
+        public Repository repository = new Repository(); // will be singleton later ))
         public Timer TimerToShowTestWindow = new Timer(); // ask question to Artur or Yura
+        public List<Word> Words = new List<Word>(); // ask question to Artur or Yura
 
         Timer TimerToShowWelcomePanel = new Timer();
         Timer TimerAfterAnswers = new Timer();
-        
-        WordsRepository repository = new WordsRepository(); // will be singleton later ))
-        List<Word> _Words = new List<Word>();
         
         Random rndCounter = new Random();
 
@@ -33,7 +28,6 @@ namespace HomeTask_WindowsForms
             InitializeComponent();
             TestInterval = 180000;
             //TestInterval = Convert.ToInt16(Settings.domainUpDown1.Text)*60000;
-            this.Text = windowName;
             
             // setting "welcome" timer
             TimerToShowWelcomePanel.Interval = 1000;
@@ -45,30 +39,21 @@ namespace HomeTask_WindowsForms
             TimerToShowTestWindow.Tick += TimerTest_Tick;
 
             // getting all words from database
-            _Words = repository.GetAllWords();
+            Words = repository.GetAllWords();
 
             // getting all categories in hashset
             CategoryComparer comparer = new CategoryComparer();
             Categories = new HashSet<Category>(comparer);
             
-            foreach (var currentWord in _Words)
+            //making categoires
+            foreach (var currentWord in Words)
             {
                 //var x = new Category(currentWord.GetCategory(), true);
                 Categories.Add(new Category(currentWord.GetCategory(), true));
             }
+
             this.FormClosing+=MainForm_FormClosing;
             this.LostFocus += MainForm_LostFocus;
-        }
-
-        void MainForm_LostFocus(object sender, EventArgs e)
-        {
-            if (!this.Visible)
-            {
-                WelcomeTextLabel.Visible = true;
-                WelcomeTextLabel.Text = "Programm is already running!";
-            }
-            
-            //throw new NotImplementedException();
         }
 
         // ----------------------------------------------------------------------------
@@ -105,7 +90,7 @@ namespace HomeTask_WindowsForms
             foreach (var category in Categories)
             {
                 if (category.GetCategoryUsed())
-                    foreach (var word in _Words)
+                    foreach (var word in Words)
                     {
                         if(word.GetCategory()==category.GetCategory())
                         wordsWithCategories.Add(word);
@@ -150,9 +135,17 @@ namespace HomeTask_WindowsForms
         }
 
         //-------------------------------------------------------------------------
-
-
-        // user-clik to close form -> hiding window
+        
+        void MainForm_LostFocus(object sender, EventArgs e)
+        {
+            if (!this.Visible)
+            {
+                WelcomeTextLabel.Visible = true;
+                WelcomeTextLabel.Text = "Programm is already running!";
+            }
+            //throw new NotImplementedException();
+        }
+        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -200,7 +193,7 @@ namespace HomeTask_WindowsForms
         }
 
         // showing window -> start test with context menu
-        private void тестToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StartTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StartTesting();
         }

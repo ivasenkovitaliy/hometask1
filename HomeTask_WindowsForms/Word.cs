@@ -24,29 +24,23 @@ namespace HomeTask_WindowsForms
         {
             return _original;
         }
-
-
+        
         public Word()
         {
             
-
         }
 
         public Word(string original, string translate, string category)
         {
-            Random _rndTranslate = new Random();
-
-            //this._id = id;
+            Random rndTranslate = new Random();
             this._original = original;
             this._translate = translate;
             this._category = category;
 
-            // here will check "multi-field" "translate"
+            // here we getting one of translaeting values if there  is more the one
             var tempWordsFromTranslate = this._translate.Split('_');
             if (tempWordsFromTranslate.Length > 1)
-                this._translate = tempWordsFromTranslate[_rndTranslate.Next(tempWordsFromTranslate.Length)];
-            
-                
+                this._translate = tempWordsFromTranslate[rndTranslate.Next(tempWordsFromTranslate.Length)];
         }
     }
      

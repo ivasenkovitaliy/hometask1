@@ -87,7 +87,7 @@ namespace HomeTask_WindowsForms
             this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
             this.тестToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.тестToolStripMenuItem.Text = "Start test";
-            this.тестToolStripMenuItem.Click += new System.EventHandler(this.тестToolStripMenuItem_Click);
+            this.тестToolStripMenuItem.Click += new System.EventHandler(this.StartTestToolStripMenuItem_Click);
             // 
             // CategoriesManagmentToolStripMenuItem
             // 

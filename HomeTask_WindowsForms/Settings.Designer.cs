@@ -29,47 +29,56 @@
         private void InitializeComponent()
         {
             this.PanelSetttings = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewSettings = new System.Windows.Forms.DataGridView();
             this.buttonCancel_PanelSettings = new System.Windows.Forms.Button();
             this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+            this.domainUpDownTimeInterval = new System.Windows.Forms.DomainUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.PanelSetttings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSettings)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelSetttings
             // 
             this.PanelSetttings.Controls.Add(this.label1);
-            this.PanelSetttings.Controls.Add(this.dataGridView1);
+            this.PanelSetttings.Controls.Add(this.dataGridViewSettings);
             this.PanelSetttings.Controls.Add(this.buttonCancel_PanelSettings);
             this.PanelSetttings.Controls.Add(this.buttonSubmit_PanelSettings);
-            this.PanelSetttings.Controls.Add(this.domainUpDown1);
+            this.PanelSetttings.Controls.Add(this.domainUpDownTimeInterval);
             this.PanelSetttings.Controls.Add(this.label2);
             this.PanelSetttings.Location = new System.Drawing.Point(10, 12);
             this.PanelSetttings.Name = "PanelSetttings";
             this.PanelSetttings.Size = new System.Drawing.Size(303, 239);
             this.PanelSetttings.TabIndex = 7;
             // 
-            // dataGridView1
+            // label1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridView1.ColumnHeadersVisible = false;
-            this.dataGridView1.Location = new System.Drawing.Point(24, 76);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 120);
-            this.dataGridView1.TabIndex = 4;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(24, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(162, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Choose category of words to test";
+            // 
+            // dataGridViewSettings
+            // 
+            this.dataGridViewSettings.AllowUserToAddRows = false;
+            this.dataGridViewSettings.AllowUserToDeleteRows = false;
+            this.dataGridViewSettings.AllowUserToResizeColumns = false;
+            this.dataGridViewSettings.AllowUserToResizeRows = false;
+            this.dataGridViewSettings.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewSettings.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridViewSettings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewSettings.ColumnHeadersVisible = false;
+            this.dataGridViewSettings.Location = new System.Drawing.Point(24, 76);
+            this.dataGridViewSettings.MultiSelect = false;
+            this.dataGridViewSettings.Name = "dataGridViewSettings";
+            this.dataGridViewSettings.RowHeadersVisible = false;
+            this.dataGridViewSettings.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridViewSettings.Size = new System.Drawing.Size(240, 120);
+            this.dataGridViewSettings.TabIndex = 4;
+            this.dataGridViewSettings.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSettings_CellContentClick);
             // 
             // buttonCancel_PanelSettings
             // 
@@ -91,33 +100,33 @@
             this.buttonSubmit_PanelSettings.UseVisualStyleBackColor = true;
             this.buttonSubmit_PanelSettings.Click += new System.EventHandler(this.buttonSubmit_PanelSettings_Click);
             // 
-            // domainUpDown1
+            // domainUpDownTimeInterval
             // 
-            this.domainUpDown1.Items.Add("20");
-            this.domainUpDown1.Items.Add("19");
-            this.domainUpDown1.Items.Add("18");
-            this.domainUpDown1.Items.Add("17");
-            this.domainUpDown1.Items.Add("16");
-            this.domainUpDown1.Items.Add("15");
-            this.domainUpDown1.Items.Add("14");
-            this.domainUpDown1.Items.Add("13");
-            this.domainUpDown1.Items.Add("12");
-            this.domainUpDown1.Items.Add("11");
-            this.domainUpDown1.Items.Add("10");
-            this.domainUpDown1.Items.Add("9");
-            this.domainUpDown1.Items.Add("8");
-            this.domainUpDown1.Items.Add("7");
-            this.domainUpDown1.Items.Add("6");
-            this.domainUpDown1.Items.Add("5");
-            this.domainUpDown1.Items.Add("4");
-            this.domainUpDown1.Items.Add("3");
-            this.domainUpDown1.Items.Add("2");
-            this.domainUpDown1.Items.Add("1");
-            this.domainUpDown1.Location = new System.Drawing.Point(154, 24);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.domainUpDown1.TabIndex = 1;
-            this.domainUpDown1.Text = "3";
+            this.domainUpDownTimeInterval.Items.Add("20");
+            this.domainUpDownTimeInterval.Items.Add("19");
+            this.domainUpDownTimeInterval.Items.Add("18");
+            this.domainUpDownTimeInterval.Items.Add("17");
+            this.domainUpDownTimeInterval.Items.Add("16");
+            this.domainUpDownTimeInterval.Items.Add("15");
+            this.domainUpDownTimeInterval.Items.Add("14");
+            this.domainUpDownTimeInterval.Items.Add("13");
+            this.domainUpDownTimeInterval.Items.Add("12");
+            this.domainUpDownTimeInterval.Items.Add("11");
+            this.domainUpDownTimeInterval.Items.Add("10");
+            this.domainUpDownTimeInterval.Items.Add("9");
+            this.domainUpDownTimeInterval.Items.Add("8");
+            this.domainUpDownTimeInterval.Items.Add("7");
+            this.domainUpDownTimeInterval.Items.Add("6");
+            this.domainUpDownTimeInterval.Items.Add("5");
+            this.domainUpDownTimeInterval.Items.Add("4");
+            this.domainUpDownTimeInterval.Items.Add("3");
+            this.domainUpDownTimeInterval.Items.Add("2");
+            this.domainUpDownTimeInterval.Items.Add("1");
+            this.domainUpDownTimeInterval.Location = new System.Drawing.Point(154, 24);
+            this.domainUpDownTimeInterval.Name = "domainUpDownTimeInterval";
+            this.domainUpDownTimeInterval.Size = new System.Drawing.Size(47, 20);
+            this.domainUpDownTimeInterval.TabIndex = 1;
+            this.domainUpDownTimeInterval.Text = "3";
             // 
             // label2
             // 
@@ -127,15 +136,6 @@
             this.label2.Size = new System.Drawing.Size(112, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Time interval (minutes)";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(162, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Choose category of words to test";
             // 
             // Settings
             // 
@@ -147,7 +147,7 @@
             this.Text = "Settings";
             this.PanelSetttings.ResumeLayout(false);
             this.PanelSetttings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSettings)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -155,10 +155,10 @@
         #endregion
 
         private System.Windows.Forms.Panel PanelSetttings;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewSettings;
         private System.Windows.Forms.Button buttonCancel_PanelSettings;
         private System.Windows.Forms.Button buttonSubmit_PanelSettings;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
+        private System.Windows.Forms.DomainUpDown domainUpDownTimeInterval;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
 
