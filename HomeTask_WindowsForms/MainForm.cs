@@ -20,26 +20,25 @@ namespace HomeTask_WindowsForms
         
         public Timer TimerToShowTestWindow = new Timer(); // ask question to Artur or Yura
         
-        Timer TimerToShowWelcomePanel = new Timer();
-        Timer TimerAfterAnswers = new Timer();
-        
-        Random rndCounter = new Random();
+        readonly Timer _timerToShowWelcomePanel = new Timer();
+        readonly Timer _timerAfterAnswers = new Timer();
+        readonly Random _rndCounter = new Random();
 
         public MainForm(string windowName)
         {
             InitializeComponent();
+            this.Text = windowName;
             TestInterval = 180000;
-            //TestInterval = Convert.ToInt16(Settings.domainUpDown1.Text)*60000;
             
             // setting "welcome" timer
-            TimerToShowWelcomePanel.Interval = 1000;
-            TimerToShowWelcomePanel.Start();
-            TimerToShowWelcomePanel.Tick += TimerToShowWelcomePanel_Tick;
+            _timerToShowWelcomePanel.Interval = 1700;
+            _timerToShowWelcomePanel.Start();
+            _timerToShowWelcomePanel.Tick += TimerToShowWelcomePanel_Tick;
             
             //setting timer displaying test window
             TimerToShowTestWindow.Interval = TestInterval;
             TimerToShowTestWindow.Tick += TimerTest_Tick;
-
+            
             // getting all words from database
             Words = Repository.GetAllWords();
 
@@ -47,18 +46,25 @@ namespace HomeTask_WindowsForms
             CategoryComparer comparer = new CategoryComparer();
             Categories = new HashSet<Category>(comparer);
             
-            //making categoires
+            //making all categoires
             foreach (var currentWord in Words)
             {
                 //var x = new Category(currentWord.GetCategory(), true);
                 Categories.Add(new Category(currentWord.GetCategory(), true));
             }
-
+            // adding non-used categories
+            var AllCategories = Repository.GetAllCategories();
+            foreach (var category in AllCategories)
+            {
+                Categories.Add(category);
+            }
+            
             this.FormClosing+=MainForm_FormClosing;
             this.LostFocus += MainForm_LostFocus;
         }
 
         // ----------------------------------------------------------------------------
+
         private void StartTesting()
         {
             WelcomeTextLabel.Visible = false;
@@ -88,18 +94,18 @@ namespace HomeTask_WindowsForms
                 if (category.GetCategoryUsed())
                     foreach (var word in Words)
                     {
-                        if(word.GetCategory()==category.GetCategory())
+                        if(word.GetCategory()==category.GetCategory)
                         wordsWithCategories.Add(word);
                     }
             }
 
             // put word to translate first in hashset
-            _testWordsHashSet.Add(wordsWithCategories[rndCounter.Next(wordsWithCategories.Count)]);
+            _testWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
             
             // select another 5 un-repeating words
             while (_testWordsHashSet.Count < 5)
             {
-                _testWordsHashSet.Add(wordsWithCategories[rndCounter.Next(wordsWithCategories.Count)]);
+                _testWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
             }
 
             _wordToTranslate = _testWordsHashSet.First();  // making one word as original
@@ -108,7 +114,7 @@ namespace HomeTask_WindowsForms
             for (int i = 0; i < 5; i++)
             {
                 Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
-                int thisStepRandom = rndCounter.Next(_testWordsHashSet.Count);
+                int thisStepRandom = _rndCounter.Next(_testWordsHashSet.Count);
                 rbutton[0].Text = (_testWordsHashSet.ElementAt(thisStepRandom).GetTranslate());
                 _testWordsHashSet.Remove(_testWordsHashSet.ElementAt(thisStepRandom));
             }
@@ -151,7 +157,7 @@ namespace HomeTask_WindowsForms
                 this.PanelTest.Visible = false;
                 if (this.WelcomeTextLabel.Visible)
                     this.WelcomeTextLabel.Visible = false;
-                TimerToShowWelcomePanel.Stop();
+                _timerToShowWelcomePanel.Stop();
                 this.WelcomeTextLabel.Text = "Programm is already running";
                 TimerToShowTestWindow.Interval = TestInterval;
                 TimerToShowTestWindow.Start();
@@ -163,7 +169,7 @@ namespace HomeTask_WindowsForms
         void TimerToShowWelcomePanel_Tick(object sender, EventArgs e)
         {
             this.PanelWelcome.Visible = true;
-            TimerToShowWelcomePanel.Stop();
+            _timerToShowWelcomePanel.Stop();
             //throw new NotImplementedException();
         }
 
@@ -171,7 +177,7 @@ namespace HomeTask_WindowsForms
         {
             this.WelcomeTextLabel.Text = "Programm is already running";
             this.PanelWelcome.Visible = false;
-            TimerToShowWelcomePanel.Stop();
+            _timerToShowWelcomePanel.Stop();
             TimerToShowTestWindow.Start();
             this.Hide();
         }
@@ -204,8 +210,8 @@ namespace HomeTask_WindowsForms
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            TimerAfterAnswers.Interval = 1500;
-            TimerAfterAnswers.Tick += TimerWrongAnswers_Tick;
+            _timerAfterAnswers.Interval = 1500;
+            _timerAfterAnswers.Tick += TimerWrongAnswers_Tick;
 
             if (_checkedRadioButton == null)
                 MessageBox.Show("choose something!");
@@ -217,7 +223,7 @@ namespace HomeTask_WindowsForms
                 
                 // adding "right" to statistic 
 
-                TimerAfterAnswers.Start();
+                _timerAfterAnswers.Start();
             }
             
             else
@@ -242,7 +248,7 @@ namespace HomeTask_WindowsForms
 
                         //adding "wrong" to statistic
 
-                        TimerAfterAnswers.Start();
+                        _timerAfterAnswers.Start();
                     }
                         
                 }
@@ -252,7 +258,7 @@ namespace HomeTask_WindowsForms
 
         void TimerWrongAnswers_Tick(object sender, EventArgs e)
         {
-            TimerAfterAnswers.Stop();
+            _timerAfterAnswers.Stop();
             this.buttonSubmit.Visible = true;
             this.buttonDontSure.Visible = true;
             this.buttonCancel.Visible = true;
@@ -307,8 +313,8 @@ namespace HomeTask_WindowsForms
 
         private void buttonDontSure_Click(object sender, EventArgs e)
         {
-            TimerAfterAnswers.Interval = 1500;
-            TimerAfterAnswers.Tick += TimerWrongAnswers_Tick;
+            _timerAfterAnswers.Interval = 1500;
+            _timerAfterAnswers.Tick += TimerWrongAnswers_Tick;
             this.labelResult.Visible = true;
             this.buttonAnotherTryYes.Visible = false;
             this.buttonAnotherTryNo.Visible = false;
@@ -316,7 +322,7 @@ namespace HomeTask_WindowsForms
             
             // adding "wrong" to statistic
 
-            TimerAfterAnswers.Start();
+            _timerAfterAnswers.Start();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -332,7 +338,5 @@ namespace HomeTask_WindowsForms
             CategoriesManagement form = new CategoriesManagement(this);
             form.Show();
         }
-
-        
     }
 }

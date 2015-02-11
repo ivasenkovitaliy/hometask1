@@ -119,6 +119,7 @@ namespace HomeTask_WindowsForms
             this.PanelWelcome.Name = "PanelWelcome";
             this.PanelWelcome.Size = new System.Drawing.Size(192, 65);
             this.PanelWelcome.TabIndex = 1;
+            this.PanelWelcome.Visible = false;
             // 
             // label1
             // 
@@ -329,8 +330,8 @@ namespace HomeTask_WindowsForms
             this.ClientSize = new System.Drawing.Size(330, 262);
             this.ContextMenuStrip = this._iconContextMenuStrip;
             this.Controls.Add(this.WelcomeTextLabel);
-            this.Controls.Add(this.PanelTest);
             this.Controls.Add(this.PanelWelcome);
+            this.Controls.Add(this.PanelTest);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";

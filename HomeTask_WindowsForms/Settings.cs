@@ -38,10 +38,12 @@ namespace HomeTask_WindowsForms
             dataGridViewSettings.Columns.Insert(0, columnCheckBox);
             dataGridViewSettings.Columns.Insert(0, columnCategoryName);
 
+            
             foreach (var category in parentform.Categories)
             {
-                dataGridViewSettings.Rows.Add(category.GetCategory(), category.GetCategoryUsed());
+                dataGridViewSettings.Rows.Add(category.GetCategory, category.GetCategoryUsed());
             }
+            
             this.Closing += Settings_Closing;
         }
 
