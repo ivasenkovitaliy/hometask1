@@ -81,6 +81,12 @@
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Word.cs" />
+    <Compile Include="CategoriesManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CategoriesManagement.Designer.cs">
+      <DependentUpon>CategoriesManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="WordsRepository.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -96,6 +102,9 @@
     </Compile>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoriesManagement.resx">
+      <DependentUpon>CategoriesManagement.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Word.datasource" />
