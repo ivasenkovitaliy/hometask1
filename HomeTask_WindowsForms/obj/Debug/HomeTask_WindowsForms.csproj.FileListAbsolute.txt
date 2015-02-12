@@ -9,3 +9,5 @@ c:\users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\Hom
 C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.MainForm.resources
 C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.Settings.resources
 C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.CategoriesManagement.resources
+C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\bin\Debug\dff.Extensions.dll
+C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.Statistic.resources

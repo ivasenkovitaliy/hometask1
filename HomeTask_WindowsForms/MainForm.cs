@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+
+
 namespace HomeTask_WindowsForms
 {
     
@@ -52,7 +54,7 @@ namespace HomeTask_WindowsForms
                 //var x = new Category(currentWord.GetCategory(), true);
                 Categories.Add(new Category(currentWord.GetCategory(), true));
             }
-            // adding non-used categories
+            // add non-used categories
             var AllCategories = Repository.GetAllCategories();
             foreach (var category in AllCategories)
             {
@@ -61,6 +63,13 @@ namespace HomeTask_WindowsForms
             
             this.FormClosing+=MainForm_FormClosing;
             this.LostFocus += MainForm_LostFocus;
+            this.Load += MainForm_Load;
+        }
+
+        void MainForm_Load(object sender, EventArgs e)
+        {
+            AnswersRepository.GetInstance();
+            //throw new NotImplementedException();
         }
 
         // ----------------------------------------------------------------------------
@@ -128,8 +137,6 @@ namespace HomeTask_WindowsForms
 
         void CancelTest()
         {
-            // adding "wrong" to statistic
-
             TimerToShowTestWindow.Start();
             this.WelcomeTextLabel.Visible = true;
             this.PanelTest.Visible = false;
@@ -221,8 +228,8 @@ namespace HomeTask_WindowsForms
                 labelResult.Visible = true;
                 labelResult.Text = "Wright!";
                 
-                // adding "right" to statistic 
-
+                // adding "right" answer to statistic 
+                AnswersRepository.AddAnswer(true);
                 _timerAfterAnswers.Start();
             }
             
@@ -247,7 +254,7 @@ namespace HomeTask_WindowsForms
                         labelResult.Text = "sorry, you haven't any try";
 
                         //adding "wrong" to statistic
-
+                        AnswersRepository.AddAnswer(false);
                         _timerAfterAnswers.Start();
                     }
                         
@@ -321,7 +328,7 @@ namespace HomeTask_WindowsForms
             labelResult.Text = "sorry, you don't khow....";
             
             // adding "wrong" to statistic
-
+            AnswersRepository.AddAnswer(false);
             _timerAfterAnswers.Start();
         }
 
@@ -336,6 +343,12 @@ namespace HomeTask_WindowsForms
         {
             TimerToShowTestWindow.Stop();
             CategoriesManagement form = new CategoriesManagement(this);
+            form.Show();
+        }
+
+        private void statisticToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistic form = new Statistic();
             form.Show();
         }
     }

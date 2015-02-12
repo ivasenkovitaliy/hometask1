@@ -18,10 +18,6 @@ namespace HomeTask_WindowsForms
             this.isUsed = isUsed;
         }
 
-        
-
-        
-
         public void ChangeIsUsed()
         {
             this.isUsed = !this.isUsed;

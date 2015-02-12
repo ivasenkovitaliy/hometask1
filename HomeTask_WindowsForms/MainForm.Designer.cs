@@ -38,6 +38,7 @@ namespace HomeTask_WindowsForms
             this._notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this._iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.тестToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CategoriesManagmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,11 +77,12 @@ namespace HomeTask_WindowsForms
             // 
             this._iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.тестToolStripMenuItem,
+            this.statisticToolStripMenuItem,
             this.CategoriesManagmentToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(200, 92);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(200, 114);
             // 
             // тестToolStripMenuItem
             // 
@@ -88,6 +90,13 @@ namespace HomeTask_WindowsForms
             this.тестToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.тестToolStripMenuItem.Text = "Start test";
             this.тестToolStripMenuItem.Click += new System.EventHandler(this.StartTestToolStripMenuItem_Click);
+            // 
+            // statisticToolStripMenuItem
+            // 
+            this.statisticToolStripMenuItem.Name = "statisticToolStripMenuItem";
+            this.statisticToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.statisticToolStripMenuItem.Text = "Statistic";
+            this.statisticToolStripMenuItem.Click += new System.EventHandler(this.statisticToolStripMenuItem_Click);
             // 
             // CategoriesManagmentToolStripMenuItem
             // 
@@ -330,8 +339,8 @@ namespace HomeTask_WindowsForms
             this.ClientSize = new System.Drawing.Size(330, 262);
             this.ContextMenuStrip = this._iconContextMenuStrip;
             this.Controls.Add(this.WelcomeTextLabel);
-            this.Controls.Add(this.PanelWelcome);
             this.Controls.Add(this.PanelTest);
+            this.Controls.Add(this.PanelWelcome);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -377,6 +386,7 @@ namespace HomeTask_WindowsForms
         private Button buttonAnotherTryYes;
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem CategoriesManagmentToolStripMenuItem;
+        private ToolStripMenuItem statisticToolStripMenuItem;
     }
 }
 

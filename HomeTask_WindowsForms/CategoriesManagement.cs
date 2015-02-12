@@ -114,18 +114,23 @@ namespace HomeTask_WindowsForms
         private void buttonDeleteCategory_Click(object sender, EventArgs e)
         {
             _repository.RemoveCategory(_parentForm.Categories.ElementAt(_activeCategoryIndex).GetCategory);
-            _parentForm.Categories.Remove(_parentForm.Categories.ElementAt(_activeCategoryIndex));
-            PrepareForm();
+                _parentForm.Categories.Remove(_parentForm.Categories.ElementAt(_activeCategoryIndex));
+                PrepareForm();
+            
         }
 
         private void buttonUpdateCategory_Click(object sender, EventArgs e)
         {
-            _repository.UpdateCategory(_activeCategoryName, textBoxNewCategoryName.Text);
-            var temp = _parentForm.Categories.ElementAt(_activeCategoryIndex);
-            _parentForm.Categories.Remove(temp);
-            temp.GetCategory = textBoxNewCategoryName.Text;
-            _parentForm.Categories.Add(temp);
-            PrepareForm();
+            if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
+                !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
+            {
+                _repository.UpdateCategory(_activeCategoryName, textBoxNewCategoryName.Text);
+                var temp = _parentForm.Categories.ElementAt(_activeCategoryIndex);
+                _parentForm.Categories.Remove(temp);
+                temp.GetCategory = textBoxNewCategoryName.Text;
+                _parentForm.Categories.Add(temp);
+                PrepareForm();
+            }
         }
 
         private void PrepareForm()
