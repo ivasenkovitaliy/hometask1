@@ -1,34 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HomeTask_WindowsForms
 {
     public class Category
     {
-        //private string category;
-        private bool isUsed;
+        public bool IsUsed { get; private set; }
         public string GetCategory { get; set; }
-      
         public Category(string category, bool isUsed)
         {
             this.GetCategory = category;
-            this.isUsed = isUsed;
+            this.IsUsed = isUsed;
         }
 
         public void ChangeIsUsed()
         {
-            this.isUsed = !this.isUsed;
-        }
-
-        public bool GetCategoryUsed()
-        {
-            return isUsed;
+            this.IsUsed = !this.IsUsed;
         }
     }
-
 
     class CategoryComparer : IEqualityComparer<Category>
     {

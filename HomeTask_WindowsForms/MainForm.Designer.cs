@@ -40,6 +40,7 @@ namespace HomeTask_WindowsForms
             this.тестToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CategoriesManagmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wordsManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelWelcome = new System.Windows.Forms.Panel();
@@ -48,17 +49,17 @@ namespace HomeTask_WindowsForms
             this.PanelWelcomeYesButton = new System.Windows.Forms.Button();
             this.WelcomeTextLabel = new System.Windows.Forms.Label();
             this.PanelTest = new System.Windows.Forms.Panel();
+            this.radioButtonAnswer1 = new System.Windows.Forms.RadioButton();
             this.buttonAnotherTryNo = new System.Windows.Forms.Button();
+            this.radioButtonAnswer2 = new System.Windows.Forms.RadioButton();
             this.buttonAnotherTryYes = new System.Windows.Forms.Button();
+            this.radioButtonAnswer3 = new System.Windows.Forms.RadioButton();
+            this.radioButtonAnswer4 = new System.Windows.Forms.RadioButton();
             this.labelResult = new System.Windows.Forms.Label();
+            this.radioButtonAnswer5 = new System.Windows.Forms.RadioButton();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonDontSure = new System.Windows.Forms.Button();
             this.buttonSubmit = new System.Windows.Forms.Button();
-            this.radioButtonAnswer5 = new System.Windows.Forms.RadioButton();
-            this.radioButtonAnswer4 = new System.Windows.Forms.RadioButton();
-            this.radioButtonAnswer3 = new System.Windows.Forms.RadioButton();
-            this.radioButtonAnswer2 = new System.Windows.Forms.RadioButton();
-            this.radioButtonAnswer1 = new System.Windows.Forms.RadioButton();
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
             this._iconContextMenuStrip.SuspendLayout();
@@ -79,10 +80,11 @@ namespace HomeTask_WindowsForms
             this.тестToolStripMenuItem,
             this.statisticToolStripMenuItem,
             this.CategoriesManagmentToolStripMenuItem,
+            this.wordsManagementToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(200, 114);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(200, 136);
             // 
             // тестToolStripMenuItem
             // 
@@ -104,6 +106,13 @@ namespace HomeTask_WindowsForms
             this.CategoriesManagmentToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.CategoriesManagmentToolStripMenuItem.Text = "Categories management";
             this.CategoriesManagmentToolStripMenuItem.Click += new System.EventHandler(this.categoriesManagmentToolStripMenuItem_Click);
+            // 
+            // wordsManagementToolStripMenuItem
+            // 
+            this.wordsManagementToolStripMenuItem.Name = "wordsManagementToolStripMenuItem";
+            this.wordsManagementToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.wordsManagementToolStripMenuItem.Text = "Words management";
+            this.wordsManagementToolStripMenuItem.Click += new System.EventHandler(this.wordsManagementToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -172,17 +181,17 @@ namespace HomeTask_WindowsForms
             // 
             // PanelTest
             // 
+            this.PanelTest.Controls.Add(this.radioButtonAnswer1);
             this.PanelTest.Controls.Add(this.buttonAnotherTryNo);
+            this.PanelTest.Controls.Add(this.radioButtonAnswer2);
             this.PanelTest.Controls.Add(this.buttonAnotherTryYes);
+            this.PanelTest.Controls.Add(this.radioButtonAnswer3);
+            this.PanelTest.Controls.Add(this.radioButtonAnswer4);
             this.PanelTest.Controls.Add(this.labelResult);
+            this.PanelTest.Controls.Add(this.radioButtonAnswer5);
             this.PanelTest.Controls.Add(this.buttonCancel);
             this.PanelTest.Controls.Add(this.buttonDontSure);
             this.PanelTest.Controls.Add(this.buttonSubmit);
-            this.PanelTest.Controls.Add(this.radioButtonAnswer5);
-            this.PanelTest.Controls.Add(this.radioButtonAnswer4);
-            this.PanelTest.Controls.Add(this.radioButtonAnswer3);
-            this.PanelTest.Controls.Add(this.radioButtonAnswer2);
-            this.PanelTest.Controls.Add(this.radioButtonAnswer1);
             this.PanelTest.Controls.Add(this.OriginaWordLabel);
             this.PanelTest.Controls.Add(this.CategoryNameLabel);
             this.PanelTest.Location = new System.Drawing.Point(12, 12);
@@ -190,6 +199,16 @@ namespace HomeTask_WindowsForms
             this.PanelTest.Size = new System.Drawing.Size(303, 238);
             this.PanelTest.TabIndex = 3;
             this.PanelTest.Visible = false;
+            // 
+            // radioButtonAnswer1
+            // 
+            this.radioButtonAnswer1.AutoSize = true;
+            this.radioButtonAnswer1.Location = new System.Drawing.Point(23, 70);
+            this.radioButtonAnswer1.Name = "radioButtonAnswer1";
+            this.radioButtonAnswer1.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonAnswer1.TabIndex = 2;
+            this.radioButtonAnswer1.Text = "radioButton1";
+            this.radioButtonAnswer1.UseVisualStyleBackColor = true;
             // 
             // buttonAnotherTryNo
             // 
@@ -202,6 +221,17 @@ namespace HomeTask_WindowsForms
             this.buttonAnotherTryNo.Visible = false;
             this.buttonAnotherTryNo.Click += new System.EventHandler(this.buttonAnotherTryNo_Click);
             // 
+            // radioButtonAnswer2
+            // 
+            this.radioButtonAnswer2.AutoSize = true;
+            this.radioButtonAnswer2.Location = new System.Drawing.Point(23, 93);
+            this.radioButtonAnswer2.Name = "radioButtonAnswer2";
+            this.radioButtonAnswer2.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonAnswer2.TabIndex = 3;
+            this.radioButtonAnswer2.TabStop = true;
+            this.radioButtonAnswer2.Text = "radioButton2";
+            this.radioButtonAnswer2.UseVisualStyleBackColor = true;
+            // 
             // buttonAnotherTryYes
             // 
             this.buttonAnotherTryYes.Location = new System.Drawing.Point(61, 192);
@@ -213,6 +243,28 @@ namespace HomeTask_WindowsForms
             this.buttonAnotherTryYes.Visible = false;
             this.buttonAnotherTryYes.Click += new System.EventHandler(this.buttonAnotherTryYes_Click);
             // 
+            // radioButtonAnswer3
+            // 
+            this.radioButtonAnswer3.AutoSize = true;
+            this.radioButtonAnswer3.Location = new System.Drawing.Point(23, 116);
+            this.radioButtonAnswer3.Name = "radioButtonAnswer3";
+            this.radioButtonAnswer3.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonAnswer3.TabIndex = 4;
+            this.radioButtonAnswer3.TabStop = true;
+            this.radioButtonAnswer3.Text = "radioButton3";
+            this.radioButtonAnswer3.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAnswer4
+            // 
+            this.radioButtonAnswer4.AutoSize = true;
+            this.radioButtonAnswer4.Location = new System.Drawing.Point(23, 139);
+            this.radioButtonAnswer4.Name = "radioButtonAnswer4";
+            this.radioButtonAnswer4.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonAnswer4.TabIndex = 5;
+            this.radioButtonAnswer4.TabStop = true;
+            this.radioButtonAnswer4.Text = "radioButton4";
+            this.radioButtonAnswer4.UseVisualStyleBackColor = true;
+            // 
             // labelResult
             // 
             this.labelResult.AutoSize = true;
@@ -223,6 +275,17 @@ namespace HomeTask_WindowsForms
             this.labelResult.TabIndex = 10;
             this.labelResult.Text = "label2";
             this.labelResult.Visible = false;
+            // 
+            // radioButtonAnswer5
+            // 
+            this.radioButtonAnswer5.AutoSize = true;
+            this.radioButtonAnswer5.Location = new System.Drawing.Point(23, 162);
+            this.radioButtonAnswer5.Name = "radioButtonAnswer5";
+            this.radioButtonAnswer5.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonAnswer5.TabIndex = 6;
+            this.radioButtonAnswer5.TabStop = true;
+            this.radioButtonAnswer5.Text = "radioButton5";
+            this.radioButtonAnswer5.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
@@ -254,65 +317,6 @@ namespace HomeTask_WindowsForms
             this.buttonSubmit.UseVisualStyleBackColor = true;
             this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
             // 
-            // radioButtonAnswer5
-            // 
-            this.radioButtonAnswer5.AutoSize = true;
-            this.radioButtonAnswer5.Location = new System.Drawing.Point(20, 162);
-            this.radioButtonAnswer5.Name = "radioButtonAnswer5";
-            this.radioButtonAnswer5.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonAnswer5.TabIndex = 6;
-            this.radioButtonAnswer5.TabStop = true;
-            this.radioButtonAnswer5.Text = "radioButton5";
-            this.radioButtonAnswer5.UseVisualStyleBackColor = true;
-            this.radioButtonAnswer5.CheckedChanged += new System.EventHandler(this.radioButtonAnswer5_CheckedChanged);
-            // 
-            // radioButtonAnswer4
-            // 
-            this.radioButtonAnswer4.AutoSize = true;
-            this.radioButtonAnswer4.Location = new System.Drawing.Point(20, 139);
-            this.radioButtonAnswer4.Name = "radioButtonAnswer4";
-            this.radioButtonAnswer4.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonAnswer4.TabIndex = 5;
-            this.radioButtonAnswer4.TabStop = true;
-            this.radioButtonAnswer4.Text = "radioButton4";
-            this.radioButtonAnswer4.UseVisualStyleBackColor = true;
-            this.radioButtonAnswer4.CheckedChanged += new System.EventHandler(this.radioButtonAnswer4_CheckedChanged);
-            // 
-            // radioButtonAnswer3
-            // 
-            this.radioButtonAnswer3.AutoSize = true;
-            this.radioButtonAnswer3.Location = new System.Drawing.Point(20, 116);
-            this.radioButtonAnswer3.Name = "radioButtonAnswer3";
-            this.radioButtonAnswer3.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonAnswer3.TabIndex = 4;
-            this.radioButtonAnswer3.TabStop = true;
-            this.radioButtonAnswer3.Text = "radioButton3";
-            this.radioButtonAnswer3.UseVisualStyleBackColor = true;
-            this.radioButtonAnswer3.CheckedChanged += new System.EventHandler(this.radioButtonAnswer3_CheckedChanged);
-            // 
-            // radioButtonAnswer2
-            // 
-            this.radioButtonAnswer2.AutoSize = true;
-            this.radioButtonAnswer2.Location = new System.Drawing.Point(20, 93);
-            this.radioButtonAnswer2.Name = "radioButtonAnswer2";
-            this.radioButtonAnswer2.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonAnswer2.TabIndex = 3;
-            this.radioButtonAnswer2.TabStop = true;
-            this.radioButtonAnswer2.Text = "radioButton2";
-            this.radioButtonAnswer2.UseVisualStyleBackColor = true;
-            this.radioButtonAnswer2.CheckedChanged += new System.EventHandler(this.radioButtonAnswer2_CheckedChanged);
-            // 
-            // radioButtonAnswer1
-            // 
-            this.radioButtonAnswer1.AutoSize = true;
-            this.radioButtonAnswer1.Location = new System.Drawing.Point(20, 70);
-            this.radioButtonAnswer1.Name = "radioButtonAnswer1";
-            this.radioButtonAnswer1.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonAnswer1.TabIndex = 2;
-            this.radioButtonAnswer1.Text = "radioButton1";
-            this.radioButtonAnswer1.UseVisualStyleBackColor = true;
-            this.radioButtonAnswer1.CheckedChanged += new System.EventHandler(this.radioButtonAnswer1_CheckedChanged);
-            // 
             // OriginaWordLabel
             // 
             this.OriginaWordLabel.AutoSize = true;
@@ -337,14 +341,12 @@ namespace HomeTask_WindowsForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 262);
-            this.ContextMenuStrip = this._iconContextMenuStrip;
             this.Controls.Add(this.WelcomeTextLabel);
             this.Controls.Add(this.PanelTest);
             this.Controls.Add(this.PanelWelcome);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
-            this.Text = "wordreminder";
             this._iconContextMenuStrip.ResumeLayout(false);
             this.PanelWelcome.ResumeLayout(false);
             this.PanelWelcome.PerformLayout();
@@ -387,6 +389,7 @@ namespace HomeTask_WindowsForms
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem CategoriesManagmentToolStripMenuItem;
         private ToolStripMenuItem statisticToolStripMenuItem;
+        private ToolStripMenuItem wordsManagementToolStripMenuItem;
     }
 }
 

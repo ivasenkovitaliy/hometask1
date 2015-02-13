@@ -8,13 +8,10 @@ namespace HomeTask_WindowsForms
 {
     public partial class Settings : Form
     {
-        readonly private MainForm _parentForm;
-       
-        public Settings(MainForm parentform)
+        public Settings()
         {
             InitializeComponent();
-            _parentForm = parentform;
-            domainUpDownTimeInterval.Text = (parentform.TestInterval/60000).ToString();
+            domainUpDownTimeInterval.Text = ( (LocalRepository.TimerForShowingTestWindow.Interval)/ 60000).ToString();
 
             // making first column
             DataGridViewColumn columnCategoryName = new DataGridViewTextBoxColumn();
@@ -37,11 +34,10 @@ namespace HomeTask_WindowsForms
             // adding columns
             dataGridViewSettings.Columns.Insert(0, columnCheckBox);
             dataGridViewSettings.Columns.Insert(0, columnCategoryName);
-
             
-            foreach (var category in parentform.Categories)
+            foreach (var category in LocalRepository.Categories)
             {
-                dataGridViewSettings.Rows.Add(category.GetCategory, category.GetCategoryUsed());
+                dataGridViewSettings.Rows.Add(category.GetCategory, category.IsUsed);
             }
             
             this.Closing += Settings_Closing;
@@ -49,7 +45,7 @@ namespace HomeTask_WindowsForms
 
         void Settings_Closing(object sender, CancelEventArgs e)
         {
-            _parentForm.TimerToShowTestWindow.Start();
+            LocalRepository.TimerForShowingTestWindow.Start();
             //throw new NotImplementedException();
         }
 
@@ -62,16 +58,16 @@ namespace HomeTask_WindowsForms
 
         private void buttonSubmit_PanelSettings_Click(object sender, EventArgs e)
         {
-            _parentForm.TestInterval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
+            LocalRepository.TimerForShowingTestWindow.Interval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
             this.Close();
         }
 
         private void dataGridViewSettings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            List<Category> tempCategories = _parentForm.Categories.ToList();
+            List<Category> tempCategories = LocalRepository.Categories.ToList();
             tempCategories[e.RowIndex].ChangeIsUsed();
-            _parentForm.Categories.Clear();
-            _parentForm.Categories = new HashSet<Category>(tempCategories);
+            LocalRepository.Categories.Clear();
+            LocalRepository.Categories = new HashSet<Category>(tempCategories);
         }
 
         private void buttonCancel_PanelSettings_Click(object sender, EventArgs e)

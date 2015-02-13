@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -9,17 +8,12 @@ namespace HomeTask_WindowsForms
 {
     public partial class CategoriesManagement : Form
     {
-        readonly private MainForm _parentForm;
-        readonly private Repository _repository = new Repository();
-        private int _activeCategoryIndex;
-        private string _activeCategoryName;
-        //private Category _activeCategoryInDataGrid;
-
-        public CategoriesManagement(MainForm parentform)
+        readonly private DBRepository _repository = new DBRepository();
+        public CategoriesManagement()
         {
             InitializeComponent();
-            _parentForm = parentform;
-            DrawTable();
+            PrepareForm();
+            
             this.Closing += WordsManagment_Closing;
             this.textBoxNewCategoryName.GotFocus += textBoxNewCategoryName_GotFocus;
             this.dataGridViewCategoriesManagement.CellClick += dataGridViewCategoriesManagement_CellClick;
@@ -51,26 +45,42 @@ namespace HomeTask_WindowsForms
             dataGridViewCategoriesManagement.Columns.Insert(0, columnCount);
             dataGridViewCategoriesManagement.Columns.Insert(0, columnCategoryName);
 
-            foreach (var category in _parentForm.Categories)
+            // filling up table
+            foreach (var category in LocalRepository.Categories)
             {
                 int tempCount = 0;
-                foreach (var word in _parentForm.Words)
+                foreach (var word in LocalRepository.Words)
                 {
-                    if (word.GetCategory() == category.GetCategory)
+                    if (word._category == category.GetCategory)
                         tempCount++;
                 }
                 dataGridViewCategoriesManagement.Rows.Add(category.GetCategory, tempCount.ToString());
             }
-            dataGridViewCategoriesManagement.ClearSelection();
+
+            dataGridViewCategoriesManagement.ClearSelection(); // remove selection from first row
             //throw new NotImplementedException();
+        }
+        private void PrepareForm()
+        {
+            buttonUpdateCategory.Enabled = false;
+            buttonDeleteCategory.Enabled = false;
+            textBoxNewCategoryName.Text = "enter new category/category name name here";
+            textBoxNewCategoryName.ForeColor = Color.Gray;
+            DrawTable();
+        }
+
+        private string GetActiveCategoryName()
+        {
+            return dataGridViewCategoriesManagement.CurrentRow.Cells[0].Value.ToString();
+        }
+
+        private int GetActiveCategoryIndex()
+        {
+            return dataGridViewCategoriesManagement.CurrentRow.Index;
         }
 
         void dataGridViewCategoriesManagement_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //_activeCategoryInDataGrid = new Category(_parentForm.Categories.ElementAt(e.RowIndex).GetCategory().ToString(), _parentForm.Categories.ElementAt(e.RowIndex).GetCategoryUsed());
-            _activeCategoryIndex = e.RowIndex;
-            _activeCategoryName = dataGridViewCategoriesManagement.Rows[e.RowIndex].Cells[0].Value.ToString();
-
             buttonDeleteCategory.Enabled = true;
             buttonUpdateCategory.Enabled = true;
             //throw new NotImplementedException();
@@ -82,16 +92,10 @@ namespace HomeTask_WindowsForms
             textBoxNewCategoryName.ForeColor = Color.Black;
             //throw new NotImplementedException();
         }
-
-        void dataGridViewCategoriesManagement_SelectionChanged(object sender, EventArgs e)
-        {
-            dataGridViewCategoriesManagement.ClearSelection();
-            //throw new NotImplementedException();
-        }
-
+        
         void WordsManagment_Closing(object sender, CancelEventArgs e)
         {
-            _parentForm.TimerToShowTestWindow.Start();
+            LocalRepository.TimerForShowingTestWindow.Start();
             //throw new NotImplementedException();
         }
 
@@ -104,18 +108,17 @@ namespace HomeTask_WindowsForms
         {
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") && !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
-                _parentForm.Categories.Add(new Category(textBoxNewCategoryName.Text.Trim(), false));
+                LocalRepository.Categories.Add(new Category(textBoxNewCategoryName.Text.Trim(), false));
                 _repository.AddCategory(textBoxNewCategoryName.Text.Trim());
                 PrepareForm();
             }
-                
         }
 
         private void buttonDeleteCategory_Click(object sender, EventArgs e)
         {
-            _repository.RemoveCategory(_parentForm.Categories.ElementAt(_activeCategoryIndex).GetCategory);
-                _parentForm.Categories.Remove(_parentForm.Categories.ElementAt(_activeCategoryIndex));
-                PrepareForm();
+            _repository.RemoveCategory(GetActiveCategoryName());
+            LocalRepository.Categories.Remove(LocalRepository.Categories.ElementAt(GetActiveCategoryIndex()));
+            PrepareForm();
             
         }
 
@@ -124,22 +127,13 @@ namespace HomeTask_WindowsForms
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
                 !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
-                _repository.UpdateCategory(_activeCategoryName, textBoxNewCategoryName.Text);
-                var temp = _parentForm.Categories.ElementAt(_activeCategoryIndex);
-                _parentForm.Categories.Remove(temp);
+                _repository.UpdateCategory(GetActiveCategoryName(), textBoxNewCategoryName.Text);
+                var temp = LocalRepository.Categories.ElementAt(GetActiveCategoryIndex());
+                LocalRepository.Categories.Remove(temp);
                 temp.GetCategory = textBoxNewCategoryName.Text;
-                _parentForm.Categories.Add(temp);
+                LocalRepository.Categories.Add(temp);
                 PrepareForm();
             }
-        }
-
-        private void PrepareForm()
-        {
-            buttonUpdateCategory.Enabled = false;
-            buttonDeleteCategory.Enabled = false;
-            textBoxNewCategoryName.Text = "enter new category/category name name here";
-            textBoxNewCategoryName.ForeColor = Color.Gray;
-            DrawTable();
         }
     }
 }

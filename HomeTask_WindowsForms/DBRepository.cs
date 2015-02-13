@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Linq.Mapping;
-using System.Data.SqlClient;
 using System.Data.SqlServerCe;
 
-using System.Data.Linq;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
 {
-    public class Repository
+    public class DBRepository
     {
         private const string ConnectionString = @"Data Source=|DataDirectory|\test_db.sdf";
         private int indexInDB;

@@ -8,22 +8,9 @@ namespace HomeTask_WindowsForms
 {
     public class Word
     {
-        //private int _id;
-        private string _original, _translate, _category;
-
-        public string GetTranslate()
-        {
-            return _translate;
-        }
-
-        public string GetCategory()
-        {
-            return _category;
-        }
-        public string GetOriginal()
-        {
-            return _original;
-        }
+        public string _translate { get; private set; }
+        public string _category { get; private set; }
+        public string _original { get; private set; }
         
         public Word()
         {
@@ -37,11 +24,10 @@ namespace HomeTask_WindowsForms
             this._translate = translate;
             this._category = category;
 
-            // here we getting one of translaeting values if there  is more the one
+            // here we getting one of translaeting values if ther'e more then one
             var tempWordsFromTranslate = this._translate.Split('_');
             if (tempWordsFromTranslate.Length > 1)
                 this._translate = tempWordsFromTranslate[rndTranslate.Next(tempWordsFromTranslate.Length)];
         }
     }
-     
 }

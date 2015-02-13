@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -14,27 +6,29 @@ namespace HomeTask_WindowsForms
 {
     public partial class Statistic : Form
     {
-        private int _writeAnswers;
-        private int _wrongAnswers;
-
         public Statistic()
         {
             InitializeComponent();
+            DrawStatistic();
             
-            string[] seriesArray = { "Right", "Wrong" };
-            var answers = AnswersRepository.GetAnswers();
-            
-            foreach (var answer in answers)
-            {
-                if (answer.AnswerValue == true)
-                    _writeAnswers++;
-                else
-                    _wrongAnswers++;
-            }
-            int[] pointsArray = { _writeAnswers, _wrongAnswers };
+            this.FormClosing += Statistic_FormClosing;
+        }
+
+        void Statistic_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LocalRepository.TimerForShowingTestWindow.Start();
+            //throw new NotImplementedException();
+        }
+
+        private void DrawStatistic()
+        {
+            string[] seriesArray = { "Right answers", "Wrong answers" };
+            int[] pointsArray = { Answers.RightAnswers, Answers.WrongAnswers};
 
             // Set palette.
             this.chart1.Palette = ChartColorPalette.SeaGreen;
+            var ser = this.chart1.Series.FindByName("Series1");
+            ser.Name = "Your answers";
             
             // Set title.
             this.chart1.Titles.Add("Answers");
@@ -44,19 +38,7 @@ namespace HomeTask_WindowsForms
                 Series series = this.chart1.Series.Add(seriesArray[i]);
                 series.Points.Add(pointsArray[i]);
             }
-
-
-        }
-
-        private void Statistic_Load(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void chart1_Click(object sender, EventArgs e)
-        {
-
+            //throw new NotImplementedException();
         }
     }
 }
