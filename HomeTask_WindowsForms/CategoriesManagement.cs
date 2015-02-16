@@ -8,7 +8,7 @@ namespace HomeTask_WindowsForms
 {
     public partial class CategoriesManagement : Form
     {
-        readonly private DBRepository _repository = new DBRepository();
+        readonly private DBRepository _dbRepository = new DBRepository();
         public CategoriesManagement()
         {
             InitializeComponent();
@@ -109,14 +109,14 @@ namespace HomeTask_WindowsForms
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") && !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
                 LocalRepository.Categories.Add(new Category(textBoxNewCategoryName.Text.Trim(), false));
-                _repository.AddCategory(textBoxNewCategoryName.Text.Trim());
+                _dbRepository.AddCategory(textBoxNewCategoryName.Text.Trim());
                 PrepareForm();
             }
         }
 
         private void buttonDeleteCategory_Click(object sender, EventArgs e)
         {
-            _repository.RemoveCategory(GetActiveCategoryName());
+            _dbRepository.RemoveCategory(GetActiveCategoryName());
             LocalRepository.Categories.Remove(LocalRepository.Categories.ElementAt(GetActiveCategoryIndex()));
             PrepareForm();
         }
@@ -126,7 +126,7 @@ namespace HomeTask_WindowsForms
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
                 !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
-                _repository.UpdateCategory(GetActiveCategoryName(), textBoxNewCategoryName.Text);
+                _dbRepository.UpdateCategory(GetActiveCategoryName(), textBoxNewCategoryName.Text);
                 var temp = LocalRepository.Categories.ElementAt(GetActiveCategoryIndex());
                 LocalRepository.Categories.Remove(temp);
                 temp.CategoryName = textBoxNewCategoryName.Text;

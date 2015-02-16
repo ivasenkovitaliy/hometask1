@@ -7,7 +7,7 @@ namespace HomeTask_WindowsForms
     {
         private readonly Word _updatingWord = new Word();
         private readonly Word _updatedWord = new Word();
-        private readonly DBRepository _repository = new DBRepository();
+        private readonly DBRepository _dbRepository = new DBRepository();
         public UpdatingWord(string wordName)
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace HomeTask_WindowsForms
             if (textBoxRU3.Enabled)
                 _updatedWord.Translate += "_" + textBoxRU3.Text;
             LocalRepository.Words.Add(_updatedWord);
-            _repository.UpdateWord(_updatingWord.Original, _updatedWord.Original, _updatedWord.Translate, _updatedWord.Category);
+            _dbRepository.UpdateWord(_updatingWord.Original, _updatedWord.Original, _updatedWord.Translate, _updatedWord.Category);
             Close();
         }
 

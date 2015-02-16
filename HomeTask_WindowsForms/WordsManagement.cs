@@ -8,7 +8,7 @@ namespace HomeTask_WindowsForms
 {
     public partial class WordsManagement : Form
     {
-        readonly private DBRepository _repository = new DBRepository();
+        readonly private DBRepository _dbRepository = new DBRepository();
         public WordsManagement()
         {
             InitializeComponent();
@@ -183,7 +183,7 @@ namespace HomeTask_WindowsForms
       
         private void buttonDeleteWord_Click(object sender, EventArgs e)
         {
-            _repository.RemoveWord(GetActiveWordName());
+            _dbRepository.RemoveWord(GetActiveWordName());
             LocalRepository.Words.Remove(LocalRepository.Words.ElementAt(GetActiveWordIndex()));
             PrepareForm();
         }

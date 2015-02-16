@@ -7,7 +7,7 @@ namespace HomeTask_WindowsForms
 {
     public partial class AddingWord : Form
     {
-        private readonly DBRepository _repository = new DBRepository();
+        private readonly DBRepository _dbRepository = new DBRepository();
         public AddingWord()
         {
             InitializeComponent();
@@ -70,7 +70,7 @@ namespace HomeTask_WindowsForms
                 {
                     LocalRepository.Words.Add(new Word(textBoxOriginal.Text, translation, comboBoxCategories.Text));
                     // adding word to database
-                    _repository.AddWord(textBoxOriginal.Text, translation, comboBoxCategories.Text);
+                    _dbRepository.AddWord(textBoxOriginal.Text, translation, comboBoxCategories.Text);
                 }
                 PrepareForm();
             }

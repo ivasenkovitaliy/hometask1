@@ -143,6 +143,28 @@ namespace HomeTask_WindowsForms
                 }
             }
         }
+        public void GetStatistic()
+        {
+            /*using (var connection = new SqlCeConnection(ConnectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "SELECT date, wright_answer, wrong_answer FROM answers";
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Answers.AllAnswers.Add();
+                        Word tempWord = new Word(reader["Original"].ToString().Trim(),
+                            reader["Translate"].ToString().Trim(), reader["Category"].ToString().Trim());
+                        wordsList.Add(tempWord);
+                    }
+                }
+                connection.Close();
+                return wordsList;
+            }*/
+        }
         private int GetCategoryId(string category)
         {
             int categoryId = 1;
@@ -153,6 +175,7 @@ namespace HomeTask_WindowsForms
             }
             return categoryId;
         }
+        
 }
 
 }
