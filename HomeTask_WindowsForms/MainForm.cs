@@ -35,26 +35,15 @@ namespace HomeTask_WindowsForms
             Answers.GetInstance();
             LocalRepository.GetInstance();
 
+            
             // getting all words from database
             LocalRepository.Words = _dbRepository.GetAllWords();
 
             // getting all categories in hashset
             CategoryComparer comparer = new CategoryComparer();
             LocalRepository.Categories = new HashSet<Category>(comparer);
-
-            //making all categoires
-            foreach (var currentWord in LocalRepository.Words)
-            {
-                LocalRepository.Categories.Add(new Category(currentWord._category, true));
-            }
-
-            // add non-used categories
-            var allCategories = _dbRepository.GetAllCategories();
-            foreach (var category in allCategories)
-            {
-                LocalRepository.Categories.Add(category);
-            }
-
+            LocalRepository.Categories = _dbRepository.GetAllCategories();
+           
             LocalRepository.TimerForShowingTestWindow.Tick += TimerTest_Tick;
             //throw new NotImplementedException();
         }
@@ -88,8 +77,8 @@ namespace HomeTask_WindowsForms
                 if (category.IsUsed)
                     foreach (var word in LocalRepository.Words)
                     {
-                        if(word._category==category.GetCategory)
-                        wordsWithCategories.Add(word);
+                        if(word.Category==category.CategoryName)
+                        wordsWithCategories.Add(word.GetWordWithRandomTranslate());
                     }
             }
 
@@ -109,13 +98,13 @@ namespace HomeTask_WindowsForms
             {
                 Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
                 int thisStepRandom = _rndCounter.Next(_testingWordsHashSet.Count);
-                rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom)._translate);
+                rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Translate);
                 _testingWordsHashSet.Remove(_testingWordsHashSet.ElementAt(thisStepRandom));
             }
 
             // displaying test word
-            CategoryNameLabel.Text = _wordToTranslate._category;
-            OriginaWordLabel.Text = _wordToTranslate._original;
+            CategoryNameLabel.Text = _wordToTranslate.Category;
+            OriginaWordLabel.Text = _wordToTranslate.Original;
 
             this.Show();
         }
@@ -204,8 +193,8 @@ namespace HomeTask_WindowsForms
 
             if (checkedRadioButton == null)
                 MessageBox.Show("choose something!");
-            
-            else if ( checkedRadioButton.Text == _wordToTranslate._translate)
+                
+            else if ( checkedRadioButton.Text == _wordToTranslate.Translate)
             {
                 labelResult.Visible = true;
                 labelResult.Text = "Wright!";

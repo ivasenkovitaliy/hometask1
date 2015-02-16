@@ -8,26 +8,53 @@ namespace HomeTask_WindowsForms
 {
     public class Word
     {
-        public string _translate { get; private set; }
-        public string _category { get; private set; }
-        public string _original { get; private set; }
+        public string Translate { get; private set; }
+        public string Category { get; private set; }
+        public string Original { get; private set; }
         
         public Word()
         {
-            
         }
 
         public Word(string original, string translate, string category)
         {
-            Random rndTranslate = new Random();
-            this._original = original;
-            this._translate = translate;
-            this._category = category;
+            //Random rndTranslate = new Random();
+            this.Original = original;
+            this.Translate = translate;
+            this.Category = category;
+        }
 
-            // here we getting one of translaeting values if ther'e more then one
-            var tempWordsFromTranslate = this._translate.Split('_');
+        public Word GetWordWithRandomTranslate()
+        {
+            Word wordWithRandomTranslate = new Word();
+            wordWithRandomTranslate.Original = this.Original;
+            wordWithRandomTranslate.Category = this.Category;
+            Random rndTranslate = new Random();
+            var tempWordsFromTranslate = this.Translate.Split('_');
             if (tempWordsFromTranslate.Length > 1)
-                this._translate = tempWordsFromTranslate[rndTranslate.Next(tempWordsFromTranslate.Length)];
+            {
+                wordWithRandomTranslate.Translate=tempWordsFromTranslate[rndTranslate.Next(tempWordsFromTranslate.Length)];
+                return wordWithRandomTranslate;
+            }
+            wordWithRandomTranslate.Translate = this.Translate;
+            return wordWithRandomTranslate;
+        }
+
+        public string[] GetAllTranslatesOfWord()
+        {
+            return this.Translate.Split('_');
+        }
+
+        public string GetAllTranslatesOfWordPreformatted()
+        {
+            var tempWordsFromTranslate = this.Translate.Split('_');
+            string preformattedTranslates = null;
+            for (int i = 0; i < tempWordsFromTranslate.Length; i++)
+            {
+                preformattedTranslates += (tempWordsFromTranslate[i] + " ");
+            }
+
+            return preformattedTranslates;
         }
     }
 }

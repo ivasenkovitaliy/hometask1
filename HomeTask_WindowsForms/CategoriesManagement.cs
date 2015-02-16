@@ -51,10 +51,10 @@ namespace HomeTask_WindowsForms
                 int tempCount = 0;
                 foreach (var word in LocalRepository.Words)
                 {
-                    if (word._category == category.GetCategory)
+                    if (word.Category == category.CategoryName)
                         tempCount++;
                 }
-                dataGridViewCategoriesManagement.Rows.Add(category.GetCategory, tempCount.ToString());
+                dataGridViewCategoriesManagement.Rows.Add(category.CategoryName, tempCount);
             }
 
             dataGridViewCategoriesManagement.ClearSelection(); // remove selection from first row
@@ -130,7 +130,7 @@ namespace HomeTask_WindowsForms
                 _repository.UpdateCategory(GetActiveCategoryName(), textBoxNewCategoryName.Text);
                 var temp = LocalRepository.Categories.ElementAt(GetActiveCategoryIndex());
                 LocalRepository.Categories.Remove(temp);
-                temp.GetCategory = textBoxNewCategoryName.Text;
+                temp.CategoryName = textBoxNewCategoryName.Text;
                 LocalRepository.Categories.Add(temp);
                 PrepareForm();
             }

@@ -69,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddingWord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddingWord.Designer.cs">
+      <DependentUpon>AddingWord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Answers.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="LocalRepository.cs" />
@@ -92,6 +98,12 @@
     <Compile Include="Statistic.Designer.cs">
       <DependentUpon>Statistic.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdatingWord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdatingWord.Designer.cs">
+      <DependentUpon>UpdatingWord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Word.cs" />
     <Compile Include="CategoriesManagement.cs">
       <SubType>Form</SubType>
@@ -106,6 +118,9 @@
     <Compile Include="WordsManagement.Designer.cs">
       <DependentUpon>WordsManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddingWord.resx">
+      <DependentUpon>AddingWord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Statistic.resx">
       <DependentUpon>Statistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdatingWord.resx">
+      <DependentUpon>UpdatingWord.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WordsManagement.resx">
       <DependentUpon>WordsManagement.cs</DependentUpon>

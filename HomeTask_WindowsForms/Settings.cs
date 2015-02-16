@@ -37,7 +37,7 @@ namespace HomeTask_WindowsForms
             
             foreach (var category in LocalRepository.Categories)
             {
-                dataGridViewSettings.Rows.Add(category.GetCategory, category.IsUsed);
+                dataGridViewSettings.Rows.Add(category.CategoryName, category.IsUsed);
             }
             
             this.Closing += Settings_Closing;
@@ -58,6 +58,7 @@ namespace HomeTask_WindowsForms
 
         private void buttonSubmit_PanelSettings_Click(object sender, EventArgs e)
         {
+            // add protect for not-enough words in selected categories
             LocalRepository.TimerForShowingTestWindow.Interval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
             this.Close();
         }
