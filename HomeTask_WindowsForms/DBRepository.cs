@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
-using System.Linq;
 
 
 namespace HomeTask_WindowsForms
@@ -10,8 +8,7 @@ namespace HomeTask_WindowsForms
     public class DBRepository
     {
         private const string ConnectionString = @"Data Source=|DataDirectory|\test_db.sdf";
-        private int _IndexInDB;
-
+        
         public List<Word> GetAllWords()
         {
             List<Word> wordsList = new List<Word>();
@@ -85,27 +82,16 @@ namespace HomeTask_WindowsForms
                 }
             }
         }
-        public void UpdateCategory(string category_old, string category_new)
+        public void UpdateCategory(string categoryOld, string categoryNew)
         {
             using (var connection = new SqlCeConnection(ConnectionString))
             {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "SELECT category_id FROM categories WHERE category=(@category)";
-                    command.Parameters.Add("category", SqlDbType.NVarChar, 50).Value = category_old;
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        _IndexInDB = Convert.ToInt16(reader["category_id"]);
-                    }
-                }
-                
+                connection.Open();    
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE categories SET category=(@category) WHERE category_id=(@category_id)";
-                    command.Parameters.Add("category", SqlDbType.NVarChar, 50).Value = category_new;
-                    command.Parameters.Add("category_id", SqlDbType.Int).Value = _IndexInDB;
+                    command.Parameters.Add("category", SqlDbType.NVarChar, 50).Value = categoryNew;
+                    command.Parameters.Add("category_id", SqlDbType.Int).Value = GetCategoryId(categoryOld);
                     command.ExecuteNonQuery();
                 }
 
@@ -114,13 +100,6 @@ namespace HomeTask_WindowsForms
         }
         public void AddWord(string original, string translate, string category)
         {
-            int categoryId=1;
-            foreach (var cat in LocalRepository.Categories)
-            {
-                if (category.Equals(cat.CategoryName))
-                    categoryId = cat.CategoryId;
-            }
-            
             using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
@@ -129,7 +108,7 @@ namespace HomeTask_WindowsForms
                     command.CommandText = "INSERT INTO words (original, translate, categ) VALUES (@original, @translate, @categoryId)";
                     command.Parameters.Add("original", SqlDbType.NVarChar, 50).Value = original;
                     command.Parameters.Add("translate", SqlDbType.NVarChar, 50).Value = translate;
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
+                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = GetCategoryId(category);
                     command.ExecuteNonQuery();
                 }
             }
@@ -147,6 +126,32 @@ namespace HomeTask_WindowsForms
                     command.ExecuteNonQuery();
                 }
             }
+        }
+        public void UpdateWord(string wordNameOld, string wordNameNew, string wordTranslate, string wordCategory)
+        {
+            using (var connection = new SqlCeConnection(ConnectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE words SET original=(@original), translate=(@translate), categ=(@category) WHERE original=(@originalOld)";
+                    command.Parameters.Add("original", SqlDbType.NVarChar, 50).Value = wordNameNew;
+                    command.Parameters.Add("translate", SqlDbType.NVarChar, 50).Value = wordTranslate;
+                    command.Parameters.Add("category", SqlDbType.Int).Value = GetCategoryId(wordCategory);
+                    command.Parameters.Add("originalOld", SqlDbType.NVarChar, 50).Value = wordNameOld;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        private int GetCategoryId(string category)
+        {
+            int categoryId = 1;
+            foreach (var cat in LocalRepository.Categories)
+            {
+                if (category.Equals(cat.CategoryName))
+                    categoryId = cat.CategoryId;
+            }
+            return categoryId;
         }
 }
 

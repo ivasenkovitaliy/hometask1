@@ -119,7 +119,6 @@ namespace HomeTask_WindowsForms
             _repository.RemoveCategory(GetActiveCategoryName());
             LocalRepository.Categories.Remove(LocalRepository.Categories.ElementAt(GetActiveCategoryIndex()));
             PrepareForm();
-            
         }
 
         private void buttonUpdateCategory_Click(object sender, EventArgs e)
@@ -132,6 +131,13 @@ namespace HomeTask_WindowsForms
                 LocalRepository.Categories.Remove(temp);
                 temp.CategoryName = textBoxNewCategoryName.Text;
                 LocalRepository.Categories.Add(temp);
+                
+                // updating "category" fiels in wors list 
+                foreach (var word in LocalRepository.Words)
+                {
+                    if (word.Category.Equals(GetActiveCategoryName()))
+                        word.Category = textBoxNewCategoryName.Text;
+                }
                 PrepareForm();
             }
         }

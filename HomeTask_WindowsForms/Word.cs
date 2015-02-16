@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeTask_WindowsForms
 {
     public class Word
     {
-        public string Translate { get; private set; }
-        public string Category { get; private set; }
-        public string Original { get; private set; }
+        public string Translate { get; set; }
+        public string Category { get; set; }
+        public string Original { get; set; }
         
         public Word()
         {
@@ -53,7 +49,6 @@ namespace HomeTask_WindowsForms
             {
                 preformattedTranslates += (tempWordsFromTranslate[i] + " ");
             }
-
             return preformattedTranslates;
         }
     }

@@ -13,3 +13,4 @@ C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\Hom
 C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.Statistic.resources
 C:\Users\kolbass\Documents\Visual Studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.WordsManagement.resources
 C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.AddingWord.resources
+C:\Users\kolbass\documents\visual studio 2013\Projects\HomeTask_WindowsForms\HomeTask_WindowsForms\obj\Debug\HomeTask_WindowsForms.UpdatingWord.resources

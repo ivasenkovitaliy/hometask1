@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
@@ -203,7 +199,8 @@ namespace HomeTask_WindowsForms
 
         private void buttonEditWord_Click(object sender, EventArgs e)
         {
-            
+            UpdatingWord form = new UpdatingWord(GetActiveWordName());
+            form.Show();
         }
         void dataGridViewWordsManagement_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {

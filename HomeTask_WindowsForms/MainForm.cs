@@ -34,7 +34,6 @@ namespace HomeTask_WindowsForms
         {
             Answers.GetInstance();
             LocalRepository.GetInstance();
-
             
             // getting all words from database
             LocalRepository.Words = _dbRepository.GetAllWords();

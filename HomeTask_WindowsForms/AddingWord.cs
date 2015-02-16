@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
 {
     public partial class AddingWord : Form
     {
-        private DBRepository _repository = new DBRepository();
+        private readonly DBRepository _repository = new DBRepository();
         public AddingWord()
         {
             InitializeComponent();
@@ -38,19 +33,16 @@ namespace HomeTask_WindowsForms
             comboBoxCategories.Text = LocalRepository.Categories.First().CategoryName;
             //throw new NotImplementedException();
         }
-
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         private void buttonAddNewTranslation_Click(object sender, EventArgs e)
         {
             if (textBoxRU2.Enabled)
                 textBoxRU3.Enabled = true;
             textBoxRU2.Enabled = true;
         }
-
         private void buttonAddWord_Click(object sender, EventArgs e)
         {
             // lighting up empty fields
