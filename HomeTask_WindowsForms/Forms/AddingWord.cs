@@ -7,7 +7,7 @@ namespace HomeTask_WindowsForms
 {
     public partial class AddingWord : Form
     {
-        private readonly DBRepository _dbRepository = new DBRepository();
+        private readonly WordRepository _wordRepository = new WordRepository();
         public AddingWord()
         {
             InitializeComponent();
@@ -26,11 +26,11 @@ namespace HomeTask_WindowsForms
             textBoxRU3.Enabled = false;
             comboBoxCategories.Items.Clear();
 
-            foreach (var category in LocalRepository.Categories)
+            foreach (var category in LocalAppData.Categories)
             {
                 comboBoxCategories.Items.Add(category.CategoryName);
             }
-            comboBoxCategories.Text = LocalRepository.Categories.First().CategoryName;
+            comboBoxCategories.Text = LocalAppData.Categories.First().CategoryName;
             //throw new NotImplementedException();
         }
         private void buttonClose_Click(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace HomeTask_WindowsForms
                     textBox.BackColor = color;
             }
 
-            // if there are no empty fields then adding word
+            // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
                 string translation = textBoxRU1.Text;
@@ -66,11 +66,12 @@ namespace HomeTask_WindowsForms
                 if (textBoxRU3.Enabled)
                     translation += "_" + textBoxRU3.Text;
 
-                if (LocalRepository.Words.FirstOrDefault(w => w.Original.Equals(textBoxOriginal.Text)) == null)
+                // and this word already arn't exists.....
+                if (LocalAppData.Words.FirstOrDefault(w => w.Original.Equals(textBoxOriginal.Text)) == null)
                 {
-                    LocalRepository.Words.Add(new Word(textBoxOriginal.Text, translation, comboBoxCategories.Text));
-                    // adding word to database
-                    _dbRepository.AddWord(textBoxOriginal.Text, translation, comboBoxCategories.Text);
+                    // adding word
+                    var wordCategory = LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text);
+                    _wordRepository.AddWord(textBoxOriginal.Text, translation, wordCategory.CategoryId);
                 }
                 PrepareForm();
             }

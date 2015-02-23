@@ -10,7 +10,10 @@ namespace HomeTask_WindowsForms
         private readonly Timer _timerForShowingWelcomePanel = new Timer();
         private readonly Timer _timerAfterAnswers = new Timer();
         private readonly Random _rndCounter = new Random();
-        private readonly DBRepository _dbRepository = new DBRepository();
+        private readonly WordRepository _wordRepository = new WordRepository();
+        private readonly CategoryRepository _categoryRepository = new CategoryRepository();
+        private readonly AnswerRepository _answerRepository =new AnswerRepository();
+
         private HashSet<Word> _testingWordsHashSet;
         private Word _wordToTranslate;
         private int _wrongAnswers;
@@ -32,26 +35,20 @@ namespace HomeTask_WindowsForms
 
         void MainForm_Load(object sender, EventArgs e)
         {
-            Answers.GetInstance();
-            LocalRepository.GetInstance();
-            //Answers.AddAnswersFromDb();
-
-            // getting all words from database
-            LocalRepository.Words = _dbRepository.GetAllWords();
-
-            // getting all categories in hashset
-            CategoryComparer comparer = new CategoryComparer();
-            LocalRepository.Categories = new HashSet<Category>(comparer);
-            LocalRepository.Categories = _dbRepository.GetAllCategories();
-           
-            LocalRepository.TimerForShowingTestWindow.Tick += TimerTest_Tick;
+            //Answers.GetInstance();
+            LocalAppData.GetInstance();
+            
+            LocalAppData.Categories = _categoryRepository.GetAllCategories();
+            LocalAppData.Words = _wordRepository.GetAllWords();
+            
+            LocalAppData.TimerForShowingTestWindow.Tick += TimerTest_Tick;
             //throw new NotImplementedException();
         }
         // ----------------------------------------------------------------------------
         private void StartTesting()
         {
             WelcomeTextLabel.Visible = false;
-            LocalRepository.TimerForShowingTestWindow.Stop();
+            LocalAppData.TimerForShowingTestWindow.Stop();
             
             //preparing form
             this.WelcomeTextLabel.Visible = false;
@@ -72,10 +69,10 @@ namespace HomeTask_WindowsForms
             List<Word> wordsWithCategories = new List<Word>();
             
             // put words with selected categories
-            foreach (var category in LocalRepository.Categories)
+            foreach (var category in LocalAppData.Categories)
             {
                 if (category.IsUsed)
-                    foreach (var word in LocalRepository.Words)
+                    foreach (var word in LocalAppData.Words)
                     {
                         if(word.Category==category.CategoryName)
                         wordsWithCategories.Add(word.GetWordWithRandomTranslate());
@@ -111,7 +108,7 @@ namespace HomeTask_WindowsForms
 
         void CancelTest()
         {
-            LocalRepository.TimerForShowingTestWindow.Start();
+            LocalAppData.TimerForShowingTestWindow.Start();
             this.WelcomeTextLabel.Visible = true;
             this.PanelTest.Visible = false;
             this.Hide();
@@ -139,7 +136,8 @@ namespace HomeTask_WindowsForms
                     this.WelcomeTextLabel.Visible = false;
                 _timerForShowingWelcomePanel.Stop();
                 this.WelcomeTextLabel.Text = "Programm is already running";
-                LocalRepository.TimerForShowingTestWindow.Start();
+                LocalAppData.TimerForShowingTestWindow.Start();
+                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Cancelled"));
                 Hide();
             }
             //throw new NotImplementedException();
@@ -157,7 +155,7 @@ namespace HomeTask_WindowsForms
             this.WelcomeTextLabel.Text = "Programm is already running";
             this.PanelWelcome.Visible = false;
             _timerForShowingWelcomePanel.Stop();
-            LocalRepository.TimerForShowingTestWindow.Start();
+            LocalAppData.TimerForShowingTestWindow.Start();
             this.Hide();
         }
         
@@ -179,7 +177,7 @@ namespace HomeTask_WindowsForms
 
         public void TimerTest_Tick(object sender, EventArgs e)
         {
-            var nonActiveUserInterval = LocalRepository.TimerForShowingTestWindow.Interval * 0.0009;
+            var nonActiveUserInterval = LocalAppData.TimerForShowingTestWindow.Interval * 0.0009;
             if (Program.GetLastInputTime() < nonActiveUserInterval)
                 StartTesting();
         }
@@ -200,7 +198,8 @@ namespace HomeTask_WindowsForms
                 labelResult.Text = "Wright!";
                 
                 // adding "right" answer to statistic 
-                Answers.AddAnswer(true);
+                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Right"));
+
                 _timerAfterAnswers.Start();
             }
             
@@ -225,7 +224,8 @@ namespace HomeTask_WindowsForms
                         labelResult.Text = "sorry, you haven't any try";
 
                         //adding "wrong" to statistic
-                        Answers.AddAnswer(false);
+                        _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Wrong"));
+
                         _timerAfterAnswers.Start();
                     }
                 }
@@ -261,6 +261,7 @@ namespace HomeTask_WindowsForms
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Cancelled"));
             CancelTest();
         }
 
@@ -274,19 +275,20 @@ namespace HomeTask_WindowsForms
             labelResult.Text = "sorry, you don't khow....";
             
             // adding "wrong" to statistic
-            Answers.AddAnswer(false);
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Wrong"));
+
             _timerAfterAnswers.Start();
         }
 
         private void categoriesManagmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalRepository.TimerForShowingTestWindow.Stop();
+            LocalAppData.TimerForShowingTestWindow.Stop();
             CategoriesManagement form = new CategoriesManagement();
             form.Show();
         }
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalRepository.TimerForShowingTestWindow.Stop();
+            LocalAppData.TimerForShowingTestWindow.Stop();
             Settings form = new Settings();
             form.Show();
         }
@@ -299,7 +301,7 @@ namespace HomeTask_WindowsForms
 
         private void wordsManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalRepository.TimerForShowingTestWindow.Stop();
+            LocalAppData.TimerForShowingTestWindow.Stop();
             WordsManagement form = new WordsManagement();
             form.Show();
         }

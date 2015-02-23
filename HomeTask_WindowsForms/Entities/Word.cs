@@ -4,6 +4,7 @@ namespace HomeTask_WindowsForms
 {
     public class Word
     {
+        public int Id { get; set; }
         public string Translate { get; set; }
         public string Category { get; set; }
         public string Original { get; set; }
@@ -15,6 +16,15 @@ namespace HomeTask_WindowsForms
         public Word(string original, string translate, string category)
         {
             //Random rndTranslate = new Random();
+            this.Original = original;
+            this.Translate = translate;
+            this.Category = category;
+        }
+
+        public Word(int id, string original, string translate, string category)
+        {
+            //Random rndTranslate = new Random();
+            this.Id = id;
             this.Original = original;
             this.Translate = translate;
             this.Category = category;

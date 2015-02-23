@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,7 +9,8 @@ namespace HomeTask_WindowsForms
 {
     public partial class WordsManagement : Form
     {
-        readonly private DBRepository _dbRepository = new DBRepository();
+        readonly private CategoryRepository _categoryRepository = new CategoryRepository();
+        readonly private WordRepository _wordRepository = new WordRepository();
         public WordsManagement()
         {
             InitializeComponent();
@@ -29,9 +31,14 @@ namespace HomeTask_WindowsForms
 
         private void PrepareForm()
         {
+            // asking new lists
+            LocalAppData.Categories = _categoryRepository.GetAllCategories();
+            LocalAppData.Words = _wordRepository.GetAllWords();
+            
             //preparing combobox of categories
             comboBoxSelectCategoryForSearching.Items.Clear();
-            foreach (var category in LocalRepository.Categories)
+            comboBoxSelectCategoryForSearching.Items.Add("all words");
+            foreach (var category in LocalAppData.Categories)
             {
                 comboBoxSelectCategoryForSearching.Items.Add(category.CategoryName);
             }
@@ -40,65 +47,24 @@ namespace HomeTask_WindowsForms
             buttonEditWord.Enabled = false;
             textBoxWordForSearching.Text = "search";
             textBoxWordForSearching.ForeColor = Color.Gray;
-            DrawTable(LocalRepository.Words);
-        }
-
-        private void DrawTable(List<Word> wordsToFillTable)
-        {
-            dataGridViewWordsManagement.Columns.Clear();
-            dataGridViewWordsManagement.Rows.Clear();   //  cleaning table
-            // making first column
-            DataGridViewColumn columnCount = new DataGridViewTextBoxColumn();
-            {
-                columnCount.CellTemplate = new DataGridViewTextBoxCell();
-                columnCount.ReadOnly = true;
-                columnCount.Width = 50;
-                columnCount.HeaderText = "#";
-            }
-
-            // making second column
-            DataGridViewColumn columnWord = new DataGridViewTextBoxColumn();
-            {
-                columnWord.CellTemplate = new DataGridViewTextBoxCell();
-                columnWord.ReadOnly = false;
-                columnWord.Width = 130;
-                columnWord.HeaderText = "EN";
-            }
-
-            // making third column
-            DataGridViewColumn columnTranslate = new DataGridViewTextBoxColumn();
-            {
-                columnTranslate.CellTemplate = new DataGridViewTextBoxCell();
-                columnTranslate.ReadOnly = false;
-                columnTranslate.Width = 130;
-                columnTranslate.HeaderText = "RU";
-            }
-
-            //
-            DataGridViewColumn columnCategory = new DataGridViewTextBoxColumn();
-            {
-                columnCategory.CellTemplate = new DataGridViewTextBoxCell();
-                columnCategory.ReadOnly = false;
-                columnCategory.Width = 130;
-                columnCategory.HeaderText = "Category";
-            }
-
-            // adding columns
-            dataGridViewWordsManagement.Columns.Insert(0, columnCount);
-            dataGridViewWordsManagement.Columns.Insert(1, columnWord);
-            dataGridViewWordsManagement.Columns.Insert(2, columnTranslate);
-            dataGridViewWordsManagement.Columns.Insert(3, columnCategory);
             
-            // filling up table
-            int tempCount = 1;
+            DrawTable(LocalAppData.Words);
+
+            
+        }
+        private void DrawTable(IEnumerable<Word> wordsToFillTable)
+        {
+            bindingSourceWordsManagement.DataSource = typeof(Word);
+            bindingSourceWordsManagement.Clear();
+            
+            int wordCount = 1; //using to display word's # not from db
             foreach (var word in wordsToFillTable)
             {
-                dataGridViewWordsManagement.Rows.Add(tempCount, word.Original, word.GetAllTranslatesOfWordPreformatted(), word.Category);
-                tempCount++;
+                word.Id = wordCount;
+                bindingSourceWordsManagement.Add(new Word(wordCount, word.Original, word.Translate, word.Category));
+                wordCount++;
             }
-            
-            dataGridViewWordsManagement.ClearSelection(); // remove selection from first row
-            dataGridViewWordsManagement.ReadOnly = true;
+
             //throw new NotImplementedException();
         }
 
@@ -114,12 +80,7 @@ namespace HomeTask_WindowsForms
             textBoxWordForSearching.ForeColor = Color.Black;
             //throw new NotImplementedException();
         }
-        void textBoxWordForSearching_LostFocus(object sender, EventArgs e)
-        {
-            textBoxWordForSearching.Text = "search";
-            textBoxWordForSearching.ForeColor = Color.Gray;
-            //throw new NotImplementedException();
-        }
+        
         void dataGridViewWordsManagement_LostFocus(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -127,7 +88,7 @@ namespace HomeTask_WindowsForms
 
         void WordsManagement_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LocalRepository.TimerForShowingTestWindow.Start();
+            LocalAppData.TimerForShowingTestWindow.Start();
             //throw new NotImplementedException();
         }
 
@@ -144,10 +105,10 @@ namespace HomeTask_WindowsForms
             {
                 List<Word> searchedList = new List<Word>();
                 var tempList =
-                    from word in LocalRepository.Words
+                    from word in LocalAppData.Words
                     where
-                        textBoxWordForSearching.Text.Equals(word.Original)
-                        //&& comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
+                        textBoxWordForSearching.Text.Equals(word.Original) 
+                        && comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
                     select word;
 
                 foreach (var word in tempList)
@@ -162,15 +123,23 @@ namespace HomeTask_WindowsForms
         private void comboBoxSelectCategoryForSearching_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<Word> searchedList = new List<Word>();
-            var tempList =
-                from word in LocalRepository.Words
+            
+            if (!comboBoxSelectCategoryForSearching.Text.Equals("all words"))
+            {
+                var tempList =
+                from word in LocalAppData.Words
                 where
                     comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
                 select word;
 
-            foreach (var word in tempList)
+                foreach (var word in tempList)
+                {
+                    searchedList.Add(word);
+                }
+            }
+            else
             {
-                searchedList.Add(word);
+                searchedList = LocalAppData.Words;
             }
             DrawTable(searchedList);
         }
@@ -180,23 +149,18 @@ namespace HomeTask_WindowsForms
             AddingWord form = new AddingWord();
             form.Show();
         }
-      
         private void buttonDeleteWord_Click(object sender, EventArgs e)
         {
-            _dbRepository.RemoveWord(GetActiveWordName());
-            LocalRepository.Words.Remove(LocalRepository.Words.ElementAt(GetActiveWordIndex()));
+            LocalAppData.Words = _wordRepository.GetAllWords(); // for using correct word id
+            var delettingWord = LocalAppData.Words.Find(r => r.Original.Equals(GetActiveWordName()));
+            _wordRepository.RemoveWord(delettingWord.Id);
+            
             PrepareForm();
         }
-
         private string GetActiveWordName()
         {
             return dataGridViewWordsManagement.CurrentRow.Cells[1].Value.ToString();
         }
-        private int GetActiveWordIndex()
-        {
-            return dataGridViewWordsManagement.CurrentRow.Index;
-        }
-
         private void buttonEditWord_Click(object sender, EventArgs e)
         {
             UpdatingWord form = new UpdatingWord(GetActiveWordName());
@@ -207,6 +171,5 @@ namespace HomeTask_WindowsForms
             dataGridViewWordsManagement.ReadOnly = false;
             //throw new NotImplementedException();
         }
-
     }
 }

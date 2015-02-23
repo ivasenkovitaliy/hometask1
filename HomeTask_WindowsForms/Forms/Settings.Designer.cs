@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.PanelSetttings = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewSettings = new System.Windows.Forms.DataGridView();
@@ -35,8 +36,12 @@
             this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
             this.domainUpDownTimeInterval = new System.Windows.Forms.DomainUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.bindingSourceCategoryToUse = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isUsedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.PanelSetttings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSettings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryToUse)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelSetttings
@@ -67,16 +72,21 @@
             this.dataGridViewSettings.AllowUserToDeleteRows = false;
             this.dataGridViewSettings.AllowUserToResizeColumns = false;
             this.dataGridViewSettings.AllowUserToResizeRows = false;
+            this.dataGridViewSettings.AutoGenerateColumns = false;
             this.dataGridViewSettings.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewSettings.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridViewSettings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewSettings.ColumnHeadersVisible = false;
+            this.dataGridViewSettings.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.categoryNameDataGridViewTextBoxColumn,
+            this.isUsedDataGridViewCheckBoxColumn});
+            this.dataGridViewSettings.DataSource = this.bindingSourceCategoryToUse;
             this.dataGridViewSettings.Location = new System.Drawing.Point(24, 76);
             this.dataGridViewSettings.MultiSelect = false;
             this.dataGridViewSettings.Name = "dataGridViewSettings";
             this.dataGridViewSettings.RowHeadersVisible = false;
             this.dataGridViewSettings.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewSettings.Size = new System.Drawing.Size(240, 120);
+            this.dataGridViewSettings.Size = new System.Drawing.Size(250, 120);
             this.dataGridViewSettings.TabIndex = 4;
             this.dataGridViewSettings.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSettings_CellContentClick);
             // 
@@ -137,17 +147,38 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Time interval (minutes)";
             // 
+            // bindingSourceCategoryToUse
+            // 
+            this.bindingSourceCategoryToUse.DataSource = typeof(HomeTask_WindowsForms.Category);
+            // 
+            // categoryNameDataGridViewTextBoxColumn
+            // 
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.Width = 130;
+            // 
+            // isUsedDataGridViewCheckBoxColumn
+            // 
+            this.isUsedDataGridViewCheckBoxColumn.DataPropertyName = "IsUsed";
+            this.isUsedDataGridViewCheckBoxColumn.HeaderText = "IsUsed";
+            this.isUsedDataGridViewCheckBoxColumn.Name = "isUsedDataGridViewCheckBoxColumn";
+            this.isUsedDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 262);
             this.Controls.Add(this.PanelSetttings);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Settings";
             this.Text = "Settings";
             this.PanelSetttings.ResumeLayout(false);
             this.PanelSetttings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSettings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryToUse)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -161,6 +192,9 @@
         private System.Windows.Forms.DomainUpDown domainUpDownTimeInterval;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.BindingSource bindingSourceCategoryToUse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isUsedDataGridViewCheckBoxColumn;
 
     }
 }

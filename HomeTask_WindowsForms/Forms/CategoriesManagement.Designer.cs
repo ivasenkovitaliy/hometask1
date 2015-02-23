@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridViewCategoriesManagement = new System.Windows.Forms.DataGridView();
             this.AddButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.textBoxNewCategoryName = new System.Windows.Forms.TextBox();
             this.buttonDeleteCategory = new System.Windows.Forms.Button();
             this.buttonUpdateCategory = new System.Windows.Forms.Button();
+            this.bindingSourceCategoryManagement = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WordsInCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoriesManagement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryManagement)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewCategoriesManagement
@@ -43,7 +48,12 @@
             this.dataGridViewCategoriesManagement.AllowUserToDeleteRows = false;
             this.dataGridViewCategoriesManagement.AllowUserToResizeColumns = false;
             this.dataGridViewCategoriesManagement.AllowUserToResizeRows = false;
+            this.dataGridViewCategoriesManagement.AutoGenerateColumns = false;
             this.dataGridViewCategoriesManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCategoriesManagement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.categoryNameDataGridViewTextBoxColumn,
+            this.WordsInCategory});
+            this.dataGridViewCategoriesManagement.DataSource = this.bindingSourceCategoryManagement;
             this.dataGridViewCategoriesManagement.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewCategoriesManagement.MultiSelect = false;
             this.dataGridViewCategoriesManagement.Name = "dataGridViewCategoriesManagement";
@@ -103,11 +113,28 @@
             this.buttonUpdateCategory.UseVisualStyleBackColor = true;
             this.buttonUpdateCategory.Click += new System.EventHandler(this.buttonUpdateCategory_Click);
             // 
+            // bindingSourceCategoryManagement
+            // 
+            this.bindingSourceCategoryManagement.DataSource = typeof(HomeTask_WindowsForms.Category);
+            // 
+            // categoryNameDataGridViewTextBoxColumn
+            // 
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "Category";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.Width = 170;
+            // 
+            // WordsInCategory
+            // 
+            this.WordsInCategory.DataPropertyName = "WordsInCategory";
+            this.WordsInCategory.HeaderText = "Words In Category";
+            this.WordsInCategory.Name = "WordsInCategory";
+            // 
             // CategoriesManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 262);
+            this.ClientSize = new System.Drawing.Size(322, 262);
             this.Controls.Add(this.buttonUpdateCategory);
             this.Controls.Add(this.buttonDeleteCategory);
             this.Controls.Add(this.textBoxNewCategoryName);
@@ -119,6 +146,7 @@
             this.Name = "CategoriesManagement";
             this.Text = "CategoriesManagement";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoriesManagement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryManagement)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,6 +160,9 @@
         private System.Windows.Forms.TextBox textBoxNewCategoryName;
         private System.Windows.Forms.Button buttonDeleteCategory;
         private System.Windows.Forms.Button buttonUpdateCategory;
+        private System.Windows.Forms.BindingSource bindingSourceCategoryManagement;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WordsInCategory;
 
     }
 }
