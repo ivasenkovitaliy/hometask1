@@ -31,7 +31,8 @@ namespace HomeTask_WindowsForms
             
             var selectedAnswers =
                 from answer in LocalAppData.Answers
-                where answer.AnswersDate.Date >= dateTimePickerFromDate.Value && answer.AnswersDate.Date <= dateTimePickerToDate.Value
+                where answer.AnswersDate.Date >= dateTimePickerFromDate.Value.Date &&
+                      answer.AnswersDate.Date <= dateTimePickerToDate.Value.Date
                 select answer;
 
             foreach (var answer in selectedAnswers)

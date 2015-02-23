@@ -22,7 +22,9 @@ namespace HomeTask_WindowsForms
                 {
                     command.CommandText =
                         "SELECT id, original, translate, categoryname FROM Word JOIN Category ON word.category=category.categoryid";
+                    
                     var reader = command.ExecuteReader();
+                    
                     while (reader.Read())
                     {
                         Word tempWord = new Word(Convert.ToInt16(reader["Id"]), reader["Original"].ToString().Trim(),
@@ -30,6 +32,7 @@ namespace HomeTask_WindowsForms
                         wordsList.Add(tempWord);
                     }
                 }
+
                 return wordsList;
             }
         }

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Word" msprop:Generator_TableClassName="WordDataTable" msprop:Generator_TableVarName="tableWord" msprop:Generator_TablePropName="Word" msprop:Generator_RowDeletingName="WordRowDeleting" msprop:Generator_RowChangingName="WordRowChanging" msprop:Generator_RowEvHandlerName="WordRowChangeEventHandler" msprop:Generator_RowDeletedName="WordRowDeleted" msprop:Generator_UserTableName="Word" msprop:Generator_RowChangedName="WordRowChanged" msprop:Generator_RowEvArgName="WordRowChangeEvent" msprop:Generator_RowClassName="WordRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:short" minOccurs="0" />
+              <xs:element name="Original" msprop:Generator_ColumnVarNameInTable="columnOriginal" msprop:Generator_ColumnPropNameInRow="Original" msprop:Generator_ColumnPropNameInTable="OriginalColumn" msprop:Generator_UserColumnName="Original" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Translate" msprop:Generator_ColumnVarNameInTable="columnTranslate" msprop:Generator_ColumnPropNameInRow="Translate" msprop:Generator_ColumnPropNameInTable="TranslateColumn" msprop:Generator_UserColumnName="Translate" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Categoty" msprop:Generator_ColumnVarNameInTable="columnCategoty" msprop:Generator_ColumnPropNameInRow="Categoty" msprop:Generator_ColumnPropNameInTable="CategotyColumn" msprop:Generator_UserColumnName="Categoty" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Category" msprop:Generator_TableClassName="CategoryDataTable" msprop:Generator_TableVarName="tableCategory" msprop:Generator_TablePropName="Category" msprop:Generator_RowDeletingName="CategoryRowDeleting" msprop:Generator_RowChangingName="CategoryRowChanging" msprop:Generator_RowEvHandlerName="CategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="CategoryRowDeleted" msprop:Generator_UserTableName="Category" msprop:Generator_RowChangedName="CategoryRowChanged" msprop:Generator_RowEvArgName="CategoryRowChangeEvent" msprop:Generator_RowClassName="CategoryRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CategoryId" msprop:Generator_ColumnVarNameInTable="columnCategoryId" msprop:Generator_ColumnPropNameInRow="CategoryId" msprop:Generator_ColumnPropNameInTable="CategoryIdColumn" msprop:Generator_UserColumnName="CategoryId" type="xs:short" minOccurs="0" />
+              <xs:element name="CategoryName" msprop:Generator_ColumnVarNameInTable="columnCategoryName" msprop:Generator_ColumnPropNameInRow="CategoryName" msprop:Generator_ColumnPropNameInTable="CategoryNameColumn" msprop:Generator_UserColumnName="CategoryName" type="xs:string" minOccurs="0" />
+              <xs:element name="IsUsed" msprop:Generator_ColumnVarNameInTable="columnIsUsed" msprop:Generator_ColumnPropNameInRow="IsUsed" msprop:Generator_ColumnPropNameInTable="IsUsedColumn" msprop:Generator_UserColumnName="IsUsed" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Answer" msprop:Generator_TableClassName="AnswerDataTable" msprop:Generator_TableVarName="tableAnswer" msprop:Generator_TablePropName="Answer" msprop:Generator_RowDeletingName="AnswerRowDeleting" msprop:Generator_RowChangingName="AnswerRowChanging" msprop:Generator_RowEvHandlerName="AnswerRowChangeEventHandler" msprop:Generator_RowDeletedName="AnswerRowDeleted" msprop:Generator_UserTableName="Answer" msprop:Generator_RowChangedName="AnswerRowChanged" msprop:Generator_RowEvArgName="AnswerRowChangeEvent" msprop:Generator_RowClassName="AnswerRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:short" minOccurs="0" />
+              <xs:element name="AnswerDate" msprop:Generator_ColumnVarNameInTable="columnAnswerDate" msprop:Generator_ColumnPropNameInRow="AnswerDate" msprop:Generator_ColumnPropNameInTable="AnswerDateColumn" msprop:Generator_UserColumnName="AnswerDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Word" msprop:Generator_ColumnVarNameInTable="columnWord" msprop:Generator_ColumnPropNameInRow="Word" msprop:Generator_ColumnPropNameInTable="WordColumn" msprop:Generator_UserColumnName="Word" type="xs:string" minOccurs="0" />
+              <xs:element name="AnswerValue" msprop:Generator_ColumnVarNameInTable="columnAnswerValue" msprop:Generator_ColumnPropNameInRow="AnswerValue" msprop:Generator_ColumnPropNameInTable="AnswerValueColumn" msprop:Generator_UserColumnName="AnswerValue" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="WordKey1">
+      <xs:selector xpath=".//mstns:Word" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="CategoryKey1">
+      <xs:selector xpath=".//mstns:Category" />
+      <xs:field xpath="mstns:CategoryId" />
+    </xs:unique>
+    <xs:unique name="AnswerKey1">
+      <xs:selector xpath=".//mstns:Answer" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="Word_Category" msdata:parent="Word" msdata:child="Category" msdata:parentkey="Categoty" msdata:childkey="CategoryId" msprop:Generator_UserChildTable="Category" msprop:Generator_ChildPropName="GetCategoryRows" msprop:Generator_UserRelationName="Word_Category" msprop:Generator_ParentPropName="WordRow" msprop:Generator_RelationVarName="relationWord_Category" msprop:Generator_UserParentTable="Word" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

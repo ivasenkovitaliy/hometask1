@@ -12,6 +12,7 @@ namespace HomeTask_WindowsForms
         public List<Answer> GetAllAnswers()
         {
             List<Answer> answersList = new List<Answer>();
+
             using (var connection = new SqlCeConnection(ConnectionString))
             {
                 
@@ -20,6 +21,7 @@ namespace HomeTask_WindowsForms
                 {
                     command.CommandText =
                         "SELECT Id, AnswerDate, Word, AnswerValue FROM Answer";
+                    
                     var reader = command.ExecuteReader();
                     
                     while (reader.Read())
@@ -31,8 +33,8 @@ namespace HomeTask_WindowsForms
                     }
                 }
             }
+
             return answersList;
-            
         }
         public void AddAnswer(Answer answer)
         {
@@ -49,6 +51,5 @@ namespace HomeTask_WindowsForms
                 }
             }
         }
-        
     }
 }

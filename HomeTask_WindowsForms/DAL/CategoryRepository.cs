@@ -21,7 +21,9 @@ namespace HomeTask_WindowsForms
                 {
                     command.CommandText =
                         "SELECT CategoryId, CategoryName, IsUsed FROM Category";
+
                     var reader = command.ExecuteReader();
+                    
                     while (reader.Read())
                     {
                         Category tempCategory = new Category(Convert.ToInt16(reader["CategoryId"]),
@@ -30,6 +32,7 @@ namespace HomeTask_WindowsForms
                         categoriesList.Add(tempCategory);
                     }
                 }
+
                 return categoriesList;
             }
         }
@@ -74,7 +77,6 @@ namespace HomeTask_WindowsForms
                 }
             }
         }
-
         public void ChangeUsingCategory(int categoryId, bool isUsed)
         {
             using (var connection = new SqlCeConnection(ConnectionString))

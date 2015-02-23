@@ -10,12 +10,10 @@ namespace HomeTask_WindowsForms
             Right,
             Cancelled
         }
-
         public int AnswerId { get; private set; }
         public DateTime AnswersDate { get; private set; }
         public string AnswerWordName { get; set; }
         public int  AnswerValue { get; set; }
-        
         
         public Answer(string wordName, string answer)
         {
@@ -34,7 +32,6 @@ namespace HomeTask_WindowsForms
                     break;
             }
         }
-
         public Answer(int id, DateTime date, string wordName, int answerValue)
         {
             this.AnswerId = id;

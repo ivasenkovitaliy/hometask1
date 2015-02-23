@@ -71,6 +71,15 @@
   <ItemGroup>
     <Compile Include="DAL\AnswerRepository.cs" />
     <Compile Include="DAL\CategoryRepository.cs" />
+    <Compile Include="DBDataSet.cs">
+      <DependentUpon>DBDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddingWord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +159,17 @@
     <EmbeddedResource Include="Forms\WordsManagement.resx">
       <DependentUpon>WordsManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DBDataSet.xsc">
+      <DependentUpon>DBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DBDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DBDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DBDataSet.xss">
+      <DependentUpon>DBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Category.datasource" />
     <None Include="Properties\DataSources\Word.datasource" />

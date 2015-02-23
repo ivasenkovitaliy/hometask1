@@ -71,9 +71,9 @@ namespace HomeTask_WindowsForms
             bool tryCreateNewApp;
             _mInstance = new Mutex(true, MAppName, out tryCreateNewApp);
             var tempHandle = FindWindow(null, MAppName);
+
+            Properties.Settings.Default.ProgrammWindowName = MAppName;
             
-
-
             if (tryCreateNewApp)
             {
                 var directoryName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -182,7 +182,7 @@ namespace HomeTask_WindowsForms
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm(MAppName));
+                Application.Run(new MainForm());
                 //return;
             }
             else

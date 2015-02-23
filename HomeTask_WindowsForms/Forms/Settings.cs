@@ -42,8 +42,11 @@ namespace HomeTask_WindowsForms
 
         private void buttonSubmit_PanelSettings_Click(object sender, EventArgs e)
         {
-            // add protect for not-enough words in selected categories
             LocalAppData.TimerForShowingTestWindow.Interval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
+
+            Properties.Settings.Default.TestTimerInterval = LocalAppData.TimerForShowingTestWindow.Interval;
+            Properties.Settings.Default.Save();
+            
             this.Close();
         }
 

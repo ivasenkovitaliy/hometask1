@@ -18,10 +18,11 @@ namespace HomeTask_WindowsForms
         private Word _wordToTranslate;
         private int _wrongAnswers;
         
-        public MainForm(string windowName)
+        public MainForm()
         {
             InitializeComponent();
-            this.Text = windowName;
+            //this.Text = windowName;
+            this.Text = Properties.Settings.Default.ProgrammWindowName;
 
             // setting "welcome" timer
             _timerForShowingWelcomePanel.Interval = 1700;
@@ -130,14 +131,21 @@ namespace HomeTask_WindowsForms
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
+
                 this.PanelWelcome.Visible = false;
                 this.PanelTest.Visible = false;
+                this.WelcomeTextLabel.Text = "Programm is already running";
+
                 if (this.WelcomeTextLabel.Visible)
                     this.WelcomeTextLabel.Visible = false;
+                
                 _timerForShowingWelcomePanel.Stop();
-                this.WelcomeTextLabel.Text = "Programm is already running";
+                
                 LocalAppData.TimerForShowingTestWindow.Start();
-                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Cancelled"));
+                
+                if(PanelTest.Visible)
+                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Cancelled"));
+                
                 Hide();
             }
             //throw new NotImplementedException();
@@ -195,7 +203,7 @@ namespace HomeTask_WindowsForms
             else if ( checkedRadioButton.Text == _wordToTranslate.Translate)
             {
                 labelResult.Visible = true;
-                labelResult.Text = "Wright!";
+                labelResult.Text = "Correct!";
                 
                 // adding "right" answer to statistic 
                 _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Right"));

@@ -19,8 +19,9 @@ namespace HomeTask_WindowsForms
             if (_instance == null)
             {
                 _instance = new LocalAppData();
+                
                 TimerForShowingTestWindow = new Timer();
-                TimerForShowingTestWindow.Interval = 180000;
+                TimerForShowingTestWindow.Interval = Properties.Settings.Default.TestTimerInterval;
             }
 
             return _instance;
@@ -48,10 +49,10 @@ namespace HomeTask_WindowsForms
                 if (answer.AnswerValue == 2)
                     cancelledAnswers++;
             }
+
             arr = new[] { rightAnswers, wrongAnswers, cancelledAnswers };
+
             return arr;
-
         }
-
     }
 }
