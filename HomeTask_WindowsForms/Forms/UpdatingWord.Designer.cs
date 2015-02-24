@@ -42,6 +42,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.buttonRemoveTranslate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(90, 209);
+            this.buttonUpdate.Location = new System.Drawing.Point(90, 211);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdate.TabIndex = 5;
@@ -95,7 +96,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(172, 209);
+            this.buttonCancel.Location = new System.Drawing.Point(172, 211);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -105,9 +106,9 @@
             // 
             // buttonAddTranslate
             // 
-            this.buttonAddTranslate.Location = new System.Drawing.Point(158, 166);
+            this.buttonAddTranslate.Location = new System.Drawing.Point(19, 166);
             this.buttonAddTranslate.Name = "buttonAddTranslate";
-            this.buttonAddTranslate.Size = new System.Drawing.Size(89, 23);
+            this.buttonAddTranslate.Size = new System.Drawing.Size(107, 23);
             this.buttonAddTranslate.TabIndex = 7;
             this.buttonAddTranslate.Text = "Add translate";
             this.buttonAddTranslate.UseVisualStyleBackColor = true;
@@ -170,11 +171,22 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "RU#3";
             // 
+            // buttonRemoveTranslate
+            // 
+            this.buttonRemoveTranslate.Location = new System.Drawing.Point(140, 166);
+            this.buttonRemoveTranslate.Name = "buttonRemoveTranslate";
+            this.buttonRemoveTranslate.Size = new System.Drawing.Size(107, 23);
+            this.buttonRemoveTranslate.TabIndex = 14;
+            this.buttonRemoveTranslate.Text = "Remove Translate";
+            this.buttonRemoveTranslate.UseVisualStyleBackColor = true;
+            this.buttonRemoveTranslate.Click += new System.EventHandler(this.buttonRemoveTranslate_Click);
+            // 
             // UpdatingWord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(266, 244);
+            this.ClientSize = new System.Drawing.Size(266, 242);
+            this.Controls.Add(this.buttonRemoveTranslate);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -211,5 +223,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonRemoveTranslate;
     }
 }

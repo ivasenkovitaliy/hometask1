@@ -22,14 +22,17 @@ namespace HomeTask_WindowsForms
                 textBox.BackColor = Color.White;
                 textBox.Text = "";
             }
+
             textBoxRU2.Enabled = false;
             textBoxRU3.Enabled = false;
+            
             comboBoxCategories.Items.Clear();
 
             foreach (var category in LocalAppData.Categories)
             {
                 comboBoxCategories.Items.Add(category.CategoryName);
             }
+
             comboBoxCategories.Text = LocalAppData.Categories.First().CategoryName;
             //throw new NotImplementedException();
         }
@@ -41,6 +44,7 @@ namespace HomeTask_WindowsForms
         {
             if (textBoxRU2.Enabled)
                 textBoxRU3.Enabled = true;
+
             textBoxRU2.Enabled = true;
         }
         private void buttonAddWord_Click(object sender, EventArgs e)
@@ -60,19 +64,17 @@ namespace HomeTask_WindowsForms
             // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
-                string translation = textBoxRU1.Text;
-                if (textBoxRU2.Enabled)
-                    translation += "_" + textBoxRU2.Text;
-                if (textBoxRU3.Enabled)
-                    translation += "_" + textBoxRU3.Text;
-
                 // and this word already arn't exists.....
                 if (LocalAppData.Words.FirstOrDefault(w => w.Original.Equals(textBoxOriginal.Text)) == null)
                 {
-                    // adding word
-                    var wordCategory = LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text);
-                    _wordRepository.AddWord(textBoxOriginal.Text, translation, wordCategory.CategoryId);
+                    if (textBoxRU3.Enabled)
+                        _wordRepository.AddWordThreeTranslates(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId);
+                    else if (textBoxRU2.Enabled)
+                        _wordRepository.AddWordTwoTranslates( textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId );
+                    else
+                        _wordRepository.AddWord(textBoxOriginal.Text, textBoxRU1.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId);
                 }
+
                 PrepareForm();
             }
         }

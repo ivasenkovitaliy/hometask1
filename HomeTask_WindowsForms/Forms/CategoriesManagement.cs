@@ -24,6 +24,7 @@ namespace HomeTask_WindowsForms
         {
 
             bindingSourceCategoryManagement.Clear();
+
             foreach (var category in LocalAppData.Categories)
             {
                 int tempCount = 0;
@@ -33,7 +34,8 @@ namespace HomeTask_WindowsForms
                             tempCount++;
                     }
 
-                category.WordsInCategory = tempCount;
+                category.WordsInCategory = tempCount;  // adding in category count of words in this category
+
                 bindingSourceCategoryManagement.Add(category);
             }
 
@@ -48,6 +50,7 @@ namespace HomeTask_WindowsForms
 
             buttonUpdateCategory.Enabled = false;
             buttonDeleteCategory.Enabled = false;
+
             textBoxNewCategoryName.Text = "enter new category/category name name here";
             textBoxNewCategoryName.ForeColor = Color.Gray;
 
@@ -83,6 +86,7 @@ namespace HomeTask_WindowsForms
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") && !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
                 _categoryRepository.AddCategory(textBoxNewCategoryName.Text.Trim());
+
                 PrepareForm();
             }
         }
@@ -91,7 +95,7 @@ namespace HomeTask_WindowsForms
             var deletingCategory = LocalAppData.GetCategoryWithCategoryName(GetActiveCategoryNameInTable());
 
             _wordRepository.UpdateWordsCategory(deletingCategory.CategoryId, 1);
-            _categoryRepository.RemoveCategory(deletingCategory.CategoryId);
+            _categoryRepository.RemoveCategory(deletingCategory.CategoryId);  // setting free words category "no category"
             
             PrepareForm();
         }

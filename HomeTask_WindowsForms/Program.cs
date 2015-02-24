@@ -92,7 +92,7 @@ namespace HomeTask_WindowsForms
 
                         using (var query = connection.CreateCommand())
                         {
-                            query.CommandText = @"CREATE TABLE Word (Id INT IDENTITY(1,1) PRIMARY KEY, Original NVARCHAR(40) NOT NULL, Translate NVARCHAR(130) NOT NULL, Category INT NOT NULL);";
+                            query.CommandText = @"CREATE TABLE Word (Id INT IDENTITY(1,1) PRIMARY KEY, Original NVARCHAR(40) NOT NULL, Translate NVARCHAR(40) NOT NULL, TranslateSecond NVARCHAR(40), TranslateThird NVARCHAR(40), Category INT NOT NULL);";
                             query.ExecuteNonQuery();
                         }
                         using (var command = connection.CreateCommand())
@@ -183,7 +183,7 @@ namespace HomeTask_WindowsForms
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
-                //return;
+                
             }
             else
             {   

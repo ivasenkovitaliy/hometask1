@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,7 +13,9 @@ namespace HomeTask_WindowsForms
         public WordsManagement()
         {
             InitializeComponent();
+
             PrepareForm();
+
             this.FormClosing += WordsManagement_FormClosing;
             this.textBoxWordForSearching.GotFocus += textBoxWordForSearching_GotFocus;
             this.dataGridViewWordsManagement.CellClick += dataGridViewWordsManagement_CellClick;
@@ -37,7 +38,8 @@ namespace HomeTask_WindowsForms
             
             //preparing combobox of categories
             comboBoxSelectCategoryForSearching.Items.Clear();
-            comboBoxSelectCategoryForSearching.Items.Add("all words");
+
+            comboBoxSelectCategoryForSearching.Items.Add("All words");
             foreach (var category in LocalAppData.Categories)
             {
                 comboBoxSelectCategoryForSearching.Items.Add(category.CategoryName);
@@ -45,6 +47,7 @@ namespace HomeTask_WindowsForms
 
             buttonDeleteWord.Enabled = false;
             buttonEditWord.Enabled = false;
+            
             textBoxWordForSearching.Text = "search";
             textBoxWordForSearching.ForeColor = Color.Gray;
             
@@ -61,7 +64,7 @@ namespace HomeTask_WindowsForms
             foreach (var word in wordsToFillTable)
             {
                 word.Id = wordCount;
-                bindingSourceWordsManagement.Add(new Word(wordCount, word.Original, word.Translate, word.Category));
+                bindingSourceWordsManagement.Add(new Word(wordCount, word.Original, word.Translate+" "+word.TranslateSecond+" "+word.TranslateThird, word.Category));
                 wordCount++;
             }
 
@@ -104,6 +107,7 @@ namespace HomeTask_WindowsForms
                 !comboBoxSelectCategoryForSearching.Text.Equals("Select Category"))
             {
                 List<Word> searchedList = new List<Word>();
+                
                 var tempList =
                     from word in LocalAppData.Words
                     where
@@ -115,16 +119,16 @@ namespace HomeTask_WindowsForms
                 {
                     searchedList.Add(word);
                 }
+
                 DrawTable(searchedList);
             }
-            
         }
 
         private void comboBoxSelectCategoryForSearching_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<Word> searchedList = new List<Word>();
             
-            if (!comboBoxSelectCategoryForSearching.Text.Equals("all words"))
+            if (!comboBoxSelectCategoryForSearching.Text.Equals("All words"))
             {
                 var tempList =
                 from word in LocalAppData.Words
@@ -141,6 +145,7 @@ namespace HomeTask_WindowsForms
             {
                 searchedList = LocalAppData.Words;
             }
+
             DrawTable(searchedList);
         }
 
@@ -152,6 +157,7 @@ namespace HomeTask_WindowsForms
         private void buttonDeleteWord_Click(object sender, EventArgs e)
         {
             LocalAppData.Words = _wordRepository.GetAllWords(); // for using correct word id
+            
             var delettingWord = LocalAppData.Words.Find(r => r.Original.Equals(GetActiveWordName()));
             _wordRepository.RemoveWord(delettingWord.Id);
             

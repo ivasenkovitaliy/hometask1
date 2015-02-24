@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
@@ -11,8 +9,8 @@ namespace HomeTask_WindowsForms
         readonly private CategoryRepository _categoryRepository = new CategoryRepository();
         public Settings()
         {
-            
             InitializeComponent();
+            
             domainUpDownTimeInterval.Text = ( (LocalAppData.TimerForShowingTestWindow.Interval)/ 60000).ToString();
 
             DrawTable();
@@ -53,6 +51,7 @@ namespace HomeTask_WindowsForms
         private void dataGridViewSettings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var changingCategory = LocalAppData.GetCategoryWithCategoryName(dataGridViewSettings.CurrentRow.Cells[0].Value.ToString());
+            
             _categoryRepository.ChangeUsingCategory(changingCategory.CategoryId, !changingCategory.IsUsed);
             
             DrawTable();

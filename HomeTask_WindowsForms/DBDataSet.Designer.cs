@@ -262,7 +262,7 @@ namespace HomeTask_WindowsForms {
             this.tableAnswer = new AnswerDataTable();
             base.Tables.Add(this.tableAnswer);
             this.relationWord_Category = new global::System.Data.DataRelation("Word_Category", new global::System.Data.DataColumn[] {
-                        this.tableWord.CategotyColumn}, new global::System.Data.DataColumn[] {
+                        this.tableWord.CategoryColumn}, new global::System.Data.DataColumn[] {
                         this.tableCategory.CategoryIdColumn}, false);
             this.Relations.Add(this.relationWord_Category);
         }
@@ -362,7 +362,11 @@ namespace HomeTask_WindowsForms {
             
             private global::System.Data.DataColumn columnTranslate;
             
-            private global::System.Data.DataColumn columnCategoty;
+            private global::System.Data.DataColumn columnTranslateSecond;
+            
+            private global::System.Data.DataColumn columnTranslateThird;
+            
+            private global::System.Data.DataColumn columnCategory;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -423,9 +427,25 @@ namespace HomeTask_WindowsForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CategotyColumn {
+            public global::System.Data.DataColumn TranslateSecondColumn {
                 get {
-                    return this.columnCategoty;
+                    return this.columnTranslateSecond;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TranslateThirdColumn {
+                get {
+                    return this.columnTranslateThird;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CategoryColumn {
+                get {
+                    return this.columnCategory;
                 }
             }
             
@@ -466,13 +486,15 @@ namespace HomeTask_WindowsForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public WordRow AddWordRow(short Id, char Original, char Translate, short Categoty) {
+            public WordRow AddWordRow(short Id, char Original, char Translate, string TranslateSecond, string TranslateThird, short Category) {
                 WordRow rowWordRow = ((WordRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
                         Original,
                         Translate,
-                        Categoty};
+                        TranslateSecond,
+                        TranslateThird,
+                        Category};
                 rowWordRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowWordRow);
                 return rowWordRow;
@@ -498,7 +520,9 @@ namespace HomeTask_WindowsForms {
                 this.columnId = base.Columns["Id"];
                 this.columnOriginal = base.Columns["Original"];
                 this.columnTranslate = base.Columns["Translate"];
-                this.columnCategoty = base.Columns["Categoty"];
+                this.columnTranslateSecond = base.Columns["TranslateSecond"];
+                this.columnTranslateThird = base.Columns["TranslateThird"];
+                this.columnCategory = base.Columns["Category"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -510,8 +534,12 @@ namespace HomeTask_WindowsForms {
                 base.Columns.Add(this.columnOriginal);
                 this.columnTranslate = new global::System.Data.DataColumn("Translate", typeof(char), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTranslate);
-                this.columnCategoty = new global::System.Data.DataColumn("Categoty", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCategoty);
+                this.columnTranslateSecond = new global::System.Data.DataColumn("TranslateSecond", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTranslateSecond);
+                this.columnTranslateThird = new global::System.Data.DataColumn("TranslateThird", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTranslateThird);
+                this.columnCategory = new global::System.Data.DataColumn("Category", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategory);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("WordKey1", new global::System.Data.DataColumn[] {
                                 this.columnId}, false));
                 this.columnId.Unique = true;
@@ -755,7 +783,7 @@ namespace HomeTask_WindowsForms {
                         CategoryName,
                         IsUsed};
                 if ((parentWordRowByWord_Category != null)) {
-                    columnValuesArray[0] = parentWordRowByWord_Category[3];
+                    columnValuesArray[0] = parentWordRowByWord_Category[5];
                 }
                 rowCategoryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCategoryRow);
@@ -1278,17 +1306,49 @@ namespace HomeTask_WindowsForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public short Categoty {
+            public string TranslateSecond {
                 get {
                     try {
-                        return ((short)(this[this.tableWord.CategotyColumn]));
+                        return ((string)(this[this.tableWord.TranslateSecondColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Categoty\' in table \'Word\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TranslateSecond\' in table \'Word\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableWord.CategotyColumn] = value;
+                    this[this.tableWord.TranslateSecondColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string TranslateThird {
+                get {
+                    try {
+                        return ((string)(this[this.tableWord.TranslateThirdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TranslateThird\' in table \'Word\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWord.TranslateThirdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public short Category {
+                get {
+                    try {
+                        return ((short)(this[this.tableWord.CategoryColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Category\' in table \'Word\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWord.CategoryColumn] = value;
                 }
             }
             
@@ -1330,14 +1390,38 @@ namespace HomeTask_WindowsForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCategotyNull() {
-                return this.IsNull(this.tableWord.CategotyColumn);
+            public bool IsTranslateSecondNull() {
+                return this.IsNull(this.tableWord.TranslateSecondColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCategotyNull() {
-                this[this.tableWord.CategotyColumn] = global::System.Convert.DBNull;
+            public void SetTranslateSecondNull() {
+                this[this.tableWord.TranslateSecondColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTranslateThirdNull() {
+                return this.IsNull(this.tableWord.TranslateThirdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTranslateThirdNull() {
+                this[this.tableWord.TranslateThirdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCategoryNull() {
+                return this.IsNull(this.tableWord.CategoryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCategoryNull() {
+                this[this.tableWord.CategoryColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

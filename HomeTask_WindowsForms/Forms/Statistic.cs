@@ -40,12 +40,6 @@ namespace HomeTask_WindowsForms
                 selectedAnswerList.Add(answer);
             }
 
-            /*var selectedAnswerList =
-                LocalAppData.Answers.Where(
-                    answer =>
-                        answer.AnswersDate.Date >= dateTimePickerFromDate.Value &&
-                        answer.AnswersDate.Date <= dateTimePickerToDate.Value); */
-
             string[] seriesArray = { "Right answers", "Wrong answers", "Cancelled answers" };
             var pointsArray = LocalAppData.GetAnswersCount(selectedAnswerList);
 

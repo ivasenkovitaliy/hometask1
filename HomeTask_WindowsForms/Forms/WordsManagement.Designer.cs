@@ -54,7 +54,7 @@
             this.comboBoxSelectCategoryForSearching.Name = "comboBoxSelectCategoryForSearching";
             this.comboBoxSelectCategoryForSearching.Size = new System.Drawing.Size(158, 21);
             this.comboBoxSelectCategoryForSearching.TabIndex = 0;
-            this.comboBoxSelectCategoryForSearching.Text = "Select Category";
+            this.comboBoxSelectCategoryForSearching.Text = "All words";
             this.comboBoxSelectCategoryForSearching.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectCategoryForSearching_SelectedIndexChanged);
             // 
             // textBoxWordForSearching

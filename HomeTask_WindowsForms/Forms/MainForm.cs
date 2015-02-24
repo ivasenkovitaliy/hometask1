@@ -21,7 +21,7 @@ namespace HomeTask_WindowsForms
         public MainForm()
         {
             InitializeComponent();
-            //this.Text = windowName;
+
             this.Text = Properties.Settings.Default.ProgrammWindowName;
 
             // setting "welcome" timer
@@ -36,7 +36,6 @@ namespace HomeTask_WindowsForms
 
         void MainForm_Load(object sender, EventArgs e)
         {
-            //Answers.GetInstance();
             LocalAppData.GetInstance();
             
             LocalAppData.Categories = _categoryRepository.GetAllCategories();
@@ -110,8 +109,10 @@ namespace HomeTask_WindowsForms
         void CancelTest()
         {
             LocalAppData.TimerForShowingTestWindow.Start();
+            
             this.WelcomeTextLabel.Visible = true;
             this.PanelTest.Visible = false;
+            
             this.Hide();
         }
         //-------------------------------------------------------------------------
@@ -154,6 +155,7 @@ namespace HomeTask_WindowsForms
         void TimerToShowWelcomePanel_Tick(object sender, EventArgs e)
         {
             this.PanelWelcome.Visible = true;
+
             _timerForShowingWelcomePanel.Stop();
             //throw new NotImplementedException();
         }
@@ -162,8 +164,11 @@ namespace HomeTask_WindowsForms
         {
             this.WelcomeTextLabel.Text = "Programm is already running";
             this.PanelWelcome.Visible = false;
+
             _timerForShowingWelcomePanel.Stop();
+
             LocalAppData.TimerForShowingTestWindow.Start();
+
             this.Hide();
         }
         
@@ -175,6 +180,7 @@ namespace HomeTask_WindowsForms
         private void FirstLayoutYesButton_Click(object sender, EventArgs e)
         {
             this.PanelWelcome.Visible = false;
+
             StartTesting();
         }
 
@@ -185,7 +191,9 @@ namespace HomeTask_WindowsForms
 
         public void TimerTest_Tick(object sender, EventArgs e)
         {
-            var nonActiveUserInterval = LocalAppData.TimerForShowingTestWindow.Interval * 0.0009;
+            // setting non-active user interval as 0,9 of testtimer interval
+            var nonActiveUserInterval = LocalAppData.TimerForShowingTestWindow.Interval * 0.0009; 
+
             if (Program.GetLastInputTime() < nonActiveUserInterval)
                 StartTesting();
         }
@@ -246,9 +254,11 @@ namespace HomeTask_WindowsForms
         void TimerWrongAnswers_Tick(object sender, EventArgs e)
         {
             _timerAfterAnswers.Stop();
+
             this.buttonSubmit.Visible = true;
             this.buttonDontSure.Visible = true;
             this.buttonCancel.Visible = true;
+
             CancelTest();
             //throw new NotImplementedException();
         }
@@ -277,6 +287,7 @@ namespace HomeTask_WindowsForms
         {
             _timerAfterAnswers.Interval = 1500;
             _timerAfterAnswers.Tick += TimerWrongAnswers_Tick;
+
             this.labelResult.Visible = true;
             this.buttonAnotherTryYes.Visible = false;
             this.buttonAnotherTryNo.Visible = false;
@@ -291,18 +302,21 @@ namespace HomeTask_WindowsForms
         private void categoriesManagmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
+
             CategoriesManagement form = new CategoriesManagement();
             form.Show();
         }
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
+
             Settings form = new Settings();
             form.Show();
         }
         private void statisticToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TimerToShowTestWindow.Stop();
+            LocalAppData.TimerForShowingTestWindow.Stop();
+
             Statistic form = new Statistic();
             form.Show();
         }
@@ -310,6 +324,7 @@ namespace HomeTask_WindowsForms
         private void wordsManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
+
             WordsManagement form = new WordsManagement();
             form.Show();
         }

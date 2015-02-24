@@ -26,12 +26,10 @@ namespace HomeTask_WindowsForms
 
             return _instance;
         }
-
         public static Category GetCategoryWithCategoryName(string categoryName)
         {
             return Categories.Find(r => r.CategoryName.Equals(categoryName));
         }
-
         public static int[] GetAnswersCount(List<Answer> answers)
         {
             int rightAnswers = 0;
