@@ -199,6 +199,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UpdatingWord";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UpdatingWord";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -347,6 +347,7 @@ namespace HomeTask_WindowsForms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this._iconContextMenuStrip.ResumeLayout(false);
             this.PanelWelcome.ResumeLayout(false);
             this.PanelWelcome.PerformLayout();

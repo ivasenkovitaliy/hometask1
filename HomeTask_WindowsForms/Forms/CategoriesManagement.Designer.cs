@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewCategoriesManagement = new System.Windows.Forms.DataGridView();
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WordsInCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceCategoryManagement = new System.Windows.Forms.BindingSource(this.components);
             this.AddButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.textBoxNewCategoryName = new System.Windows.Forms.TextBox();
             this.buttonDeleteCategory = new System.Windows.Forms.Button();
             this.buttonUpdateCategory = new System.Windows.Forms.Button();
-            this.bindingSourceCategoryManagement = new System.Windows.Forms.BindingSource(this.components);
-            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WordsInCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoriesManagement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryManagement)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +61,23 @@
             this.dataGridViewCategoriesManagement.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewCategoriesManagement.Size = new System.Drawing.Size(296, 180);
             this.dataGridViewCategoriesManagement.TabIndex = 1;
+            // 
+            // categoryNameDataGridViewTextBoxColumn
+            // 
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "Category";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.Width = 170;
+            // 
+            // WordsInCategory
+            // 
+            this.WordsInCategory.DataPropertyName = "WordsInCategory";
+            this.WordsInCategory.HeaderText = "Words In Category";
+            this.WordsInCategory.Name = "WordsInCategory";
+            // 
+            // bindingSourceCategoryManagement
+            // 
+            this.bindingSourceCategoryManagement.DataSource = typeof(HomeTask_WindowsForms.Category);
             // 
             // AddButton
             // 
@@ -113,23 +130,6 @@
             this.buttonUpdateCategory.UseVisualStyleBackColor = true;
             this.buttonUpdateCategory.Click += new System.EventHandler(this.buttonUpdateCategory_Click);
             // 
-            // bindingSourceCategoryManagement
-            // 
-            this.bindingSourceCategoryManagement.DataSource = typeof(HomeTask_WindowsForms.Category);
-            // 
-            // categoryNameDataGridViewTextBoxColumn
-            // 
-            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
-            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "Category";
-            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
-            this.categoryNameDataGridViewTextBoxColumn.Width = 170;
-            // 
-            // WordsInCategory
-            // 
-            this.WordsInCategory.DataPropertyName = "WordsInCategory";
-            this.WordsInCategory.HeaderText = "Words In Category";
-            this.WordsInCategory.Name = "WordsInCategory";
-            // 
             // CategoriesManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,6 +144,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CategoriesManagement";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CategoriesManagement";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoriesManagement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryManagement)).EndInit();

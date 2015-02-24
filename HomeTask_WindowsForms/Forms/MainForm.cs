@@ -145,8 +145,8 @@ namespace HomeTask_WindowsForms
                 LocalAppData.TimerForShowingTestWindow.Start();
                 
                 if(PanelTest.Visible)
-                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Cancelled"));
-                
+                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Cancelled));
+
                 Hide();
             }
             //throw new NotImplementedException();
@@ -214,7 +214,8 @@ namespace HomeTask_WindowsForms
                 labelResult.Text = "Correct!";
                 
                 // adding "right" answer to statistic 
-                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Right"));
+                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Right));
+
 
                 _timerAfterAnswers.Start();
             }
@@ -240,7 +241,7 @@ namespace HomeTask_WindowsForms
                         labelResult.Text = "sorry, you haven't any try";
 
                         //adding "wrong" to statistic
-                        _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Wrong"));
+                        _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Wrong));
 
                         _timerAfterAnswers.Start();
                     }
@@ -279,7 +280,7 @@ namespace HomeTask_WindowsForms
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Cancelled"));
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Cancelled));
             CancelTest();
         }
 
@@ -294,7 +295,7 @@ namespace HomeTask_WindowsForms
             labelResult.Text = "sorry, you don't khow....";
             
             // adding "wrong" to statistic
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, "Wrong"));
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Wrong));
 
             _timerAfterAnswers.Start();
         }

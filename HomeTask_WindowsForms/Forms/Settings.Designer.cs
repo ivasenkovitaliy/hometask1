@@ -32,13 +32,13 @@
             this.PanelSetttings = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewSettings = new System.Windows.Forms.DataGridView();
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isUsedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.bindingSourceCategoryToUse = new System.Windows.Forms.BindingSource(this.components);
             this.buttonCancel_PanelSettings = new System.Windows.Forms.Button();
             this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
             this.domainUpDownTimeInterval = new System.Windows.Forms.DomainUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.bindingSourceCategoryToUse = new System.Windows.Forms.BindingSource(this.components);
-            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isUsedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.PanelSetttings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryToUse)).BeginInit();
@@ -89,6 +89,24 @@
             this.dataGridViewSettings.Size = new System.Drawing.Size(250, 120);
             this.dataGridViewSettings.TabIndex = 4;
             this.dataGridViewSettings.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSettings_CellContentClick);
+            // 
+            // categoryNameDataGridViewTextBoxColumn
+            // 
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.Width = 130;
+            // 
+            // isUsedDataGridViewCheckBoxColumn
+            // 
+            this.isUsedDataGridViewCheckBoxColumn.DataPropertyName = "IsUsed";
+            this.isUsedDataGridViewCheckBoxColumn.HeaderText = "IsUsed";
+            this.isUsedDataGridViewCheckBoxColumn.Name = "isUsedDataGridViewCheckBoxColumn";
+            this.isUsedDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // bindingSourceCategoryToUse
+            // 
+            this.bindingSourceCategoryToUse.DataSource = typeof(HomeTask_WindowsForms.Category);
             // 
             // buttonCancel_PanelSettings
             // 
@@ -147,24 +165,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Time interval (minutes)";
             // 
-            // bindingSourceCategoryToUse
-            // 
-            this.bindingSourceCategoryToUse.DataSource = typeof(HomeTask_WindowsForms.Category);
-            // 
-            // categoryNameDataGridViewTextBoxColumn
-            // 
-            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
-            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
-            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
-            this.categoryNameDataGridViewTextBoxColumn.Width = 130;
-            // 
-            // isUsedDataGridViewCheckBoxColumn
-            // 
-            this.isUsedDataGridViewCheckBoxColumn.DataPropertyName = "IsUsed";
-            this.isUsedDataGridViewCheckBoxColumn.HeaderText = "IsUsed";
-            this.isUsedDataGridViewCheckBoxColumn.Name = "isUsedDataGridViewCheckBoxColumn";
-            this.isUsedDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +174,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.PanelSetttings.ResumeLayout(false);
             this.PanelSetttings.PerformLayout();
