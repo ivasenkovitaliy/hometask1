@@ -42,15 +42,19 @@ namespace HomeTask_WindowsForms
 
             string[] seriesArray = { "Right answers", "Wrong answers", "Cancelled answers" };
             var pointsArray = LocalAppData.GetAnswersCount(selectedAnswerList);
-
+            
             this.chart1.Palette = ChartColorPalette.SeaGreen;
             this.chart1.Series.Clear();
-          
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+
             for (int i = 0; i < seriesArray.Length; i++)
             {
                 Series series = this.chart1.Series.Add(seriesArray[i]);
                 series.Points.Add(pointsArray[i]);
+
+                this.chart1.Series[i].IsValueShownAsLabel = true;
             }
+            
             //throw new NotImplementedException();
         }
 
