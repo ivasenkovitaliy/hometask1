@@ -79,31 +79,39 @@ namespace HomeTask_WindowsForms
                     }
             }
 
-            // put word to translate first in hashset
-            _testingWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
-            
-            // select another 5 un-repeating words
-            while (_testingWordsHashSet.Count < 5)
+            if (wordsWithCategories.Count < 5)
             {
+                Hide();
+                MessageBox.Show("There are few then 5 words in selected categories, please add words or use more categories");
+            }
+            else
+            {
+                // put word to translate first in hashset
                 _testingWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
+
+                // select another 5 un-repeating words
+                while (_testingWordsHashSet.Count < 5)
+                {
+                    _testingWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
+                }
+
+                _wordToTranslate = _testingWordsHashSet.First();  // making one word as original
+
+                //displaying radiobuttons captions as variants of right answer
+                for (int i = 0; i < 5; i++)
+                {
+                    Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
+                    int thisStepRandom = _rndCounter.Next(_testingWordsHashSet.Count);
+                    rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Translate);
+                    _testingWordsHashSet.Remove(_testingWordsHashSet.ElementAt(thisStepRandom));
+                }
+
+                // displaying test word
+                CategoryNameLabel.Text = _wordToTranslate.Category;
+                OriginaWordLabel.Text = _wordToTranslate.Original;
+
+                this.Show();
             }
-
-            _wordToTranslate = _testingWordsHashSet.First();  // making one word as original
-            
-            //displaying radiobuttons captions as variants of right answer
-            for (int i = 0; i < 5; i++)
-            {
-                Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
-                int thisStepRandom = _rndCounter.Next(_testingWordsHashSet.Count);
-                rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Translate);
-                _testingWordsHashSet.Remove(_testingWordsHashSet.ElementAt(thisStepRandom));
-            }
-
-            // displaying test word
-            CategoryNameLabel.Text = _wordToTranslate.Category;
-            OriginaWordLabel.Text = _wordToTranslate.Original;
-
-            this.Show();
         }
 
         void CancelTest()
@@ -132,6 +140,9 @@ namespace HomeTask_WindowsForms
             {
                 e.Cancel = true;
 
+                if (this.PanelTest.Visible)
+                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
+
                 this.PanelWelcome.Visible = false;
                 this.PanelTest.Visible = false;
                 this.WelcomeTextLabel.Text = "Programm is already running";
@@ -143,9 +154,6 @@ namespace HomeTask_WindowsForms
                 
                 LocalAppData.TimerForShowingTestWindow.Start();
                 
-                if(PanelTest.Visible)
-                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
-
                 Hide();
             }
             //throw new NotImplementedException();
