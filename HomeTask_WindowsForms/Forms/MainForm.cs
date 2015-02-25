@@ -75,7 +75,7 @@ namespace HomeTask_WindowsForms
                     foreach (var word in LocalAppData.Words)
                     {
                         if(word.Category==category.CategoryName)
-                        wordsWithCategories.Add(word.GetWordWithRandomTranslate());
+                            wordsWithCategories.Add(word.GetWordWithRandomTranslate());
                     }
             }
 

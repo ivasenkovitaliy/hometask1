@@ -62,15 +62,15 @@ namespace HomeTask_WindowsForms.DAL
 
                     // adding one category
                     var categoryRepository = new CategoryRepository();
-                    categoryRepository.AddCategory(new Category("no category"));
+                    categoryRepository.AddCategory(new Category("no category", true));
 
                     // adding five words
                     var wordRepository = new WordRepository();
-                    wordRepository.AddWord(new Word("river", "река", null, null), 1);
-                    wordRepository.AddWord(new Word("job", "работа", null, null), 1);
-                    wordRepository.AddWord(new Word("class", "класс", null, null), 1);
-                    wordRepository.AddWord(new Word("set", "набор", null, null), 1);
-                    wordRepository.AddWord(new Word("moon", "луна", null, null), 1);
+                    wordRepository.AddWord(new Word("river", "река", "", ""), 1);
+                    wordRepository.AddWord(new Word("job", "работа", "", ""), 1);
+                    wordRepository.AddWord(new Word("class", "класс", "", ""), 1);
+                    wordRepository.AddWord(new Word("set", "набор", "", ""), 1);
+                    wordRepository.AddWord(new Word("moon", "луна", "", ""), 1);
                 }
             }
         }

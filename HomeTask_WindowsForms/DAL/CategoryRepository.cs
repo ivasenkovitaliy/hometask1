@@ -41,7 +41,7 @@ namespace HomeTask_WindowsForms
                 {
                     command.CommandText = "INSERT INTO Category (Name, IsUsed) VALUES (@categoryName, @isUsed)";
                     command.Parameters.Add("categoryName", SqlDbType.NVarChar, 40).Value = category.CategoryName;
-                    command.Parameters.Add("isUsed", SqlDbType.Bit).Value = false;
+                    command.Parameters.Add("isUsed", SqlDbType.Bit).Value = category.IsUsed;
                     command.ExecuteNonQuery();
                 }
             }

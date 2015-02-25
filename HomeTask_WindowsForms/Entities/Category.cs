@@ -20,5 +20,11 @@ namespace HomeTask_WindowsForms
         {
             this.CategoryName = categoryName;
         }
+
+        public Category(string categoryName, bool isUsed)
+        {
+            this.CategoryName = categoryName;
+            this.IsUsed = isUsed;
+        }
     }
 }
