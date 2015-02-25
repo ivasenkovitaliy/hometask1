@@ -20,6 +20,13 @@ namespace HomeTask_WindowsForms
             this.textBoxWordForSearching.GotFocus += textBoxWordForSearching_GotFocus;
             this.dataGridViewWordsManagement.CellClick += dataGridViewWordsManagement_CellClick;
             this.Activated += WordsManagement_Activated;
+            this.dataGridViewWordsManagement.RowPostPaint += dataGridViewWordsManagement_RowPostPaint;
+        }
+
+        void dataGridViewWordsManagement_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            this.dataGridViewWordsManagement.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+            //throw new NotImplementedException();
         }
 
         void WordsManagement_Activated(object sender, EventArgs e)

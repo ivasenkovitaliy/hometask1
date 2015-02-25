@@ -1,4 +1,4 @@
-﻿`namespace HomeTask_WindowsForms {
+﻿namespace HomeTask_WindowsForms {
     
     
     public partial class DataSet1 {
