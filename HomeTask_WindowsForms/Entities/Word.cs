@@ -16,6 +16,7 @@ namespace HomeTask_WindowsForms
         public Word()
         {
         }
+        
         public Word(int id, string original, string translate, string category)
         {
             this.Id = id;

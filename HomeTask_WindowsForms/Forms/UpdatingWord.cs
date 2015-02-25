@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace HomeTask_WindowsForms
 {
@@ -14,6 +13,7 @@ namespace HomeTask_WindowsForms
         public UpdatingWord(Word updatingWord)
         {
             InitializeComponent();
+            
             _updatingWord = updatingWord;
 
             // filling up boxes on form
@@ -41,6 +41,7 @@ namespace HomeTask_WindowsForms
         {
             Close();
         }
+
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
 
@@ -62,6 +63,7 @@ namespace HomeTask_WindowsForms
                 Close();
             }
         }
+
         private void buttonAddTranslate_Click(object sender, EventArgs e)
         {
             if (textBoxRU2.Enabled)

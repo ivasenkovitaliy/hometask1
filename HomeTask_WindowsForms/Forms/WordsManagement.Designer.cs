@@ -42,6 +42,8 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.translateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TranslateSecond = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TranslateThird = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWordsManagement)).BeginInit();
@@ -67,14 +69,14 @@
             // 
             // textBoxWordForSearching
             // 
-            this.textBoxWordForSearching.Location = new System.Drawing.Point(176, 37);
+            this.textBoxWordForSearching.Location = new System.Drawing.Point(470, 36);
             this.textBoxWordForSearching.Name = "textBoxWordForSearching";
             this.textBoxWordForSearching.Size = new System.Drawing.Size(210, 20);
             this.textBoxWordForSearching.TabIndex = 1;
             // 
             // buttonFilter
             // 
-            this.buttonFilter.Location = new System.Drawing.Point(398, 36);
+            this.buttonFilter.Location = new System.Drawing.Point(692, 35);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(75, 23);
             this.buttonFilter.TabIndex = 2;
@@ -104,7 +106,7 @@
             // 
             // buttonFormClose
             // 
-            this.buttonFormClose.Location = new System.Drawing.Point(397, 298);
+            this.buttonFormClose.Location = new System.Drawing.Point(693, 299);
             this.buttonFormClose.Name = "buttonFormClose";
             this.buttonFormClose.Size = new System.Drawing.Size(75, 23);
             this.buttonFormClose.TabIndex = 6;
@@ -134,6 +136,8 @@
             this.Column1,
             this.originalDataGridViewTextBoxColumn,
             this.translateDataGridViewTextBoxColumn,
+            this.TranslateSecond,
+            this.TranslateThird,
             this.categoryDataGridViewTextBoxColumn});
             this.dataGridViewWordsManagement.DataSource = this.bindingSourceWordsManagement;
             this.dataGridViewWordsManagement.Location = new System.Drawing.Point(12, 65);
@@ -141,7 +145,7 @@
             this.dataGridViewWordsManagement.Name = "dataGridViewWordsManagement";
             this.dataGridViewWordsManagement.ReadOnly = true;
             this.dataGridViewWordsManagement.RowHeadersVisible = false;
-            this.dataGridViewWordsManagement.Size = new System.Drawing.Size(460, 214);
+            this.dataGridViewWordsManagement.Size = new System.Drawing.Size(756, 214);
             this.dataGridViewWordsManagement.TabIndex = 8;
             // 
             // bindingSourceWordsManagement
@@ -161,7 +165,7 @@
             this.originalDataGridViewTextBoxColumn.HeaderText = "Original";
             this.originalDataGridViewTextBoxColumn.Name = "originalDataGridViewTextBoxColumn";
             this.originalDataGridViewTextBoxColumn.ReadOnly = true;
-            this.originalDataGridViewTextBoxColumn.Width = 130;
+            this.originalDataGridViewTextBoxColumn.Width = 150;
             // 
             // translateDataGridViewTextBoxColumn
             // 
@@ -170,6 +174,22 @@
             this.translateDataGridViewTextBoxColumn.Name = "translateDataGridViewTextBoxColumn";
             this.translateDataGridViewTextBoxColumn.ReadOnly = true;
             this.translateDataGridViewTextBoxColumn.Width = 140;
+            // 
+            // TranslateSecond
+            // 
+            this.TranslateSecond.DataPropertyName = "TranslateSecond";
+            this.TranslateSecond.HeaderText = "";
+            this.TranslateSecond.Name = "TranslateSecond";
+            this.TranslateSecond.ReadOnly = true;
+            this.TranslateSecond.Width = 140;
+            // 
+            // TranslateThird
+            // 
+            this.TranslateThird.DataPropertyName = "TranslateThird";
+            this.TranslateThird.HeaderText = "";
+            this.TranslateThird.Name = "TranslateThird";
+            this.TranslateThird.ReadOnly = true;
+            this.TranslateThird.Width = 140;
             // 
             // categoryDataGridViewTextBoxColumn
             // 
@@ -183,7 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 334);
+            this.ClientSize = new System.Drawing.Size(782, 334);
             this.Controls.Add(this.dataGridViewWordsManagement);
             this.Controls.Add(this.buttonDeleteWord);
             this.Controls.Add(this.buttonFormClose);
@@ -220,6 +240,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn originalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn translateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TranslateSecond;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TranslateThird;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
 
     }

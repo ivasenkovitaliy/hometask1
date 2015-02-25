@@ -10,6 +10,7 @@ namespace HomeTask_WindowsForms
     {
         readonly private CategoryRepository _categoryRepository = new CategoryRepository();
         readonly private WordRepository _wordRepository = new WordRepository();
+
         public CategoriesManagement()
         {
             InitializeComponent();
@@ -35,37 +36,42 @@ namespace HomeTask_WindowsForms
 
             DrawTable();
         }
+
         private void DrawTable()
         {
             LocalAppData.CountWordsInCategories();
             
-            bindingSourceCategoryManagement.Clear();
             bindingSourceCategoryManagement.DataSource = LocalAppData.Categories;
 
             dataGridViewCategoriesManagement.ClearSelection(); // remove selection from first row
             //throw new NotImplementedException();
         }
+
         void dataGridViewCategoriesManagement_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             buttonDeleteCategory.Enabled = true;
             buttonUpdateCategory.Enabled = true;
             //throw new NotImplementedException();
         }
+
         void textBoxNewCategoryName_GotFocus(object sender, EventArgs e)
         {
             textBoxNewCategoryName.Text = "";
             textBoxNewCategoryName.ForeColor = Color.Black;
             //throw new NotImplementedException();
         }
+
         void WordsManagment_Closing(object sender, CancelEventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Start();
             //throw new NotImplementedException();
         }
+
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void AddButton_Click(object sender, EventArgs e)
         {
             if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
@@ -76,6 +82,7 @@ namespace HomeTask_WindowsForms
                 PrepareForm();
             }
         }
+
         private void buttonDeleteCategory_Click(object sender, EventArgs e)
         {
             var categoryToDelete = (Category)dataGridViewCategoriesManagement.CurrentRow.DataBoundItem;
@@ -85,6 +92,7 @@ namespace HomeTask_WindowsForms
             
             PrepareForm();
         }
+
         private void buttonUpdateCategory_Click(object sender, EventArgs e)
         {
             var categoryToUpdate = (Category) dataGridViewCategoriesManagement.CurrentRow.DataBoundItem;

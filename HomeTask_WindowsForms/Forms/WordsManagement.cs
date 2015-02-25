@@ -44,9 +44,8 @@ namespace HomeTask_WindowsForms
             textBoxWordForSearching.ForeColor = Color.Gray;
             
             DrawTable(LocalAppData.Words);
-
-            
         }
+
         private void DrawTable(IEnumerable<Word> wordsToFillTable)
         {
             bindingSourceWordsManagement.DataSource = wordsToFillTable;
@@ -59,6 +58,7 @@ namespace HomeTask_WindowsForms
             buttonEditWord.Enabled = true;
             //throw new NotImplementedException();
         }
+
         void textBoxWordForSearching_GotFocus(object sender, EventArgs e)
         {
             textBoxWordForSearching.Text = "";
@@ -102,17 +102,21 @@ namespace HomeTask_WindowsForms
         private void buttonAddWord_Click(object sender, EventArgs e)
         {
             AddingWord form = new AddingWord();
+
             form.Show();
         }
+
         private void buttonDeleteWord_Click(object sender, EventArgs e)
         {
             _wordRepository.RemoveWord( (Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem);
             
             PrepareForm();
         }
+
         private void buttonEditWord_Click(object sender, EventArgs e)
         {
             UpdatingWord form = new UpdatingWord((Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem);
+
             form.Show();
         }
     }

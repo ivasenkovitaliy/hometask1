@@ -12,20 +12,20 @@ namespace HomeTask_WindowsForms
         }
         public int AnswerId { get; private set; }
         public DateTime AnswersDate { get; private set; }
-        public string AnswerWordName { get; set; }
+        public int WordId { get; set; }
         public int  AnswerValue { get; set; }
         
-        public Answer(string wordName, Type answer)
+        public Answer(int wordId, Type answer)
         {
             this.AnswersDate = DateTime.Now;
-            this.AnswerWordName = wordName;
+            this.WordId = wordId;
             this.AnswerValue = (int) answer;
         }
-        public Answer(int id, DateTime date, string wordName, int answerValue)
+        public Answer(int id, DateTime date, int wordId, int answerValue)
         {
             this.AnswerId = id;
             this.AnswersDate = date;
-            this.AnswerWordName = wordName;
+            this.WordId = wordId;
             this.AnswerValue = answerValue;
         }
     }

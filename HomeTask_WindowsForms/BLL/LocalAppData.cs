@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Timer = System.Windows.Forms.Timer;
 
@@ -6,7 +7,8 @@ namespace HomeTask_WindowsForms
 {
     public sealed class LocalAppData
     {
-        private static LocalAppData _instance;
+        private static volatile LocalAppData _instance;
+        private static object syncRoot = new Object();
         public static Timer TimerForShowingTestWindow { get; set; }
         public static List<Category> Categories { get; set; }
         public static List<Word> Words { get; set; }
@@ -18,14 +20,18 @@ namespace HomeTask_WindowsForms
             TimerForShowingTestWindow.Interval = Properties.Settings.Default.TestTimerInterval;
         }
 
-        public static LocalAppData GetInstance()
+        public static LocalAppData Instance()
         {
             if (_instance == null)
-            {
-                _instance = new LocalAppData();
-            }
+                {
+                    lock (syncRoot)
+                    {
+                        if (_instance == null)
+                            _instance = new LocalAppData();
+                    }
+                }
 
-            return _instance;
+                return _instance;
         }
 
         public static int[] GetAnswersCount(IEnumerable<Answer> answers)
@@ -48,7 +54,7 @@ namespace HomeTask_WindowsForms
 
             return answersArr;
         }
-
+        
         public static void CountWordsInCategories()
         {
             foreach (var category in LocalAppData.Categories)

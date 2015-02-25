@@ -30,10 +30,12 @@ namespace HomeTask_WindowsForms
 
             //throw new NotImplementedException();
         }
+
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
         }
+
         private void buttonAddNewTranslation_Click(object sender, EventArgs e)
         {
             if (textBoxRU2.Enabled)
@@ -41,6 +43,7 @@ namespace HomeTask_WindowsForms
 
             textBoxRU2.Enabled = true;
         }
+
         private void buttonAddWord_Click(object sender, EventArgs e)
         {
             // lighting up empty fields
