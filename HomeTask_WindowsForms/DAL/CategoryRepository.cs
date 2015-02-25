@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
 
-
 namespace HomeTask_WindowsForms
 {
     public class CategoryRepository
     {
-        private const string ConnectionString = @"Data Source=|DataDirectory|\programm_data.sdf";
+        private readonly string _connectionString = Properties.Settings.Default.connectionString;
         
-        public List<Category> GetAllCategories()
+        public IEnumerable<Category> GetAllCategories()
         {
-            List<Category> categoriesList = new List<Category>();
-
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -26,67 +23,65 @@ namespace HomeTask_WindowsForms
                     
                     while (reader.Read())
                     {
-                        Category tempCategory = new Category(Convert.ToInt16(reader["CategoryId"]),
+                        var category = new Category(Convert.ToInt16(reader["CategoryId"]),
                             reader["CategoryName"].ToString().Trim(), Convert.ToBoolean(reader["IsUsed"]));
-                        
-                        categoriesList.Add(tempCategory);
+
+                        yield return category;
                     }
                 }
-
-                return categoriesList;
             }
         }
-        public void AddCategory(string Category)
+        public void AddCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Category (CategoryName, IsUsed) VALUES (@category, @isUsed)";
-                    command.Parameters.Add("category", SqlDbType.NVarChar, 40).Value = Category;
+                    command.CommandText = "INSERT INTO Category (CategoryName, IsUsed) VALUES (@categoryName, @isUsed)";
+                    command.Parameters.Add("categoryName", SqlDbType.NVarChar, 40).Value = category.CategoryName;
                     command.Parameters.Add("isUsed", SqlDbType.Bit).Value = false;
                     command.ExecuteNonQuery();
                 }
             }
         }
-        public void RemoveCategory(int categoryId)
+        public void RemoveCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "DELETE FROM Category WHERE CategoryId=(@categoryId)";
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
+                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = category.CategoryId;
                     command.ExecuteNonQuery();
                 }
             }
         }
-        public void UpdateCategory(int categoryIdOld, string categoryNameNew)
+        public void UpdateCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE Category SET CategoryName=(@categoryName) WHERE categoryId=(@categoryId)";
-                    command.Parameters.Add("categoryName", SqlDbType.NVarChar, 50).Value = categoryNameNew;
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryIdOld;
+                    command.Parameters.Add("categoryName", SqlDbType.NVarChar, 40).Value = category.CategoryName;
+                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = category.CategoryId;
                     command.ExecuteNonQuery();
                 }
             }
         }
-        public void ChangeUsingCategory(int categoryId, bool isUsed)
+        public void ChangeUsingCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE Category SET IsUsed=(@IsUsed) WHERE categoryId=(@categoryId)";
-                    command.Parameters.Add("IsUsed", SqlDbType.Bit).Value = isUsed;
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
+                    command.Parameters.Add("IsUsed", SqlDbType.Bit).Value = !category.IsUsed;
+                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = category.CategoryId;
                     command.ExecuteNonQuery();
                 }
             }            

@@ -38,8 +38,8 @@ namespace HomeTask_WindowsForms
         {
             LocalAppData.GetInstance();
             
-            LocalAppData.Categories = _categoryRepository.GetAllCategories();
-            LocalAppData.Words = _wordRepository.GetAllWords();
+            LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
+            LocalAppData.Words = _wordRepository.GetAllWords().ToList();
             
             LocalAppData.TimerForShowingTestWindow.Tick += TimerTest_Tick;
             //throw new NotImplementedException();
@@ -145,7 +145,7 @@ namespace HomeTask_WindowsForms
                 LocalAppData.TimerForShowingTestWindow.Start();
                 
                 if(PanelTest.Visible)
-                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Cancelled));
+                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.Type.Cancelled));
 
                 Hide();
             }
@@ -214,7 +214,7 @@ namespace HomeTask_WindowsForms
                 labelResult.Text = "Correct!";
                 
                 // adding "right" answer to statistic 
-                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Right));
+                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.Type.Right));
 
 
                 _timerAfterAnswers.Start();
@@ -241,7 +241,7 @@ namespace HomeTask_WindowsForms
                         labelResult.Text = "sorry, you haven't any try";
 
                         //adding "wrong" to statistic
-                        _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Wrong));
+                        _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.Type.Wrong));
 
                         _timerAfterAnswers.Start();
                     }
@@ -280,7 +280,7 @@ namespace HomeTask_WindowsForms
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Cancelled));
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.Type.Cancelled));
             CancelTest();
         }
 
@@ -295,7 +295,7 @@ namespace HomeTask_WindowsForms
             labelResult.Text = "sorry, you don't khow....";
             
             // adding "wrong" to statistic
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.AnswerType.Wrong));
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Original, Answer.Type.Wrong));
 
             _timerAfterAnswers.Start();
         }

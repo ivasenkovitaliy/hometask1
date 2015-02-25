@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="DAL\AnswerRepository.cs" />
     <Compile Include="DAL\CategoryRepository.cs" />
+    <Compile Include="DAL\Repository.cs" />
     <Compile Include="DBDataSet.cs">
       <DependentUpon>DBDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>

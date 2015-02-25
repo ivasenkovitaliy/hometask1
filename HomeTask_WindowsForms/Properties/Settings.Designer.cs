@@ -46,5 +46,17 @@ namespace HomeTask_WindowsForms.Properties {
                 this["ProgrammWindowName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\programm_data.sdf")]
+        public string connectionString {
+            get {
+                return ((string)(this["connectionString"]));
+            }
+            set {
+                this["connectionString"] = value;
+            }
+        }
     }
 }

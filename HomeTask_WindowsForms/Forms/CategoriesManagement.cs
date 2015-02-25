@@ -13,6 +13,7 @@ namespace HomeTask_WindowsForms
         public CategoriesManagement()
         {
             InitializeComponent();
+            
             PrepareForm();
             
             this.Closing += WordsManagment_Closing;
@@ -20,45 +21,29 @@ namespace HomeTask_WindowsForms
             this.dataGridViewCategoriesManagement.CellClick += dataGridViewCategoriesManagement_CellClick;
         }
 
-        private void DrawTable()
-        {
-
-            bindingSourceCategoryManagement.Clear();
-
-            foreach (var category in LocalAppData.Categories)
-            {
-                int tempCount = 0;
-                foreach (var word in LocalAppData.Words)
-                    {
-                        if (word.Category == category.CategoryName)
-                            tempCount++;
-                    }
-
-                category.WordsInCategory = tempCount;  // adding in category count of words in this category
-
-                bindingSourceCategoryManagement.Add(category);
-            }
-
-            dataGridViewCategoriesManagement.ClearSelection(); // remove selection from first row
-            //throw new NotImplementedException();
-        }
         private void PrepareForm()
         {
             // asking new lists
-            LocalAppData.Categories = _categoryRepository.GetAllCategories();
-            LocalAppData.Words = _wordRepository.GetAllWords();
+            LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
+            LocalAppData.Words = _wordRepository.GetAllWords().ToList();
 
             buttonUpdateCategory.Enabled = false;
             buttonDeleteCategory.Enabled = false;
 
-            textBoxNewCategoryName.Text = "enter new category/category name name here";
+            textBoxNewCategoryName.Text = "enter new category name name here";
             textBoxNewCategoryName.ForeColor = Color.Gray;
 
             DrawTable();
         }
-        private string GetActiveCategoryNameInTable()
+        private void DrawTable()
         {
-            return dataGridViewCategoriesManagement.CurrentRow.Cells[0].Value.ToString();
+            LocalAppData.CountWordsInCategories();
+            
+            bindingSourceCategoryManagement.Clear();
+            bindingSourceCategoryManagement.DataSource = LocalAppData.Categories;
+
+            dataGridViewCategoriesManagement.ClearSelection(); // remove selection from first row
+            //throw new NotImplementedException();
         }
         void dataGridViewCategoriesManagement_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -83,33 +68,30 @@ namespace HomeTask_WindowsForms
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") && !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
+            if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
+                !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
-                _categoryRepository.AddCategory(textBoxNewCategoryName.Text.Trim());
+                _categoryRepository.AddCategory(new Category(textBoxNewCategoryName.Text) );
 
                 PrepareForm();
             }
         }
         private void buttonDeleteCategory_Click(object sender, EventArgs e)
         {
-            var deletingCategory = LocalAppData.GetCategoryWithCategoryName(GetActiveCategoryNameInTable());
+            var categoryToDelete = (Category)dataGridViewCategoriesManagement.CurrentRow.DataBoundItem;
 
-            _wordRepository.UpdateWordsCategory(deletingCategory.CategoryId, 1);
-            _categoryRepository.RemoveCategory(deletingCategory.CategoryId);  // setting free words category "no category"
+            _wordRepository.UpdateWordsCategory(categoryToDelete);   // setting free words category "no category"
+            _categoryRepository.RemoveCategory(categoryToDelete);  
             
             PrepareForm();
         }
         private void buttonUpdateCategory_Click(object sender, EventArgs e)
         {
-            if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
-                !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
-            {
-                var updatingCategory = LocalAppData.GetCategoryWithCategoryName(GetActiveCategoryNameInTable()); 
-                
-                _categoryRepository.UpdateCategory(updatingCategory.CategoryId, textBoxNewCategoryName.Text);
-                
-                PrepareForm();
-            }
+            var categoryToUpdate = (Category) dataGridViewCategoriesManagement.CurrentRow.DataBoundItem;
+
+            _categoryRepository.UpdateCategory(categoryToUpdate);
+            
+            PrepareForm();
         }
     }
 }

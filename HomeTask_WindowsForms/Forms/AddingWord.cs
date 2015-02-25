@@ -26,14 +26,8 @@ namespace HomeTask_WindowsForms
             textBoxRU2.Enabled = false;
             textBoxRU3.Enabled = false;
             
-            comboBoxCategories.Items.Clear();
+            bindingSourceComboCoxCategory.DataSource = LocalAppData.Categories;
 
-            foreach (var category in LocalAppData.Categories)
-            {
-                comboBoxCategories.Items.Add(category.CategoryName);
-            }
-
-            comboBoxCategories.Text = LocalAppData.Categories.First().CategoryName;
             //throw new NotImplementedException();
         }
         private void buttonClose_Click(object sender, EventArgs e)
@@ -64,17 +58,8 @@ namespace HomeTask_WindowsForms
             // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
-                // and this word already arn't exists.....
-                if (LocalAppData.Words.FirstOrDefault(w => w.Original.Equals(textBoxOriginal.Text)) == null)
-                {
-                    if (textBoxRU3.Enabled)
-                        _wordRepository.AddWordThreeTranslates(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId);
-                    else if (textBoxRU2.Enabled)
-                        _wordRepository.AddWordTwoTranslates( textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId );
-                    else
-                        _wordRepository.AddWord(textBoxOriginal.Text, textBoxRU1.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId);
-                }
-
+                _wordRepository.AddWord(new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text), (int)comboBoxCategories.SelectedValue);
+                
                 PrepareForm();
             }
         }

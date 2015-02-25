@@ -32,6 +32,13 @@ namespace HomeTask_WindowsForms
             this.TranslateThird = translateThird;
             this.Category = category;
         }
+        public Word(string original, string translate, string translateSecond, string translateThird)
+        {
+            this.Original = original;
+            this.Translate = translate;
+            this.TranslateSecond = translateSecond;
+            this.TranslateThird = translateThird;
+        }
         public Word GetWordWithRandomTranslate()
         {
             Random rndTranslate = new Random();

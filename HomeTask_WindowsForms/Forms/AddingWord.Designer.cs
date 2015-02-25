@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxOriginal = new System.Windows.Forms.TextBox();
@@ -42,7 +43,9 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.comboBoxCategories = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bindingSourceComboCoxCategory = new System.Windows.Forms.BindingSource(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboCoxCategory)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -152,11 +155,14 @@
             // 
             // comboBoxCategories
             // 
+            this.comboBoxCategories.DataSource = this.bindingSourceComboCoxCategory;
+            this.comboBoxCategories.DisplayMember = "CategoryName";
             this.comboBoxCategories.FormattingEnabled = true;
             this.comboBoxCategories.Location = new System.Drawing.Point(15, 55);
             this.comboBoxCategories.Name = "comboBoxCategories";
             this.comboBoxCategories.Size = new System.Drawing.Size(152, 21);
             this.comboBoxCategories.TabIndex = 13;
+            this.comboBoxCategories.ValueMember = "CategoryId";
             // 
             // panel1
             // 
@@ -169,6 +175,10 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 185);
             this.panel1.TabIndex = 14;
+            // 
+            // bindingSourceComboCoxCategory
+            // 
+            this.bindingSourceComboCoxCategory.DataSource = typeof(HomeTask_WindowsForms.Category);
             // 
             // AddingWord
             // 
@@ -191,6 +201,7 @@
             this.Text = "AddingWord";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboCoxCategory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,5 +223,6 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.ComboBox comboBoxCategories;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.BindingSource bindingSourceComboCoxCategory;
     }
 }

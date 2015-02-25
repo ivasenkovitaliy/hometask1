@@ -106,7 +106,7 @@
             this.textBoxNewCategoryName.Name = "textBoxNewCategoryName";
             this.textBoxNewCategoryName.Size = new System.Drawing.Size(236, 20);
             this.textBoxNewCategoryName.TabIndex = 4;
-            this.textBoxNewCategoryName.Text = "enter new category/category name name here";
+            this.textBoxNewCategoryName.Text = "enter new category name name here";
             // 
             // buttonDeleteCategory
             // 

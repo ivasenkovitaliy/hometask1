@@ -16,5 +16,9 @@ namespace HomeTask_WindowsForms
             this.CategoryName = categoryName;
             this.IsUsed = isUsed;
         }
+        public Category(string categoryName)
+        {
+            this.CategoryName = categoryName;
+        }
     }
 }

@@ -2,44 +2,41 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace HomeTask_WindowsForms
 {
     public partial class UpdatingWord : Form
     {
-        private readonly Word _updatingWord = new Word();
+        private readonly Word _updatingWord;
         private readonly WordRepository _wordRepository = new WordRepository();
-        public UpdatingWord(string updatingWordName)
+        
+        public UpdatingWord(Word updatingWord)
         {
             InitializeComponent();
-
-            LocalAppData.Words = _wordRepository.GetAllWords();
-            
-            _updatingWord = LocalAppData.Words.Find(r => r.Original.Equals(updatingWordName));
+            _updatingWord = updatingWord;
 
             // filling up boxes on form
-            textBoxOriginal.Text = _updatingWord.Original;
+            textBoxOriginal.Text = updatingWord.Original;
 
-            comboBoxCategories.Text = _updatingWord.Category;
-            foreach (var category in LocalAppData.Categories)
-            {
-                comboBoxCategories.Items.Add(category.CategoryName);
-            }
+            bindingSourceComboBoxCategories.DataSource = LocalAppData.Categories;
+            comboBoxCategories.Text = updatingWord.Category;
 
-            textBoxRU1.Text = _updatingWord.Translate;
+            textBoxRU1.Text = updatingWord.Translate;
 
-            if ( !_updatingWord.TranslateSecond.Equals(string.Empty))
+            if ( !updatingWord.TranslateSecond.Equals(string.Empty))
             {
                 textBoxRU2.Enabled = true;
-                textBoxRU2.Text = _updatingWord.TranslateSecond;
+                textBoxRU2.Text = updatingWord.TranslateSecond;
             }
 
-            if ( !_updatingWord.TranslateThird.Equals(string.Empty))
+            if ( !updatingWord.TranslateThird.Equals(string.Empty))
             {
                 textBoxRU3.Enabled = true;
-                textBoxRU3.Text = _updatingWord.TranslateThird;
+                textBoxRU3.Text = updatingWord.TranslateThird;
             }
         }
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
@@ -55,12 +52,12 @@ namespace HomeTask_WindowsForms
             foreach (var textBox in panel1.Controls.OfType<TextBox>())
             {
                 if (textBox.Enabled && textBox.Text.Equals(""))
-                    textBox.BackColor = color;
+                    textBox.BackColor = color; 
             }
             
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
-                _wordRepository.UpdateWord(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, LocalAppData.GetCategoryWithCategoryName(comboBoxCategories.Text).CategoryId);
+                _wordRepository.UpdateWord(_updatingWord.Id, new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text), (int) comboBoxCategories.SelectedValue);
                 
                 Close();
             }

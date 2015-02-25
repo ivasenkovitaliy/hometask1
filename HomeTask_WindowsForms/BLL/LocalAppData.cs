@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HomeTask_WindowsForms
@@ -13,31 +14,26 @@ namespace HomeTask_WindowsForms
         
         private LocalAppData()
         {
+            TimerForShowingTestWindow = new Timer();
+            TimerForShowingTestWindow.Interval = Properties.Settings.Default.TestTimerInterval;
         }
+
         public static LocalAppData GetInstance()
         {
             if (_instance == null)
             {
                 _instance = new LocalAppData();
-                
-                TimerForShowingTestWindow = new Timer();
-                TimerForShowingTestWindow.Interval = Properties.Settings.Default.TestTimerInterval;
             }
 
             return _instance;
         }
-        public static Category GetCategoryWithCategoryName(string categoryName)
-        {
-            return Categories.Find(r => r.CategoryName.Equals(categoryName));
-        }
-        public static int[] GetAnswersCount(List<Answer> answers)
+
+        public static int[] GetAnswersCount(IEnumerable<Answer> answers)
         {
             int rightAnswers = 0;
             int wrongAnswers = 0;
             int cancelledAnswers = 0;
 
-            int[] arr = new int[3];
-            
             foreach (var answer in answers)
             {
                 if (answer.AnswerValue == 0)
@@ -48,9 +44,22 @@ namespace HomeTask_WindowsForms
                     cancelledAnswers++;
             }
 
-            arr = new[] { rightAnswers, wrongAnswers, cancelledAnswers };
+            var answersArr = new[] { rightAnswers, wrongAnswers, cancelledAnswers };
 
-            return arr;
+            return answersArr;
+        }
+
+        public static void CountWordsInCategories()
+        {
+            foreach (var category in LocalAppData.Categories)
+            {
+                var wordsInCategory =
+                    from word in LocalAppData.Words
+                    where word.Category == category.CategoryName
+                    select word;
+                
+                category.WordsInCategory = wordsInCategory.ToList().Count;  // adding in category count of words in this category
+            }
         }
     }
 }

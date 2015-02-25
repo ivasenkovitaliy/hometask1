@@ -4,7 +4,7 @@ namespace HomeTask_WindowsForms
 {
     public class Answer
     {
-        public enum AnswerType
+        public enum Type
         {
             Wrong = 0,
             Right,
@@ -15,7 +15,7 @@ namespace HomeTask_WindowsForms
         public string AnswerWordName { get; set; }
         public int  AnswerValue { get; set; }
         
-        public Answer(string wordName, AnswerType answer)
+        public Answer(string wordName, Type answer)
         {
             this.AnswersDate = DateTime.Now;
             this.AnswerWordName = wordName;

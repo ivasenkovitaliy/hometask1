@@ -9,13 +9,11 @@ namespace HomeTask_WindowsForms
     public class WordRepository
 
     {
-        private const string ConnectionString = @"Data Source=|DataDirectory|\programm_data.sdf";
-        
-        public List<Word> GetAllWords()
-        {
-            List<Word> wordsList = new List<Word>();
+        private readonly string _connectionString = Properties.Settings.Default.connectionString;
 
-            using (var connection = new SqlCeConnection(ConnectionString))
+        public IEnumerable<Word> GetAllWords()
+        {
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -27,107 +25,75 @@ namespace HomeTask_WindowsForms
 
                     while (reader.Read())
                     {
-                        Word tempWord = new Word(Convert.ToInt16(reader["Id"]), reader["Original"].ToString().Trim(),
+                        var word = new Word(Convert.ToInt16(reader["Id"]), reader["Original"].ToString().Trim(),
                             reader["Translate"].ToString().Trim(), reader["TranslateSecond"].ToString().Trim(), reader["TranslateThird"].ToString().Trim(), reader["CategoryName"].ToString().Trim());
-                        wordsList.Add(tempWord);
+                        
+                        yield return word;
                     }
                 }
-
-                return wordsList;
             }
         }
-        public void AddWord(string original, string translate, int categoryId)
+        public void AddWord(Word word, int categoryId)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
-            {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO word (original, translate, category) VALUES (@original, @translate, @categoryId)";
-                    command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = original;
-                    command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = translate;
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
-                    command.ExecuteNonQuery();
-                }
-            }
-
-        }
-        public void AddWordTwoTranslates(string original, string translate, string translateSecond, int categoryId)
-        {
-            using (var connection = new SqlCeConnection(ConnectionString))
-            {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO word (original, translate, translateSecond, category) VALUES (@original, @translate, @translateSecond, @categoryId)";
-                    command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = original;
-                    command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = translate;
-                    command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = translateSecond;
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
-                    command.ExecuteNonQuery();
-                }
-            }
-
-        }
-        public void AddWordThreeTranslates(string original, string translate, string translateSecond, string translateThird, int categoryId)
-        {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "INSERT INTO word (original, translate, translateSecond, translateThird, category) VALUES (@original, @translate, @translateSecond, @translateThird, @categoryId)";
-                    command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = original;
-                    command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = translate;
-                    command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = translateSecond;
-                    command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = translateThird;
+                    command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = word.Original;
+                    command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = word.Translate;
+                    command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = word.TranslateSecond;
+                    command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = word.TranslateThird;
                     command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
                     command.ExecuteNonQuery();
                 }
             }
-            
         }
-        public void RemoveWord(int wordId)
+
+        public void RemoveWord(Word word)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "DELETE FROM word WHERE Id=(@Id)";
-                    command.Parameters.Add("Id", SqlDbType.Int).Value = wordId;
+                    command.Parameters.Add("Id", SqlDbType.Int).Value = word.Id;
                     command.ExecuteNonQuery();
                 }
             }
         }
-        public void UpdateWord(int oldWordId, string wordNameNew, string wordTranslate, string wordTranslateSecond, string wordTranslateThird, int wordCategoryId)
+
+        public void UpdateWord(int oldWordId, Word newWord, int newWordCategoryId)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE word SET original=(@original), translate=(@translate), translateSecond=(@translateSecond), translateThird=(@translateThird), category=(@category) WHERE id=(@oldWordId)";
-                    command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = wordNameNew;
-                    command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = wordTranslate;
-                    command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = wordTranslateSecond;
-                    command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = wordTranslateThird;
-                    command.Parameters.Add("category", SqlDbType.Int).Value = wordCategoryId;
+                    command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = newWord.Original;
+                    command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = newWord.Translate;
+                    command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = newWord.TranslateSecond;
+                    command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = newWord.TranslateThird;
+                    command.Parameters.Add("category", SqlDbType.Int).Value = newWordCategoryId;
                     command.Parameters.Add("oldWordId", SqlDbType.Int).Value = oldWordId;
                     command.ExecuteNonQuery();
                 }
             }
         }
-        public void UpdateWordsCategory(int oldWordCategory, int newWordCategory)
+
+        public void UpdateWordsCategory(Category deletedCategory)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE word SET category=(@newWordCategory) WHERE category=(@oldWordCategory)";
-                    command.Parameters.Add("oldWordCategory", SqlDbType.Int).Value = oldWordCategory;
-                    command.Parameters.Add("newWordCategory", SqlDbType.Int).Value = newWordCategory;
+                    command.Parameters.Add("oldWordCategory", SqlDbType.Int).Value = deletedCategory.CategoryId;
+                    command.Parameters.Add("newWordCategory", SqlDbType.Int).Value = 1;
                     command.ExecuteNonQuery();
                 }
             }

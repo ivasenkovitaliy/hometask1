@@ -12,6 +12,7 @@ namespace HomeTask_WindowsForms
         public Statistic()
         {
             InitializeComponent();
+            
             DrawStatistic();
             
             this.FormClosing += Statistic_FormClosing;
@@ -25,9 +26,7 @@ namespace HomeTask_WindowsForms
 
         private void DrawStatistic()
         {
-            List<Answer> selectedAnswerList = new List<Answer>();
-            
-            LocalAppData.Answers = _answerRepository.GetAllAnswers();
+            LocalAppData.Answers = _answerRepository.GetAllAnswers().ToList();
             
             var selectedAnswers =
                 from answer in LocalAppData.Answers
@@ -35,13 +34,8 @@ namespace HomeTask_WindowsForms
                       answer.AnswersDate.Date <= dateTimePickerToDate.Value.Date
                 select answer;
 
-            foreach (var answer in selectedAnswers)
-            {
-                selectedAnswerList.Add(answer);
-            }
-
             string[] seriesArray = { "Right answers", "Wrong answers", "Cancelled answers" };
-            var pointsArray = LocalAppData.GetAnswersCount(selectedAnswerList);
+            var pointsArray = LocalAppData.GetAnswersCount(selectedAnswers);
             
             this.chart1.Palette = ChartColorPalette.SeaGreen;
             this.chart1.Series.Clear();

@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBoxOriginal = new System.Windows.Forms.TextBox();
             this.textBoxRU1 = new System.Windows.Forms.TextBox();
             this.textBoxRU2 = new System.Windows.Forms.TextBox();
             this.textBoxRU3 = new System.Windows.Forms.TextBox();
             this.comboBoxCategories = new System.Windows.Forms.ComboBox();
+            this.bindingSourceComboBoxCategories = new System.Windows.Forms.BindingSource(this.components);
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonAddTranslate = new System.Windows.Forms.Button();
@@ -43,6 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonRemoveTranslate = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,11 +81,18 @@
             // 
             // comboBoxCategories
             // 
+            this.comboBoxCategories.DataSource = this.bindingSourceComboBoxCategories;
+            this.comboBoxCategories.DisplayMember = "CategoryName";
             this.comboBoxCategories.FormattingEnabled = true;
             this.comboBoxCategories.Location = new System.Drawing.Point(3, 32);
             this.comboBoxCategories.Name = "comboBoxCategories";
             this.comboBoxCategories.Size = new System.Drawing.Size(124, 21);
             this.comboBoxCategories.TabIndex = 4;
+            this.comboBoxCategories.ValueMember = "CategoryId";
+            // 
+            // bindingSourceComboBoxCategories
+            // 
+            this.bindingSourceComboBoxCategories.DataSource = typeof(HomeTask_WindowsForms.Category);
             // 
             // buttonUpdate
             // 
@@ -123,7 +133,7 @@
             this.panel1.Controls.Add(this.comboBoxCategories);
             this.panel1.Location = new System.Drawing.Point(119, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(154, 141);
+            this.panel1.Size = new System.Drawing.Size(135, 141);
             this.panel1.TabIndex = 8;
             // 
             // label1
@@ -201,6 +211,7 @@
             this.Name = "UpdatingWord";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UpdatingWord";
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -225,5 +236,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonRemoveTranslate;
+        private System.Windows.Forms.BindingSource bindingSourceComboBoxCategories;
     }
 }

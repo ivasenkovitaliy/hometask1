@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace HomeTask_WindowsForms
@@ -20,14 +21,10 @@ namespace HomeTask_WindowsForms
 
         private void DrawTable()
         {
-            LocalAppData.Categories = _categoryRepository.GetAllCategories();
+            LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
             
-            bindingSourceCategoryToUse.Clear();
-            foreach (var category in LocalAppData.Categories)
-            {
-                bindingSourceCategoryToUse.Add(category);
-            }
-
+            bindingSourceCategoryToUse.DataSource = LocalAppData.Categories;
+            
             dataGridViewSettings.ClearSelection(); // remove selection from first row
             //throw new NotImplementedException();
         }
@@ -50,9 +47,9 @@ namespace HomeTask_WindowsForms
 
         private void dataGridViewSettings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var changingCategory = LocalAppData.GetCategoryWithCategoryName(dataGridViewSettings.CurrentRow.Cells[0].Value.ToString());
-            
-            _categoryRepository.ChangeUsingCategory(changingCategory.CategoryId, !changingCategory.IsUsed);
+            var categoryToChangeUse = (Category) dataGridViewSettings.CurrentRow.DataBoundItem;
+
+            _categoryRepository.ChangeUsingCategory(categoryToChangeUse);
             
             DrawTable();
         }
@@ -61,8 +58,5 @@ namespace HomeTask_WindowsForms
         {
             this.Close();
         }
-
-        
-
     }
 }

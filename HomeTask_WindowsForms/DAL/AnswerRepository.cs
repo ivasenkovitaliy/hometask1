@@ -7,13 +7,11 @@ namespace HomeTask_WindowsForms
 {
     public class AnswerRepository
     {
-        private const string ConnectionString = @"Data Source=|DataDirectory|\programm_data.sdf";
+        private readonly string _connectionString = Properties.Settings.Default.connectionString;
         
-        public List<Answer> GetAllAnswers()
+        public IEnumerable<Answer> GetAllAnswers()
         {
-            List<Answer> answersList = new List<Answer>();
-
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 
                 connection.Open();
@@ -26,19 +24,17 @@ namespace HomeTask_WindowsForms
                     
                     while (reader.Read())
                     {
-                        var tempAnswer = new Answer(Convert.ToInt16(reader["Id"]),
+                        var answer = new Answer(Convert.ToInt16(reader["Id"]),
                             Convert.ToDateTime(reader["AnswerDate"]), reader["Word"].ToString(), Convert.ToInt16(reader["AnswerValue"]));
-                        
-                        answersList.Add(tempAnswer);
+
+                        yield return answer;
                     }
                 }
             }
-
-            return answersList;
         }
         public void AddAnswer(Answer answer)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = new SqlCeConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
