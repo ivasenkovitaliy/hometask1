@@ -40,6 +40,7 @@ namespace HomeTask_WindowsForms
             
             LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
             LocalAppData.Words = _wordRepository.GetAllWords().ToList();
+            LocalAppData.Answers = _answerRepository.GetAllAnswers().ToList();
             
             LocalAppData.TimerForShowingTestWindow.Tick += TimerTest_Tick;
             //throw new NotImplementedException();
@@ -98,10 +99,10 @@ namespace HomeTask_WindowsForms
                 _wordToTranslate = _testingWordsHashSet.First();  // making one word as original
 
                 //displaying radiobuttons captions as variants of right answer
-                for (int i = 0; i < 5; i++)
+                for (var i = 0; i < 5; i++)
                 {
-                    Control[] rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
-                    int thisStepRandom = _rndCounter.Next(_testingWordsHashSet.Count);
+                    var rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
+                    var thisStepRandom = _rndCounter.Next(_testingWordsHashSet.Count);
                     rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Translate);
                     _testingWordsHashSet.Remove(_testingWordsHashSet.ElementAt(thisStepRandom));
                 }
@@ -253,6 +254,7 @@ namespace HomeTask_WindowsForms
                     }
                 }
             }
+
             // to deactivate selected radiobutton
             if(checkedRadioButton!=null && checkedRadioButton.Checked)
                 checkedRadioButton.Checked = false;
@@ -282,6 +284,7 @@ namespace HomeTask_WindowsForms
 
         private void buttonAnotherTryNo_Click(object sender, EventArgs e)
         {
+            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
             CancelTest();
         }
 
@@ -311,21 +314,21 @@ namespace HomeTask_WindowsForms
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
 
-            CategoriesManagement form = new CategoriesManagement();
+            var form = new CategoriesManagement();
             form.Show();
         }
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
 
-            Settings form = new Settings();
+            var form = new Settings();
             form.Show();
         }
         private void statisticToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
 
-            Statistic form = new Statistic();
+            var form = new Statistic();
             form.Show();
         }
 
@@ -333,7 +336,7 @@ namespace HomeTask_WindowsForms
         {
             LocalAppData.TimerForShowingTestWindow.Stop();
 
-            WordsManagement form = new WordsManagement();
+            var form = new WordsManagement();
             form.Show();
         }
     }

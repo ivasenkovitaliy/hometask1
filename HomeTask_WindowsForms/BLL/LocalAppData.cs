@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HomeTask_WindowsForms
@@ -42,11 +43,11 @@ namespace HomeTask_WindowsForms
 
             foreach (var answer in answers)
             {
-                if (answer.AnswerValue == 0)
+                if (answer.AnswerValue == Answer.Type.Wrong)
                     wrongAnswers++;
-                if (answer.AnswerValue == 1)
+                if (answer.AnswerValue == Answer.Type.Right)
                     rightAnswers++;
-                if (answer.AnswerValue == 2)
+                if (answer.AnswerValue == Answer.Type.Cancelled)
                     cancelledAnswers++;
             }
 
@@ -57,14 +58,37 @@ namespace HomeTask_WindowsForms
         
         public static void CountWordsInCategories()
         {
-            foreach (var category in LocalAppData.Categories)
+            foreach (var category in Categories)
             {
                 var wordsInCategory =
-                    from word in LocalAppData.Words
+                    from word in Words
                     where word.Category == category.CategoryName
                     select word;
                 
                 category.WordsInCategory = wordsInCategory.ToList().Count;  // adding in category count of words in this category
+            }
+        }
+
+        public static void UpdateCategoryInWordsWhileDeleting(Category categoryToDelete)
+        {
+            foreach (var word in Words)
+            {
+                if (word.CategoryId==categoryToDelete.CategoryId)
+                {
+                    word.Category = Categories[0].CategoryName;
+                    word.CategoryId = Categories[0].CategoryId;
+                }
+            }
+        }
+
+        public static void UpdateCategoryInWords(Category categoryToUpdate)
+        {
+            foreach (var word in Words)
+            {
+                if (word.CategoryId == categoryToUpdate.CategoryId)
+                {
+                    word.Category = categoryToUpdate.CategoryName;
+                }
             }
         }
     }

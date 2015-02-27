@@ -7,7 +7,7 @@ namespace HomeTask_WindowsForms
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public bool IsUsed { get; private set; }
+        public bool IsUsed { get; set; }
         public int WordsInCategory { get; set; }
 
         public Category(int categoryId, string categoryName, bool isUsed)

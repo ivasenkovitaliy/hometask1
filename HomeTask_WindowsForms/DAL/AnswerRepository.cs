@@ -24,9 +24,8 @@ namespace HomeTask_WindowsForms
                     
                     while (reader.Read())
                     {
-                        var answer = new Answer(Convert.ToInt16(reader["Id_PK"]),
-                            Convert.ToDateTime(reader["Date"]), Convert.ToInt16(reader["Word_FK"]), Convert.ToInt16(reader["AnswerValue"]));
-
+                        var answer = new Answer(reader.GetInt32(0), reader.GetDateTime(1), reader.GetInt32(2), reader.GetInt32(3));
+                        
                         yield return answer;
                     }
                 }

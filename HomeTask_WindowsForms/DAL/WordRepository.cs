@@ -19,24 +19,22 @@ namespace HomeTask_WindowsForms
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
-                        "SELECT Id_PK, original, translate, translateSecond, translateThird, name FROM Word JOIN Category " +
+                        "SELECT Id_PK, original, translate, translateSecond, translateThird, Category_Id_PK, name FROM Word JOIN Category " +
                         "ON word.category_FK = category.Category_id_PK";
 
                     var reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        var word = new Word(Convert.ToInt16(reader["Id_PK"]), reader["Original"].ToString().Trim(),
-                            reader["Translate"].ToString().Trim(), reader["TranslateSecond"].ToString().Trim(), 
-                              reader["TranslateThird"].ToString().Trim(), reader["Name"].ToString().Trim());
-                        
+                        var word = new Word(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6));
+
                         yield return word;
                     }
                 }
             }
         }
 
-        public void AddWord(Word word, int categoryId)
+        public int AddWord(Word word, int categoryId)
         {
             using (var connection = new SqlCeConnection(_connectionString))
             {
@@ -51,6 +49,13 @@ namespace HomeTask_WindowsForms
                     command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = word.TranslateThird;
                     command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
                     command.ExecuteNonQuery();
+
+                    command.Parameters.Clear();
+                    command.CommandText = "SELECT @@IDENTITY";
+
+                    var newId = Convert.ToInt32(command.ExecuteScalar());
+
+                    return newId;
                 }
             }
         }

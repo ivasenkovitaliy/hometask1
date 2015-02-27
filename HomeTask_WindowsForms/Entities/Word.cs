@@ -7,6 +7,7 @@ namespace HomeTask_WindowsForms
     public class Word
     {
         public int Id { get; set; }
+        public int CategoryId { get; set; }
         public string Translate { get; set; }
         public string TranslateSecond { get; set; }
         public string TranslateThird { get; set; }
@@ -24,13 +25,14 @@ namespace HomeTask_WindowsForms
             this.Translate = translate;
             this.Category = category;
         }
-        public Word(int id, string original, string translate, string translateSecond, string translateThird, string category)
+        public Word(int id, string original, string translate, string translateSecond, string translateThird, int categoryId, string category)
         {
             this.Id = id;
             this.Original = original;
             this.Translate = translate;
             this.TranslateSecond = translateSecond;
             this.TranslateThird = translateThird;
+            this.CategoryId = categoryId;
             this.Category = category;
         }
         public Word(string original, string translate, string translateSecond, string translateThird)
@@ -42,7 +44,7 @@ namespace HomeTask_WindowsForms
         }
         public Word GetWordWithRandomTranslate()
         {
-            Random rndTranslate = new Random();
+            var rndTranslate = new Random();
             var translatesList = new List<string>();
 
             translatesList.Add(this.Translate);

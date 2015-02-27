@@ -25,8 +25,6 @@ namespace HomeTask_WindowsForms
 
         private void DrawStatistic()
         {
-            LocalAppData.Answers = _answerRepository.GetAllAnswers().ToList();
-            
             var selectedAnswers =
                 from answer in LocalAppData.Answers
                 where answer.AnswersDate.Date >= dateTimePickerFromDate.Value.Date &&
@@ -40,9 +38,9 @@ namespace HomeTask_WindowsForms
             this.chart1.Series.Clear();
             chart1.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
 
-            for (int i = 0; i < seriesArray.Length; i++)
+            for (var i = 0; i < seriesArray.Length; i++)
             {
-                Series series = this.chart1.Series.Add(seriesArray[i]);
+                var series = this.chart1.Series.Add(seriesArray[i]);
                 series.Points.Add(pointsArray[i]);
 
                 this.chart1.Series[i].IsValueShownAsLabel = true;

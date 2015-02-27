@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SqlServerCe;
 
 namespace HomeTask_WindowsForms
@@ -23,16 +24,15 @@ namespace HomeTask_WindowsForms
                     
                     while (reader.Read())
                     {
-                        var category = new Category(Convert.ToInt16(reader["Category_Id_PK"]),
-                            reader["Name"].ToString().Trim(), Convert.ToBoolean(reader["IsUsed"]));
-
+                        var category = new Category(reader.GetInt32(0), reader.GetString(1), reader.GetBoolean(2));
+                        
                         yield return category;
                     }
                 }
             }
         }
-
-        public void AddCategory(Category category)
+        
+        public int AddCategory(Category category)
         {
             using (var connection = new SqlCeConnection(_connectionString))
             {
@@ -43,6 +43,13 @@ namespace HomeTask_WindowsForms
                     command.Parameters.Add("categoryName", SqlDbType.NVarChar, 40).Value = category.CategoryName;
                     command.Parameters.Add("isUsed", SqlDbType.Bit).Value = category.IsUsed;
                     command.ExecuteNonQuery();
+
+                    command.Parameters.Clear();
+                    command.CommandText = "SELECT @@IDENTITY";
+
+                    var newId = Convert.ToInt32(command.ExecuteScalar());
+                    
+                    return newId;
                 }
             }
         }

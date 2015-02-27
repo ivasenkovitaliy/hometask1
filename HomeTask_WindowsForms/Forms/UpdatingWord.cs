@@ -58,8 +58,13 @@ namespace HomeTask_WindowsForms
             
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
+                var indexOfWordsList = LocalAppData.Words.IndexOf(_updatingWord);
+
                 _wordRepository.UpdateWord(_updatingWord.Id, new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text), (int) comboBoxCategories.SelectedValue);
-                
+
+                LocalAppData.Words.RemoveAt(indexOfWordsList);
+                LocalAppData.Words.Insert(indexOfWordsList, new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue, comboBoxCategories.Text));
+
                 Close();
             }
         }

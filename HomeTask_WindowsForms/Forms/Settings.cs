@@ -14,15 +14,14 @@ namespace HomeTask_WindowsForms
             
             domainUpDownTimeInterval.Text = ( (LocalAppData.TimerForShowingTestWindow.Interval)/ 60000).ToString();
 
-            DrawTable();
+            PrepareForm();
             
             this.Closing += Settings_Closing;
         }
 
-        private void DrawTable()
+        private void PrepareForm()
         {
-            LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
-            
+            bindingSourceCategoryToUse.ResetBindings(true);
             bindingSourceCategoryToUse.DataSource = LocalAppData.Categories;
             
             dataGridViewSettings.ClearSelection(); // remove selection from first row
@@ -50,8 +49,12 @@ namespace HomeTask_WindowsForms
             var categoryToChangeUse = (Category) dataGridViewSettings.CurrentRow.DataBoundItem;
 
             _categoryRepository.ChangeUsingCategory(categoryToChangeUse);
-            
-            DrawTable();
+
+            var indexOfCategoriesList = LocalAppData.Categories.IndexOf(categoryToChangeUse);
+            LocalAppData.Categories[indexOfCategoriesList].IsUsed =
+                !LocalAppData.Categories[indexOfCategoriesList].IsUsed;
+
+            PrepareForm();
         }
 
         private void buttonCancel_PanelSettings_Click(object sender, EventArgs e)

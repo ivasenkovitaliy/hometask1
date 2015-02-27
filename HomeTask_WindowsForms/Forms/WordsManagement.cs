@@ -37,10 +37,6 @@ namespace HomeTask_WindowsForms
 
         private void PrepareForm()
         {
-            // asking new lists
-            LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
-            LocalAppData.Words = _wordRepository.GetAllWords().ToList();
-            
             //preparing combobox of categories
             bindingSourceComboBoxCategories.DataSource = LocalAppData.Categories;
 
@@ -55,6 +51,7 @@ namespace HomeTask_WindowsForms
 
         private void DrawTable(IEnumerable<Word> wordsToFillTable)
         {
+            bindingSourceWordsManagement.ResetBindings(true);
             bindingSourceWordsManagement.DataSource = wordsToFillTable;
             //throw new NotImplementedException();
         }
@@ -108,23 +105,31 @@ namespace HomeTask_WindowsForms
 
         private void buttonAddWord_Click(object sender, EventArgs e)
         {
-            AddingWord form = new AddingWord();
-
+            var form = new AddingWord();
             form.Show();
         }
 
         private void buttonDeleteWord_Click(object sender, EventArgs e)
         {
-            _wordRepository.RemoveWord( (Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem);
-            
+            if (dataGridViewWordsManagement.CurrentRow != null)
+            {
+                var deletingWord = (Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem;
+
+                _wordRepository.RemoveWord(deletingWord);
+                LocalAppData.Words.Remove(deletingWord);
+            }
+                
             PrepareForm();
         }
 
         private void buttonEditWord_Click(object sender, EventArgs e)
         {
-            UpdatingWord form = new UpdatingWord((Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem);
-
-            form.Show();
+            if (dataGridViewWordsManagement.CurrentRow != null)
+            {
+                var form = new UpdatingWord((Word)dataGridViewWordsManagement.CurrentRow.DataBoundItem);
+                form.Show();
+            }
+                
         }
     }
 }
