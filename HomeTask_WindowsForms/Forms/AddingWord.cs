@@ -62,7 +62,7 @@ namespace HomeTask_WindowsForms
             // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
-                var newWordId = _wordRepository.AddWord(new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text), (int)comboBoxCategories.SelectedValue);
+                var newWordId = _wordRepository.AddWord(new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue));
                 LocalAppData.Words.Add(new Word(newWordId, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue, comboBoxCategories.Text));
 
                 PrepareForm();

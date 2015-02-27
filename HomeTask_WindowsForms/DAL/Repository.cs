@@ -66,11 +66,11 @@ namespace HomeTask_WindowsForms.DAL
 
                     // adding five words
                     var wordRepository = new WordRepository();
-                    wordRepository.AddWord(new Word("river", "река", string.Empty, string.Empty), newCategoryId);
-                    wordRepository.AddWord(new Word("job", "работа", string.Empty, string.Empty), newCategoryId);
-                    wordRepository.AddWord(new Word("class", "класс", string.Empty, string.Empty), newCategoryId);
-                    wordRepository.AddWord(new Word("set", "набор", string.Empty, string.Empty), newCategoryId);
-                    wordRepository.AddWord(new Word("moon", "луна", string.Empty, string.Empty), newCategoryId);
+                    wordRepository.AddWord(new Word("river", "река", string.Empty, string.Empty, newCategoryId));
+                    wordRepository.AddWord(new Word("job", "работа", string.Empty, string.Empty, newCategoryId));
+                    wordRepository.AddWord(new Word("class", "класс", string.Empty, string.Empty, newCategoryId));
+                    wordRepository.AddWord(new Word("set", "набор", string.Empty, string.Empty, newCategoryId));
+                    wordRepository.AddWord(new Word("moon", "луна", string.Empty, string.Empty, newCategoryId));
                 }
             }
         }

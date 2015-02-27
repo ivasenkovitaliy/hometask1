@@ -34,7 +34,7 @@ namespace HomeTask_WindowsForms
             }
         }
 
-        public int AddWord(Word word, int categoryId)
+        public int AddWord(Word word)
         {
             using (var connection = new SqlCeConnection(_connectionString))
             {
@@ -47,7 +47,7 @@ namespace HomeTask_WindowsForms
                     command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = word.Translate;
                     command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = word.TranslateSecond;
                     command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = word.TranslateThird;
-                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = categoryId;
+                    command.Parameters.Add("categoryId", SqlDbType.Int).Value = word.CategoryId;
                     command.ExecuteNonQuery();
 
                     command.Parameters.Clear();
