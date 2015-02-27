@@ -18,7 +18,7 @@ namespace HomeTask_WindowsForms
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
-                        "SELECT Category_Id_PK, Name, IsUsed FROM Category";
+                        "SELECT Id, Name, IsUsed FROM Category";
 
                     var reader = command.ExecuteReader();
                     
@@ -61,7 +61,7 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "DELETE FROM Category WHERE Category_Id_PK = @categoryId";
+                    command.CommandText = "DELETE FROM Category WHERE Id = @categoryId";
                     command.Parameters.Add("categoryId", SqlDbType.Int).Value = category.CategoryId;
                     command.ExecuteNonQuery();
                 }
@@ -75,7 +75,7 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE Category SET Name = @categoryName WHERE category_Id_PK = @categoryId";
+                    command.CommandText = "UPDATE Category SET Name = @categoryName WHERE Id = @categoryId";
                     command.Parameters.Add("categoryName", SqlDbType.NVarChar, 40).Value = category.CategoryName;
                     command.Parameters.Add("categoryId", SqlDbType.Int).Value = category.CategoryId;
                     command.ExecuteNonQuery();
@@ -90,8 +90,8 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE Category SET IsUsed = @IsUsed WHERE category_Id_PK = @categoryId";
-                    command.Parameters.Add("IsUsed", SqlDbType.Bit).Value = !category.IsUsed;
+                    command.CommandText = "UPDATE Category SET IsUsed = @isUsed WHERE Id = @categoryId";
+                    command.Parameters.Add("isUsed", SqlDbType.Bit).Value = !category.IsUsed;
                     command.Parameters.Add("categoryId", SqlDbType.Int).Value = category.CategoryId;
                     command.ExecuteNonQuery();
                 }

@@ -18,7 +18,7 @@ namespace HomeTask_WindowsForms
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
-                        "SELECT Id_PK, Date, Word_FK, AnswerValue FROM Answer";
+                        "SELECT Id, Date, Word_id, AnswerValue FROM Answer";
                     
                     var reader = command.ExecuteReader();
                     
@@ -38,9 +38,9 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Answer (Date, Word_FK, AnswerValue) VALUES (@date, @word_FK, @answerValue)";
+                    command.CommandText = "INSERT INTO Answer (Date, Word_Id, AnswerValue) VALUES (@date, @word_Id, @answerValue)";
                     command.Parameters.Add("date", SqlDbType.DateTime).Value = answer.AnswersDate;
-                    command.Parameters.Add("word_FK", SqlDbType.Int).Value = answer.WordId;
+                    command.Parameters.Add("word_Id", SqlDbType.Int).Value = answer.WordId;
                     command.Parameters.Add("answerValue", SqlDbType.Int).Value = answer.AnswerValue;
                     command.ExecuteNonQuery();
                 }

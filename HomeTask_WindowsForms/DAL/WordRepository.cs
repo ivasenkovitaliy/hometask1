@@ -19,8 +19,8 @@ namespace HomeTask_WindowsForms
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
-                        "SELECT Id_PK, original, translate, translateSecond, translateThird, Category_Id_PK, name FROM Word JOIN Category " +
-                        "ON word.category_FK = category.Category_id_PK";
+                        "SELECT word.Id, original, translate, translateSecond, translateThird, category.Id, name FROM Word JOIN Category " +
+                        "ON word.category_Id = category.id";
 
                     var reader = command.ExecuteReader();
 
@@ -41,7 +41,7 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO word (original, translate, translateSecond, translateThird, category_FK)" +
+                    command.CommandText = "INSERT INTO word (original, translate, translateSecond, translateThird, category_Id)" +
                                           " VALUES (@original, @translate, @translateSecond, @translateThird, @categoryId)";
                     command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = word.Original;
                     command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = word.Translate;
@@ -67,14 +67,14 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "DELETE FROM word WHERE Id_PK = @Id";
+                    command.CommandText = "DELETE FROM word WHERE Id = @Id";
                     command.Parameters.Add("Id", SqlDbType.Int).Value = word.Id;
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        public void UpdateWord(int oldWordId, Word newWord, int newWordCategoryId)
+        public void UpdateWord(Word newWord)
         {
             using (var connection = new SqlCeConnection(_connectionString))
             {
@@ -83,13 +83,13 @@ namespace HomeTask_WindowsForms
                 {
                     command.CommandText = "UPDATE word " +
                                           "SET original = @original, translate = @translate, translateSecond = @translateSecond," +
-                                          " translateThird= @translateThird, category_FK = @category WHERE id_PK = @oldWordId";
+                                          " translateThird= @translateThird, category_Id = @category_id WHERE id = @oldWordId";
                     command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = newWord.Original;
                     command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = newWord.Translate;
                     command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = newWord.TranslateSecond;
                     command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = newWord.TranslateThird;
-                    command.Parameters.Add("category", SqlDbType.Int).Value = newWordCategoryId;
-                    command.Parameters.Add("oldWordId", SqlDbType.Int).Value = oldWordId;
+                    command.Parameters.Add("category_id", SqlDbType.Int).Value = newWord.CategoryId;
+                    command.Parameters.Add("oldWordId", SqlDbType.Int).Value = newWord.Id;
                     command.ExecuteNonQuery();
                 }
             }
@@ -102,7 +102,7 @@ namespace HomeTask_WindowsForms
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE word SET category_FK = @newWordCategory WHERE category_FK = @oldWordCategory";
+                    command.CommandText = "UPDATE word SET category_Id = @newWordCategory WHERE category_Id = @oldWordCategory";
                     command.Parameters.Add("oldWordCategory", SqlDbType.Int).Value = deletedCategory.CategoryId;
                     command.Parameters.Add("newWordCategory", SqlDbType.Int).Value = 1;
                     command.ExecuteNonQuery();

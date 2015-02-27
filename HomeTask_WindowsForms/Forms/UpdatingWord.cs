@@ -60,7 +60,7 @@ namespace HomeTask_WindowsForms
             {
                 var indexOfWordsList = LocalAppData.Words.IndexOf(_updatingWord);
 
-                _wordRepository.UpdateWord(_updatingWord.Id, new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text), (int) comboBoxCategories.SelectedValue);
+                _wordRepository.UpdateWord(new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text));
 
                 LocalAppData.Words.RemoveAt(indexOfWordsList);
                 LocalAppData.Words.Insert(indexOfWordsList, new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue, comboBoxCategories.Text));

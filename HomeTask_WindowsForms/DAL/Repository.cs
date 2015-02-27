@@ -16,7 +16,7 @@ namespace HomeTask_WindowsForms.DAL
 
             if (!File.Exists(dbFileName))
             {
-                SqlCeEngine engine = new SqlCeEngine(ConnectionString);
+                var engine = new SqlCeEngine(ConnectionString);
                 engine.CreateDatabase();
 
                 using (var connection = new SqlCeConnection(ConnectionString))
@@ -26,7 +26,7 @@ namespace HomeTask_WindowsForms.DAL
                     using (var query = connection.CreateCommand())
                     {
                         query.CommandText = @"CREATE TABLE Category (
-                            Category_Id_PK INT IDENTITY(1,1) PRIMARY KEY, 
+                            Id INT IDENTITY(1,1) PRIMARY KEY, 
                             Name NVARCHAR(40) NOT NULL,
                             IsUsed BIT NOT NULL
                             );";
@@ -36,13 +36,13 @@ namespace HomeTask_WindowsForms.DAL
                     using (var query = connection.CreateCommand())
                     {
                         query.CommandText = @"CREATE TABLE Word (
-                            Id_PK INT IDENTITY(1,1) PRIMARY KEY,
+                            Id INT IDENTITY(1,1) PRIMARY KEY,
                             Original NVARCHAR(40) NOT NULL,
                             Translate NVARCHAR(40) NOT NULL,
                             TranslateSecond NVARCHAR(40),
                             TranslateThird NVARCHAR(40),
-                            Category_FK INT NOT NULL,
-                            FOREIGN KEY (Category_FK) REFERENCES Category (Category_Id_PK)
+                            Category_Id INT NOT NULL,
+                            FOREIGN KEY (Category_Id) REFERENCES Category (Id)
                             );";
 
                         query.ExecuteNonQuery();
@@ -51,26 +51,26 @@ namespace HomeTask_WindowsForms.DAL
                     using (var query = connection.CreateCommand())
                     {
                         query.CommandText = @"CREATE TABLE Answer (
-                            Id_PK INT IDENTITY(1,1) PRIMARY KEY,
+                            Id INT IDENTITY(1,1) PRIMARY KEY,
                             Date DATETIME NOT NULL,
-                            Word_FK INT NOT NULL,
+                            Word_Id INT NOT NULL,
                             AnswerValue INT NOT NULL,
-                            FOREIGN KEY (Word_FK) REFERENCES Word (Id_PK)
+                            FOREIGN KEY (Word_Id) REFERENCES Word (Id)
                             );";
                         query.ExecuteNonQuery();
                     }
 
                     // adding one category
                     var categoryRepository = new CategoryRepository();
-                    categoryRepository.AddCategory(new Category("no category", true));
+                    var newCategoryId = categoryRepository.AddCategory(new Category("no category", true));
 
                     // adding five words
                     var wordRepository = new WordRepository();
-                    wordRepository.AddWord(new Word("river", "река", string.Empty, string.Empty), 1);
-                    wordRepository.AddWord(new Word("job", "работа", string.Empty, string.Empty), 1);
-                    wordRepository.AddWord(new Word("class", "класс", string.Empty, string.Empty), 1);
-                    wordRepository.AddWord(new Word("set", "набор", string.Empty, string.Empty), 1);
-                    wordRepository.AddWord(new Word("moon", "луна", string.Empty, string.Empty), 1);
+                    wordRepository.AddWord(new Word("river", "река", string.Empty, string.Empty), newCategoryId);
+                    wordRepository.AddWord(new Word("job", "работа", string.Empty, string.Empty), newCategoryId);
+                    wordRepository.AddWord(new Word("class", "класс", string.Empty, string.Empty), newCategoryId);
+                    wordRepository.AddWord(new Word("set", "набор", string.Empty, string.Empty), newCategoryId);
+                    wordRepository.AddWord(new Word("moon", "луна", string.Empty, string.Empty), newCategoryId);
                 }
             }
         }
