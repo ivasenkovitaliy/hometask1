@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HomeTask_WindowsForms
+﻿namespace HomeTask_WindowsForms
 {
     public class Category
     {
@@ -16,15 +13,9 @@ namespace HomeTask_WindowsForms
             this.CategoryName = categoryName;
             this.IsUsed = isUsed;
         }
-        public Category(string categoryName)
-        {
-            this.CategoryName = categoryName;
-        }
 
-        public Category(string categoryName, bool isUsed)
-        {
-            this.CategoryName = categoryName;
-            this.IsUsed = isUsed;
-        }
+        public Category(string categoryName) : this(0, categoryName, false) { }
+
+        public Category(string categoryName, bool isUsed) : this(0, categoryName, isUsed) { }
     }
 }

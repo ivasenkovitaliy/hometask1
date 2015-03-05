@@ -17,14 +17,7 @@ namespace HomeTask_WindowsForms
         public Word()
         {
         }
-        
-        public Word(int id, string original, string translate, string category)
-        {
-            this.Id = id;
-            this.Original = original;
-            this.Translate = translate;
-            this.Category = category;
-        }
+      
         public Word(int id, string original, string translate, string translateSecond, string translateThird, int categoryId, string category)
         {
             this.Id = id;
@@ -36,36 +29,23 @@ namespace HomeTask_WindowsForms
             this.Category = category;
         }
 
-        public Word(string original, string translate, string translateSecond, string translateThird, int categoryId)
-        {
-            this.Original = original;
-            this.Translate = translate;
-            this.TranslateSecond = translateSecond;
-            this.TranslateThird = translateThird;
-            this.CategoryId = categoryId;
-        }
+        public Word(string original, string translate, string translateSecond, string translateThird, int categoryId) : this(0, original, translate, translateSecond, translateThird, categoryId, string.Empty) { }
 
-        public Word(string original, string translate, string translateSecond, string translateThird)
+        public string GetRandomTranslate
         {
-            this.Original = original;
-            this.Translate = translate;
-            this.TranslateSecond = translateSecond;
-            this.TranslateThird = translateThird;
-        }
-        public Word GetWordWithRandomTranslate()
-        {
-            var rndTranslate = new Random();
-            var translatesList = new List<string>();
+            get {
+                var rndTranslate = new Random();
+                var translatesList = new List<string>();
 
-            translatesList.Add(this.Translate);
-            if ( !this.TranslateSecond.Equals(string.Empty) )
-                translatesList.Add(this.TranslateSecond);
-            else if ( !this.TranslateThird.Equals(string.Empty) )
-                translatesList.Add(this.TranslateSecond);
-            
-            this.Translate = translatesList.ElementAt(rndTranslate.Next(0, translatesList.Count));
-            
-            return this;
+                translatesList.Add(this.Translate);
+
+                if (!string.IsNullOrEmpty(TranslateSecond))
+                    translatesList.Add(this.TranslateSecond);
+                else if (!string.IsNullOrEmpty(TranslateThird))
+                    translatesList.Add(this.TranslateSecond);
+
+                return translatesList.ElementAt(rndTranslate.Next(0, translatesList.Count));
+            }
         }
     }
 }

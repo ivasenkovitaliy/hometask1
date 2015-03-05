@@ -1,18 +1,16 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.SqlServerCe;
 
 namespace HomeTask_WindowsForms
 {
-    public class CategoryRepository
+    public class CategoryRepository : RepositoryBase
     {
-        private readonly string _connectionString = Properties.Settings.Default.connectionString;
-        
         public IEnumerable<Category> GetAllCategories()
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -34,7 +32,7 @@ namespace HomeTask_WindowsForms
         
         public int AddCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -56,7 +54,7 @@ namespace HomeTask_WindowsForms
 
         public void RemoveCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -70,7 +68,7 @@ namespace HomeTask_WindowsForms
 
         public void UpdateCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -85,7 +83,7 @@ namespace HomeTask_WindowsForms
 
         public void ChangeUsingCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())

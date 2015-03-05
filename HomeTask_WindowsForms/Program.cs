@@ -76,7 +76,8 @@ namespace HomeTask_WindowsForms
             
             if (tryCreateNewApp)
             {
-                Repository.CreateDb();
+                var baseiInitializer = new DataBaseInitializer();
+                baseiInitializer.CreateDb();
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

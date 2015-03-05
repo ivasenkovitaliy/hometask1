@@ -25,13 +25,11 @@ namespace HomeTask_WindowsForms
             bindingSourceCategoryToUse.DataSource = LocalAppData.Categories;
             
             dataGridViewSettings.ClearSelection(); // remove selection from first row
-            //throw new NotImplementedException();
         }
 
         void Settings_Closing(object sender, CancelEventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Start();
-            //throw new NotImplementedException();
         }
 
         private void buttonSubmit_PanelSettings_Click(object sender, EventArgs e)

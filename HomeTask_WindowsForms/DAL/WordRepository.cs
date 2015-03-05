@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
@@ -6,14 +7,12 @@ using System.Data.SqlServerCe;
 
 namespace HomeTask_WindowsForms
 {
-    public class WordRepository
+    public class WordRepository : RepositoryBase
 
     {
-        private readonly string _connectionString = Properties.Settings.Default.connectionString;
-
         public IEnumerable<Word> GetAllWords()
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -36,7 +35,7 @@ namespace HomeTask_WindowsForms
 
         public int AddWord(Word word)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -62,7 +61,7 @@ namespace HomeTask_WindowsForms
 
         public void RemoveWord(Word word)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -76,7 +75,7 @@ namespace HomeTask_WindowsForms
 
         public void UpdateWord(Word newWord)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
@@ -97,7 +96,7 @@ namespace HomeTask_WindowsForms
 
         public void UpdateWordsCategory(Category deletedCategory)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ExceptionServices;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HomeTask_WindowsForms
@@ -9,11 +8,12 @@ namespace HomeTask_WindowsForms
     public sealed class LocalAppData
     {
         private static volatile LocalAppData _instance;
-        private static object syncRoot = new Object();
+        private static readonly object SyncRoot = new Object();
         public static Timer TimerForShowingTestWindow { get; set; }
         public static List<Category> Categories { get; set; }
         public static List<Word> Words { get; set; }
         public static List<Answer> Answers { get; set; }
+        
         
         private LocalAppData()
         {
@@ -25,7 +25,7 @@ namespace HomeTask_WindowsForms
         {
             if (_instance == null)
                 {
-                    lock (syncRoot)
+                    lock (SyncRoot)
                     {
                         if (_instance == null)
                             _instance = new LocalAppData();
@@ -34,27 +34,6 @@ namespace HomeTask_WindowsForms
 
                 return _instance;
         }
-
-        public static int[] GetAnswersCount(IEnumerable<Answer> answers)
-        {
-            int rightAnswers = 0;
-            int wrongAnswers = 0;
-            int cancelledAnswers = 0;
-
-            foreach (var answer in answers)
-            {
-                if (answer.AnswerValue == Answer.Type.Wrong)
-                    wrongAnswers++;
-                if (answer.AnswerValue == Answer.Type.Right)
-                    rightAnswers++;
-                if (answer.AnswerValue == Answer.Type.Cancelled)
-                    cancelledAnswers++;
-            }
-
-            var answersArr = new[] { rightAnswers, wrongAnswers, cancelledAnswers };
-
-            return answersArr;
-        }
         
         public static void CountWordsInCategories()
         {
@@ -62,7 +41,7 @@ namespace HomeTask_WindowsForms
             {
                 var wordsInCategory =
                     from word in Words
-                    where word.Category == category.CategoryName
+                    where word.CategoryId == category.CategoryId
                     select word;
                 
                 category.WordsInCategory = wordsInCategory.ToList().Count;  // adding in category count of words in this category

@@ -21,9 +21,8 @@ namespace HomeTask_WindowsForms
             this.AnswersDate = DateTime.Now;
             this.WordId = wordId;
             this.AnswerValue = answer;
-
-            LocalAppData.Answers.Add(this);
         }
+
         public Answer(int id, DateTime date, int wordId, int answerValue)
         {
             this.AnswerId = id;

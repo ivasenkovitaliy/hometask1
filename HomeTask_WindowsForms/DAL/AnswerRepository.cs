@@ -1,17 +1,15 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
 
 namespace HomeTask_WindowsForms
 {
-    public class AnswerRepository
+    public class AnswerRepository : RepositoryBase
     {
-        private readonly string _connectionString = Properties.Settings.Default.connectionString;
-        
         public IEnumerable<Answer> GetAllAnswers()
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 
                 connection.Open();
@@ -31,9 +29,10 @@ namespace HomeTask_WindowsForms
                 }
             }
         }
+
         public void AddAnswer(Answer answer)
         {
-            using (var connection = new SqlCeConnection(_connectionString))
+            using (var connection = new SqlCeConnection(ConnectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())

@@ -1,15 +1,12 @@
-﻿using System.Data;
-using System.Data.SqlServerCe;
+﻿using System.Data.SqlServerCe;
 using System.IO;
 using System.Reflection;
 
 namespace HomeTask_WindowsForms.DAL
 {
-    public static class Repository
+    public class DataBaseInitializer : RepositoryBase
     {
-        private static readonly string ConnectionString = Properties.Settings.Default.connectionString;
-        
-        public static void CreateDb()
+        public void CreateDb()
         {
             var directoryName = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var dbFileName = Path.Combine(directoryName, "programm_data.sdf");

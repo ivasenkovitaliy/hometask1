@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using HomeTask_WindowsForms.Infrastructure;
 
 namespace HomeTask_WindowsForms
 {
@@ -13,6 +14,7 @@ namespace HomeTask_WindowsForms
         private readonly WordRepository _wordRepository = new WordRepository();
         private readonly CategoryRepository _categoryRepository = new CategoryRepository();
         private readonly AnswerRepository _answerRepository =new AnswerRepository();
+        private AnswerService _answerService = new AnswerService();
 
         private HashSet<Word> _testingWordsHashSet;
         private Word _wordToTranslate;
@@ -43,7 +45,6 @@ namespace HomeTask_WindowsForms
             LocalAppData.Answers = _answerRepository.GetAllAnswers().ToList();
             
             LocalAppData.TimerForShowingTestWindow.Tick += TimerTest_Tick;
-            //throw new NotImplementedException();
         }
         
         private void StartTesting()
@@ -67,7 +68,7 @@ namespace HomeTask_WindowsForms
             _wrongAnswers = 0;
 
             // making list of words using nedded categories
-            List<Word> wordsWithCategories = new List<Word>();
+            var wordsWithCategories = new List<Word>();
             
             // put words with selected categories
             foreach (var category in LocalAppData.Categories)
@@ -75,8 +76,9 @@ namespace HomeTask_WindowsForms
                 if (category.IsUsed)
                     foreach (var word in LocalAppData.Words)
                     {
-                        if(word.Category==category.CategoryName)
-                            wordsWithCategories.Add(word.GetWordWithRandomTranslate());
+                        if(word.CategoryId == category.CategoryId)
+                            wordsWithCategories.Add(word);
+                        word.Translate = word.GetRandomTranslate;
                     }
             }
 
@@ -132,7 +134,6 @@ namespace HomeTask_WindowsForms
                 WelcomeTextLabel.Visible = true;
                 WelcomeTextLabel.Text = "Programm is already running!";
             }
-            //throw new NotImplementedException();
         }
         
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -142,7 +143,7 @@ namespace HomeTask_WindowsForms
                 e.Cancel = true;
 
                 if (this.PanelTest.Visible)
-                    _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
+                    _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
 
                 this.PanelWelcome.Visible = false;
                 this.PanelTest.Visible = false;
@@ -157,7 +158,6 @@ namespace HomeTask_WindowsForms
                 
                 Hide();
             }
-            //throw new NotImplementedException();
         }
 
         void TimerToShowWelcomePanel_Tick(object sender, EventArgs e)
@@ -165,7 +165,6 @@ namespace HomeTask_WindowsForms
             this.PanelWelcome.Visible = true;
 
             _timerForShowingWelcomePanel.Stop();
-            //throw new NotImplementedException();
         }
 
         private void FirstLayoutNoButton_Click(object sender, EventArgs e)
@@ -221,9 +220,9 @@ namespace HomeTask_WindowsForms
                 labelResult.Visible = true;
                 labelResult.Text = "Correct!";
                 
-                // adding "right" answer to statistic 
-                _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Right));
-
+                // adding "right" answer to statistic
+                _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Right));
+                
                 _timerAfterAnswers.Start();
             }
             
@@ -248,8 +247,8 @@ namespace HomeTask_WindowsForms
                         labelResult.Text = "sorry, you haven't any try";
 
                         //adding "wrong" to statistic
-                        _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
-
+                        _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
+                        
                         _timerAfterAnswers.Start();
                     }
                 }
@@ -269,7 +268,6 @@ namespace HomeTask_WindowsForms
             this.buttonCancel.Visible = true;
 
             CancelTest();
-            //throw new NotImplementedException();
         }
 
         private void buttonAnotherTryYes_Click(object sender, EventArgs e)
@@ -284,13 +282,15 @@ namespace HomeTask_WindowsForms
 
         private void buttonAnotherTryNo_Click(object sender, EventArgs e)
         {
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
+            _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
+            
             CancelTest();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
+            _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
+            
             CancelTest();
         }
 
@@ -305,8 +305,8 @@ namespace HomeTask_WindowsForms
             labelResult.Text = "sorry, you don't khow....";
             
             // adding "wrong" to statistic
-            _answerRepository.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
-
+            _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
+            
             _timerAfterAnswers.Start();
         }
 

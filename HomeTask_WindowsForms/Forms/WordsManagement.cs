@@ -26,13 +26,11 @@ namespace HomeTask_WindowsForms
         void dataGridViewWordsManagement_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             this.dataGridViewWordsManagement.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
-            //throw new NotImplementedException();
         }
 
         void WordsManagement_Activated(object sender, EventArgs e)
         {
             PrepareForm();
-            //throw new NotImplementedException();
         }
 
         private void PrepareForm()
@@ -53,27 +51,23 @@ namespace HomeTask_WindowsForms
         {
             bindingSourceWordsManagement.ResetBindings(true);
             bindingSourceWordsManagement.DataSource = wordsToFillTable;
-            //throw new NotImplementedException();
         }
 
         void dataGridViewWordsManagement_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             buttonDeleteWord.Enabled = true;
             buttonEditWord.Enabled = true;
-            //throw new NotImplementedException();
         }
 
         void textBoxWordForSearching_GotFocus(object sender, EventArgs e)
         {
             textBoxWordForSearching.Text = "";
             textBoxWordForSearching.ForeColor = Color.Black;
-            //throw new NotImplementedException();
         }
         
         void WordsManagement_FormClosing(object sender, FormClosingEventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Start();
-            //throw new NotImplementedException();
         }
 
         private void buttonFormClose_Click(object sender, EventArgs e)
@@ -129,7 +123,6 @@ namespace HomeTask_WindowsForms
                 var form = new UpdatingWord((Word)dataGridViewWordsManagement.CurrentRow.DataBoundItem);
                 form.Show();
             }
-                
         }
     }
 }

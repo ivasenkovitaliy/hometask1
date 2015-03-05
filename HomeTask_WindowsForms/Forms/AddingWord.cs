@@ -27,8 +27,6 @@ namespace HomeTask_WindowsForms
             textBoxRU3.Enabled = false;
             
             bindingSourceComboCoxCategory.DataSource = LocalAppData.Categories;
-
-            //throw new NotImplementedException();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

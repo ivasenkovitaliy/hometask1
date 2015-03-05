@@ -1,13 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using HomeTask_WindowsForms.Infrastructure;
 
 namespace HomeTask_WindowsForms
 {
     public partial class Statistic : Form
     {
         private readonly AnswerRepository _answerRepository = new AnswerRepository();
-        
+        private readonly StatisticService _statisticService = new StatisticService();
+
         public Statistic()
         {
             InitializeComponent();
@@ -20,33 +23,26 @@ namespace HomeTask_WindowsForms
         void Statistic_FormClosing(object sender, FormClosingEventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Start();
-            //throw new NotImplementedException();
         }
 
         private void DrawStatistic()
         {
-            var selectedAnswers =
-                from answer in LocalAppData.Answers
-                where answer.AnswersDate.Date >= dateTimePickerFromDate.Value.Date &&
-                      answer.AnswersDate.Date <= dateTimePickerToDate.Value.Date
-                select answer;
-
             string[] seriesArray = { "Right answers", "Wrong answers", "Cancelled answers" };
-            var pointsArray = LocalAppData.GetAnswersCount(selectedAnswers);
             
-            this.chart1.Palette = ChartColorPalette.SeaGreen;
-            this.chart1.Series.Clear();
+            var points = _statisticService.GetAnswersCount(dateTimePickerFromDate.Value.Date, dateTimePickerToDate.Value.Date);
+            var pointsArray = new [] {points.Item1, points.Item2, points.Item3};
+
+            chart1.Palette = ChartColorPalette.SeaGreen;
+            chart1.Series.Clear();
             chart1.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
 
             for (var i = 0; i < seriesArray.Length; i++)
             {
-                var series = this.chart1.Series.Add(seriesArray[i]);
+                var series = chart1.Series.Add(seriesArray[i]);
                 series.Points.Add(pointsArray[i]);
 
-                this.chart1.Series[i].IsValueShownAsLabel = true;
+                chart1.Series[i].IsValueShownAsLabel = true;
             }
-            
-            //throw new NotImplementedException();
         }
 
         private void dateTimePickerFromDate_ValueChanged(object sender, System.EventArgs e)

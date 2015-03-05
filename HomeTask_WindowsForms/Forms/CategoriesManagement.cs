@@ -43,20 +43,17 @@ namespace HomeTask_WindowsForms
         {
             buttonDeleteCategory.Enabled = true;
             buttonUpdateCategory.Enabled = true;
-            //throw new NotImplementedException();
         }
 
         void textBoxNewCategoryName_GotFocus(object sender, EventArgs e)
         {
             textBoxNewCategoryName.Text = "";
             textBoxNewCategoryName.ForeColor = Color.Black;
-            //throw new NotImplementedException();
         }
 
         void WordsManagment_Closing(object sender, CancelEventArgs e)
         {
             LocalAppData.TimerForShowingTestWindow.Start();
-            //throw new NotImplementedException();
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -66,14 +63,13 @@ namespace HomeTask_WindowsForms
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (!textBoxNewCategoryName.Text.Equals("") && !textBoxNewCategoryName.Text.Equals(" ") &&
+            if ( !string.IsNullOrWhiteSpace(textBoxNewCategoryName.Text) &&
                 !textBoxNewCategoryName.Text.Equals("enter new category/category name name here"))
             {
                 var newCategory = new Category(textBoxNewCategoryName.Text);
                 
-                var newCategoryId = _categoryRepository.AddCategory(newCategory);
-                
-                LocalAppData.Categories.Add(new Category(newCategoryId, newCategory.CategoryName, newCategory.IsUsed));
+                newCategory.CategoryId = _categoryRepository.AddCategory(newCategory);
+                LocalAppData.Categories.Add(newCategory);
 
                 PrepareForm();
             }
