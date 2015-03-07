@@ -1,9 +1,9 @@
-﻿using HomeTask_WindowsForms.DAL;
+﻿using HomeTask_WindowsForms.Entities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.DAL
 {
     public class AnswerRepository : RepositoryBase
     {

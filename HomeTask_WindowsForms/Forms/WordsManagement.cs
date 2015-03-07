@@ -1,15 +1,18 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+using HomeTask_WindowsForms.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class WordsManagement : Form
     {
-        readonly private CategoryRepository _categoryRepository = new CategoryRepository();
         readonly private WordRepository _wordRepository = new WordRepository();
+        
         public WordsManagement()
         {
             InitializeComponent();
@@ -36,7 +39,7 @@ namespace HomeTask_WindowsForms
         private void PrepareForm()
         {
             //preparing combobox of categories
-            bindingSourceComboBoxCategories.DataSource = LocalAppData.Categories;
+            bindingSourceComboBoxCategories.DataSource = LocalAppData.Instance.Categories;
 
             buttonDeleteWord.Enabled = false;
             buttonEditWord.Enabled = false;
@@ -44,7 +47,7 @@ namespace HomeTask_WindowsForms
             textBoxWordForSearching.Text = "search";
             textBoxWordForSearching.ForeColor = Color.Gray;
             
-            DrawTable(LocalAppData.Words);
+            DrawTable(LocalAppData.Instance.Words);
         }
 
         private void DrawTable(IEnumerable<Word> wordsToFillTable)
@@ -67,7 +70,7 @@ namespace HomeTask_WindowsForms
         
         void WordsManagement_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Start();
+            LocalAppData.Instance.TimerForShowingTestWindow.Start();
         }
 
         private void buttonFormClose_Click(object sender, EventArgs e)
@@ -78,7 +81,7 @@ namespace HomeTask_WindowsForms
         private void buttonFilter_Click(object sender, EventArgs e)
         {
             var filteredWords =
-                from word in LocalAppData.Words
+                from word in LocalAppData.Instance.Words
                 where
                     textBoxWordForSearching.Text.Equals(word.Original)
                     && comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
@@ -90,7 +93,7 @@ namespace HomeTask_WindowsForms
         private void comboBoxSelectCategoryForSearching_SelectedIndexChanged(object sender, EventArgs e)
         {
             var wordsSelectedWithCategory =
-                from word in LocalAppData.Words
+                from word in LocalAppData.Instance.Words
                 where comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
                 select word;
          
@@ -110,7 +113,7 @@ namespace HomeTask_WindowsForms
                 var deletingWord = (Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem;
 
                 _wordRepository.RemoveWord(deletingWord);
-                LocalAppData.Words.Remove(deletingWord);
+                LocalAppData.Instance.Words.Remove(deletingWord);
             }
                 
             PrepareForm();

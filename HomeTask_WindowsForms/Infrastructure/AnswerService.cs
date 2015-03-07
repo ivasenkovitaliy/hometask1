@@ -1,4 +1,7 @@
-﻿namespace HomeTask_WindowsForms.Infrastructure
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+
+namespace HomeTask_WindowsForms.Infrastructure
 {
     public class AnswerService
     {
@@ -7,7 +10,7 @@
         public void AddAnswer(Answer answer)
         {
             _answerRepository.AddAnswer(answer);
-            LocalAppData.Answers.Add(answer);
+            LocalAppData.Instance.Answers.Add(answer);
         }
     }
 }

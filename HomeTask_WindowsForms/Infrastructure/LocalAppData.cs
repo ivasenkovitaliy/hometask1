@@ -1,18 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HomeTask_WindowsForms.Entities;
 using Timer = System.Windows.Forms.Timer;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Infrastructure
 {
-    public sealed class LocalAppData
+    public interface ILocalAppData
+    {
+        Timer TimerForShowingTestWindow { get; set; }
+        List<Category> Categories { get; set; }
+        List<Word> Words { get; set; }
+        List<Answer> Answers { get; set; }
+    }
+
+    public sealed class LocalAppData : ILocalAppData
     {
         private static volatile LocalAppData _instance;
         private static readonly object SyncRoot = new Object();
-        public static Timer TimerForShowingTestWindow { get; set; }
-        public static List<Category> Categories { get; set; }
-        public static List<Word> Words { get; set; }
-        public static List<Answer> Answers { get; set; }
+        public Timer TimerForShowingTestWindow { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Word> Words { get; set; }
+        public List<Answer> Answers { get; set; }
         
         
         private LocalAppData()
@@ -21,9 +30,11 @@ namespace HomeTask_WindowsForms
             TimerForShowingTestWindow.Interval = Properties.Settings.Default.TestTimerInterval;
         }
 
-        public static LocalAppData Instance()
+        public static LocalAppData Instance
         {
-            if (_instance == null)
+            get
+            {
+                if (_instance == null)
                 {
                     lock (SyncRoot)
                     {
@@ -33,14 +44,16 @@ namespace HomeTask_WindowsForms
                 }
 
                 return _instance;
+            }
+            
         }
         
-        public static void CountWordsInCategories()
+        public void CountWordsInCategories()
         {
-            foreach (var category in Categories)
+            foreach (var category in Instance.Categories)
             {
                 var wordsInCategory =
-                    from word in Words
+                    from word in Instance.Words
                     where word.CategoryId == category.CategoryId
                     select word;
                 
@@ -48,21 +61,21 @@ namespace HomeTask_WindowsForms
             }
         }
 
-        public static void UpdateCategoryInWordsWhileDeleting(Category categoryToDelete)
+        public void UpdateCategoryInWordsWhileDeleting(Category categoryToDelete)
         {
-            foreach (var word in Words)
+            foreach (var word in Instance.Words)
             {
                 if (word.CategoryId==categoryToDelete.CategoryId)
                 {
-                    word.Category = Categories[0].CategoryName;
-                    word.CategoryId = Categories[0].CategoryId;
+                    word.Category = Instance.Categories[0].CategoryName;
+                    word.CategoryId = Instance.Categories[0].CategoryId;
                 }
             }
         }
 
-        public static void UpdateCategoryInWords(Category categoryToUpdate)
+        public void UpdateCategoryInWords(Category categoryToUpdate)
         {
-            foreach (var word in Words)
+            foreach (var word in Instance.Words)
             {
                 if (word.CategoryId == categoryToUpdate.CategoryId)
                 {

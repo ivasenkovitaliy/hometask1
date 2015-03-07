@@ -1,11 +1,10 @@
-﻿using HomeTask_WindowsForms.DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
+using HomeTask_WindowsForms.Entities;
 
-
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.DAL
 {
     public class WordRepository : RepositoryBase
 
@@ -33,7 +32,7 @@ namespace HomeTask_WindowsForms
             }
         }
 
-        public int AddWord(Word word)
+        public void AddWord(Word word)
         {
             using (var connection = new SqlCeConnection(ConnectionString))
             {
@@ -52,9 +51,7 @@ namespace HomeTask_WindowsForms
                     command.Parameters.Clear();
                     command.CommandText = "SELECT @@IDENTITY";
 
-                    var newId = Convert.ToInt32(command.ExecuteScalar());
-
-                    return newId;
+                    word.Id = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
         }

@@ -1,4 +1,6 @@
-﻿namespace HomeTask_WindowsForms
+﻿using HomeTask_WindowsForms.Entities;
+
+namespace HomeTask_WindowsForms.Forms
 {
     partial class AddingWord
     {
@@ -178,7 +180,7 @@
             // 
             // bindingSourceComboCoxCategory
             // 
-            this.bindingSourceComboCoxCategory.DataSource = typeof(HomeTask_WindowsForms.Category);
+            this.bindingSourceComboCoxCategory.DataSource = typeof(Category);
             // 
             // AddingWord
             // 

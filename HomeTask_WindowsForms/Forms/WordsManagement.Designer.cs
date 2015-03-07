@@ -1,4 +1,6 @@
-﻿namespace HomeTask_WindowsForms
+﻿using HomeTask_WindowsForms.Entities;
+
+namespace HomeTask_WindowsForms.Forms
 {
     partial class WordsManagement
     {
@@ -65,7 +67,7 @@
             // 
             // bindingSourceComboBoxCategories
             // 
-            this.bindingSourceComboBoxCategories.DataSource = typeof(HomeTask_WindowsForms.Category);
+            this.bindingSourceComboBoxCategories.DataSource = typeof(Category);
             // 
             // textBoxWordForSearching
             // 
@@ -150,7 +152,7 @@
             // 
             // bindingSourceWordsManagement
             // 
-            this.bindingSourceWordsManagement.DataSource = typeof(HomeTask_WindowsForms.Word);
+            this.bindingSourceWordsManagement.DataSource = typeof(Word);
             // 
             // Column1
             // 

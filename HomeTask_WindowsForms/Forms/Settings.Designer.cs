@@ -1,4 +1,6 @@
-﻿namespace HomeTask_WindowsForms
+﻿using HomeTask_WindowsForms.Entities;
+
+namespace HomeTask_WindowsForms.Forms
 {
     partial class Settings
     {
@@ -149,7 +151,7 @@
             // 
             // bindingSourceCategoryToUse
             // 
-            this.bindingSourceCategoryToUse.DataSource = typeof(HomeTask_WindowsForms.Category);
+            this.bindingSourceCategoryToUse.DataSource = typeof(Category);
             // 
             // categoryNameDataGridViewTextBoxColumn
             // 

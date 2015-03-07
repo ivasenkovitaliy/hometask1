@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Entities
 {
     public class Word
     {

@@ -1,4 +1,6 @@
-﻿namespace HomeTask_WindowsForms
+﻿using HomeTask_WindowsForms.Entities;
+
+namespace HomeTask_WindowsForms.Forms
 {
     partial class CategoriesManagement
     {
@@ -77,7 +79,7 @@
             // 
             // bindingSourceCategoryManagement
             // 
-            this.bindingSourceCategoryManagement.DataSource = typeof(HomeTask_WindowsForms.Category);
+            this.bindingSourceCategoryManagement.DataSource = typeof(Category);
             // 
             // AddButton
             // 

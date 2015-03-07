@@ -1,4 +1,5 @@
-﻿using System.Data.SqlServerCe;
+﻿using HomeTask_WindowsForms.Entities;
+using System.Data.SqlServerCe;
 using System.IO;
 using System.Reflection;
 
@@ -57,17 +58,20 @@ namespace HomeTask_WindowsForms.DAL
                         query.ExecuteNonQuery();
                     }
 
-                    // adding one category
                     var categoryRepository = new CategoryRepository();
-                    var newCategoryId = categoryRepository.AddCategory(new Category("no category", true));
+                    var wordRepository = new WordRepository();
+
+                    // making one category
+                    var firstCategory = new Category("no category", true);
+
+                    categoryRepository.AddCategory(firstCategory);
 
                     // adding five words
-                    var wordRepository = new WordRepository();
-                    wordRepository.AddWord(new Word("river", "река", string.Empty, string.Empty, newCategoryId));
-                    wordRepository.AddWord(new Word("job", "работа", string.Empty, string.Empty, newCategoryId));
-                    wordRepository.AddWord(new Word("class", "класс", string.Empty, string.Empty, newCategoryId));
-                    wordRepository.AddWord(new Word("set", "набор", string.Empty, string.Empty, newCategoryId));
-                    wordRepository.AddWord(new Word("moon", "луна", string.Empty, string.Empty, newCategoryId));
+                    wordRepository.AddWord(new Word("river", "река", string.Empty, string.Empty, firstCategory.CategoryId));
+                    wordRepository.AddWord(new Word("job", "работа", string.Empty, string.Empty, firstCategory.CategoryId));
+                    wordRepository.AddWord(new Word("class", "класс", string.Empty, string.Empty, firstCategory.CategoryId));
+                    wordRepository.AddWord(new Word("set", "набор", string.Empty, string.Empty, firstCategory.CategoryId));
+                    wordRepository.AddWord(new Word("moon", "луна", string.Empty, string.Empty, firstCategory.CategoryId));
                 }
             }
         }

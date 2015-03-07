@@ -1,10 +1,10 @@
-﻿using HomeTask_WindowsForms.DAL;
+﻿using HomeTask_WindowsForms.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlServerCe;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.DAL
 {
     public class CategoryRepository : RepositoryBase
     {
@@ -30,7 +30,7 @@ namespace HomeTask_WindowsForms
             }
         }
         
-        public int AddCategory(Category category)
+        public void AddCategory(Category category)
         {
             using (var connection = new SqlCeConnection(ConnectionString))
             {
@@ -45,9 +45,7 @@ namespace HomeTask_WindowsForms
                     command.Parameters.Clear();
                     command.CommandText = "SELECT @@IDENTITY";
 
-                    var newId = Convert.ToInt32(command.ExecuteScalar());
-                    
-                    return newId;
+                    category.CategoryId = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
         }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+using HomeTask_WindowsForms.Infrastructure;
+using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class CategoriesManagement : Form
     {
@@ -30,10 +32,10 @@ namespace HomeTask_WindowsForms
             textBoxNewCategoryName.Text = "enter new category name name here";
             textBoxNewCategoryName.ForeColor = Color.Gray;
 
-            LocalAppData.CountWordsInCategories();
+            LocalAppData.Instance.CountWordsInCategories();
 
             bindingSourceCategoryManagement.ResetBindings(true);
-            bindingSourceCategoryManagement.DataSource = LocalAppData.Categories;
+            bindingSourceCategoryManagement.DataSource = LocalAppData.Instance.Categories;
             
             dataGridViewCategoriesManagement.ClearSelection(); // remove selection from first row
             
@@ -53,7 +55,7 @@ namespace HomeTask_WindowsForms
 
         void WordsManagment_Closing(object sender, CancelEventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Start();
+            LocalAppData.Instance.TimerForShowingTestWindow.Start();
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -68,8 +70,8 @@ namespace HomeTask_WindowsForms
             {
                 var newCategory = new Category(textBoxNewCategoryName.Text);
                 
-                newCategory.CategoryId = _categoryRepository.AddCategory(newCategory);
-                LocalAppData.Categories.Add(newCategory);
+                _categoryRepository.AddCategory(newCategory);
+                LocalAppData.Instance.Categories.Add(newCategory);
 
                 PrepareForm();
             }
@@ -83,10 +85,10 @@ namespace HomeTask_WindowsForms
 
                 // setting free words category "no category"
                 _wordRepository.UpdateWordsCategory(categoryToDelete);
-                LocalAppData.UpdateCategoryInWordsWhileDeleting(categoryToDelete);
+                LocalAppData.Instance.UpdateCategoryInWordsWhileDeleting(categoryToDelete);
 
                 _categoryRepository.RemoveCategory(categoryToDelete);
-                LocalAppData.Categories.Remove(categoryToDelete);
+                LocalAppData.Instance.Categories.Remove(categoryToDelete);
             }
 
             PrepareForm();
@@ -97,15 +99,11 @@ namespace HomeTask_WindowsForms
             if (dataGridViewCategoriesManagement.CurrentRow != null)
             {
                 var categoryToUpdate = (Category) dataGridViewCategoriesManagement.CurrentRow.DataBoundItem;
-                var indexOfCategoriesList = LocalAppData.Categories.IndexOf(categoryToUpdate);
+                
+                LocalAppData.Instance.UpdateCategoryInWords(categoryToUpdate);
 
-                LocalAppData.UpdateCategoryInWords(categoryToUpdate);
-
-                // updating category
                 _categoryRepository.UpdateCategory(categoryToUpdate);
-
-                LocalAppData.Categories.RemoveAt(indexOfCategoriesList);
-                LocalAppData.Categories.Insert(indexOfCategoriesList, categoryToUpdate);
+                LocalAppData.Instance.Categories[LocalAppData.Instance.Categories.IndexOf(categoryToUpdate)] = categoryToUpdate;
             }
 
             PrepareForm();

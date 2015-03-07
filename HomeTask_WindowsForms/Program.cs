@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Forms;
 
 namespace HomeTask_WindowsForms
 {

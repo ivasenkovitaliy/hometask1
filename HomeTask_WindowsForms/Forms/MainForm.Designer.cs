@@ -1,9 +1,6 @@
-﻿
+﻿using System.Windows.Forms;
 
-using System;
-using System.Windows.Forms;
-
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     partial class MainForm
     {

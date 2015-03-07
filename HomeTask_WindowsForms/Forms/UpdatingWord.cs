@@ -1,9 +1,12 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+using HomeTask_WindowsForms.Infrastructure;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class UpdatingWord : Form
     {
@@ -19,18 +22,18 @@ namespace HomeTask_WindowsForms
             // filling up boxes on form
             textBoxOriginal.Text = updatingWord.Original;
 
-            bindingSourceComboBoxCategories.DataSource = LocalAppData.Categories;
+            bindingSourceComboBoxCategories.DataSource = LocalAppData.Instance.Categories;
             comboBoxCategories.Text = updatingWord.Category;
 
             textBoxRU1.Text = updatingWord.Translate;
 
-            if ( !updatingWord.TranslateSecond.Equals(string.Empty))
+            if ( !string.IsNullOrEmpty(updatingWord.TranslateSecond) )
             {
                 textBoxRU2.Enabled = true;
                 textBoxRU2.Text = updatingWord.TranslateSecond;
             }
 
-            if ( !updatingWord.TranslateThird.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(updatingWord.TranslateThird) )
             {
                 textBoxRU3.Enabled = true;
                 textBoxRU3.Text = updatingWord.TranslateThird;
@@ -58,13 +61,12 @@ namespace HomeTask_WindowsForms
             
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
-                var indexOfWordsList = LocalAppData.Words.IndexOf(_updatingWord);
+                var updatedWord = new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text,
+                    textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text);
 
-                _wordRepository.UpdateWord(new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text));
-
-                LocalAppData.Words.RemoveAt(indexOfWordsList);
-                LocalAppData.Words.Insert(indexOfWordsList, new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue, comboBoxCategories.Text));
-
+                _wordRepository.UpdateWord(updatedWord);
+                LocalAppData.Instance.Words[LocalAppData.Instance.Words.IndexOf(_updatingWord)] = updatedWord;
+                
                 Close();
             }
         }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+using HomeTask_WindowsForms.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using HomeTask_WindowsForms.Infrastructure;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class MainForm : Form
     {
@@ -14,7 +16,7 @@ namespace HomeTask_WindowsForms
         private readonly WordRepository _wordRepository = new WordRepository();
         private readonly CategoryRepository _categoryRepository = new CategoryRepository();
         private readonly AnswerRepository _answerRepository =new AnswerRepository();
-        private AnswerService _answerService = new AnswerService();
+        private readonly AnswerService _answerService = new AnswerService();
 
         private HashSet<Word> _testingWordsHashSet;
         private Word _wordToTranslate;
@@ -38,19 +40,17 @@ namespace HomeTask_WindowsForms
 
         void MainForm_Load(object sender, EventArgs e)
         {
-            LocalAppData.Instance();
+            LocalAppData.Instance.Categories = _categoryRepository.GetAllCategories().ToList();
+            LocalAppData.Instance.Words = _wordRepository.GetAllWords().ToList();
+            LocalAppData.Instance.Answers = _answerRepository.GetAllAnswers().ToList();
             
-            LocalAppData.Categories = _categoryRepository.GetAllCategories().ToList();
-            LocalAppData.Words = _wordRepository.GetAllWords().ToList();
-            LocalAppData.Answers = _answerRepository.GetAllAnswers().ToList();
-            
-            LocalAppData.TimerForShowingTestWindow.Tick += TimerTest_Tick;
+            LocalAppData.Instance.TimerForShowingTestWindow.Tick += TimerTest_Tick;
         }
         
         private void StartTesting()
         {
             WelcomeTextLabel.Visible = false;
-            LocalAppData.TimerForShowingTestWindow.Stop();
+            LocalAppData.Instance.TimerForShowingTestWindow.Stop();
             
             //preparing form
             this.WelcomeTextLabel.Visible = false;
@@ -71,10 +71,10 @@ namespace HomeTask_WindowsForms
             var wordsWithCategories = new List<Word>();
             
             // put words with selected categories
-            foreach (var category in LocalAppData.Categories)
+            foreach (var category in LocalAppData.Instance.Categories)
             {
                 if (category.IsUsed)
-                    foreach (var word in LocalAppData.Words)
+                    foreach (var word in LocalAppData.Instance.Words)
                     {
                         if(word.CategoryId == category.CategoryId)
                             wordsWithCategories.Add(word);
@@ -119,7 +119,7 @@ namespace HomeTask_WindowsForms
 
         void CancelTest()
         {
-            LocalAppData.TimerForShowingTestWindow.Start();
+            LocalAppData.Instance.TimerForShowingTestWindow.Start();
             
             this.WelcomeTextLabel.Visible = true;
             this.PanelTest.Visible = false;
@@ -154,7 +154,7 @@ namespace HomeTask_WindowsForms
                 
                 _timerForShowingWelcomePanel.Stop();
                 
-                LocalAppData.TimerForShowingTestWindow.Start();
+                LocalAppData.Instance.TimerForShowingTestWindow.Start();
                 
                 Hide();
             }
@@ -174,7 +174,7 @@ namespace HomeTask_WindowsForms
 
             _timerForShowingWelcomePanel.Stop();
 
-            LocalAppData.TimerForShowingTestWindow.Start();
+            LocalAppData.Instance.TimerForShowingTestWindow.Start();
 
             this.Hide();
         }
@@ -199,7 +199,7 @@ namespace HomeTask_WindowsForms
         public void TimerTest_Tick(object sender, EventArgs e)
         {
             // setting non-active user interval as 0,9 of testtimer interval
-            var nonActiveUserInterval = LocalAppData.TimerForShowingTestWindow.Interval * 0.0009; 
+            var nonActiveUserInterval = LocalAppData.Instance.TimerForShowingTestWindow.Interval * 0.0009; 
 
             if (Program.GetLastInputTime() < nonActiveUserInterval)
                 StartTesting();
@@ -312,21 +312,21 @@ namespace HomeTask_WindowsForms
 
         private void categoriesManagmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Stop();
+            LocalAppData.Instance.TimerForShowingTestWindow.Stop();
 
             var form = new CategoriesManagement();
             form.Show();
         }
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Stop();
+            LocalAppData.Instance.TimerForShowingTestWindow.Stop();
 
             var form = new Settings();
             form.Show();
         }
         private void statisticToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Stop();
+            LocalAppData.Instance.TimerForShowingTestWindow.Stop();
 
             var form = new Statistic();
             form.Show();
@@ -334,7 +334,7 @@ namespace HomeTask_WindowsForms
 
         private void wordsManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Stop();
+            LocalAppData.Instance.TimerForShowingTestWindow.Stop();
 
             var form = new WordsManagement();
             form.Show();

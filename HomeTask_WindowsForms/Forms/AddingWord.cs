@@ -1,9 +1,12 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+using HomeTask_WindowsForms.Infrastructure;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class AddingWord : Form
     {
@@ -26,7 +29,7 @@ namespace HomeTask_WindowsForms
             textBoxRU2.Enabled = false;
             textBoxRU3.Enabled = false;
             
-            bindingSourceComboCoxCategory.DataSource = LocalAppData.Categories;
+            bindingSourceComboCoxCategory.DataSource = LocalAppData.Instance.Categories;
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -60,8 +63,11 @@ namespace HomeTask_WindowsForms
             // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
-                var newWordId = _wordRepository.AddWord(new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue));
-                LocalAppData.Words.Add(new Word(newWordId, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text, (int)comboBoxCategories.SelectedValue, comboBoxCategories.Text));
+                var addingWord = new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text,
+                    (int) comboBoxCategories.SelectedValue);
+
+                _wordRepository.AddWord(addingWord);
+                LocalAppData.Instance.Words.Add(addingWord);
 
                 PrepareForm();
             }

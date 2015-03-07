@@ -1,9 +1,11 @@
-﻿using System;
+﻿using HomeTask_WindowsForms.DAL;
+using HomeTask_WindowsForms.Entities;
+using HomeTask_WindowsForms.Infrastructure;
+using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class Settings : Form
     {
@@ -12,7 +14,7 @@ namespace HomeTask_WindowsForms
         {
             InitializeComponent();
             
-            domainUpDownTimeInterval.Text = ( (LocalAppData.TimerForShowingTestWindow.Interval)/ 60000).ToString();
+            domainUpDownTimeInterval.Text = ( (LocalAppData.Instance.TimerForShowingTestWindow.Interval)/ 60000).ToString();
 
             PrepareForm();
             
@@ -22,21 +24,21 @@ namespace HomeTask_WindowsForms
         private void PrepareForm()
         {
             bindingSourceCategoryToUse.ResetBindings(true);
-            bindingSourceCategoryToUse.DataSource = LocalAppData.Categories;
+            bindingSourceCategoryToUse.DataSource = LocalAppData.Instance.Categories;
             
             dataGridViewSettings.ClearSelection(); // remove selection from first row
         }
 
         void Settings_Closing(object sender, CancelEventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Start();
+            LocalAppData.Instance.TimerForShowingTestWindow.Start();
         }
 
         private void buttonSubmit_PanelSettings_Click(object sender, EventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Interval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
+            LocalAppData.Instance.TimerForShowingTestWindow.Interval = Convert.ToInt16(domainUpDownTimeInterval.Text) * 60000;
 
-            Properties.Settings.Default.TestTimerInterval = LocalAppData.TimerForShowingTestWindow.Interval;
+            Properties.Settings.Default.TestTimerInterval = LocalAppData.Instance.TimerForShowingTestWindow.Interval;
             Properties.Settings.Default.Save();
             
             this.Close();
@@ -44,14 +46,17 @@ namespace HomeTask_WindowsForms
 
         private void dataGridViewSettings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var categoryToChangeUse = (Category) dataGridViewSettings.CurrentRow.DataBoundItem;
+            if ( dataGridViewSettings.CurrentRow != null)
+            {
+                var categoryToChangeUse = (Category)dataGridViewSettings.CurrentRow.DataBoundItem;
 
-            _categoryRepository.ChangeUsingCategory(categoryToChangeUse);
+                _categoryRepository.ChangeUsingCategory(categoryToChangeUse);
 
-            var indexOfCategoriesList = LocalAppData.Categories.IndexOf(categoryToChangeUse);
-            LocalAppData.Categories[indexOfCategoriesList].IsUsed =
-                !LocalAppData.Categories[indexOfCategoriesList].IsUsed;
-
+                var indexOfCategoriesList = LocalAppData.Instance.Categories.IndexOf(categoryToChangeUse);
+                LocalAppData.Instance.Categories[indexOfCategoriesList].IsUsed =
+                    !LocalAppData.Instance.Categories[indexOfCategoriesList].IsUsed;
+            }
+            
             PrepareForm();
         }
 

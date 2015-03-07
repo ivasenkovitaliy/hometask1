@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using HomeTask_WindowsForms.Entities;
 
 namespace HomeTask_WindowsForms.Infrastructure
 {
@@ -12,7 +13,7 @@ namespace HomeTask_WindowsForms.Infrastructure
             int cancelledAnswers = 0;
 
             var selectedAnswers =
-                from answer in LocalAppData.Answers
+                from answer in LocalAppData.Instance.Answers
                 where answer.AnswersDate.Date >= fromDate &&
                       answer.AnswersDate.Date <= toDate
                 select answer;

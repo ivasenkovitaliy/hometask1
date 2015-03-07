@@ -1,4 +1,4 @@
-﻿namespace HomeTask_WindowsForms
+﻿namespace HomeTask_WindowsForms.Entities
 {
     public class Category
     {

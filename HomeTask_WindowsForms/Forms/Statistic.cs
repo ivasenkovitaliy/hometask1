@@ -1,14 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using HomeTask_WindowsForms.Infrastructure;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using HomeTask_WindowsForms.Infrastructure;
 
-namespace HomeTask_WindowsForms
+namespace HomeTask_WindowsForms.Forms
 {
     public partial class Statistic : Form
     {
-        private readonly AnswerRepository _answerRepository = new AnswerRepository();
         private readonly StatisticService _statisticService = new StatisticService();
 
         public Statistic()
@@ -22,7 +19,7 @@ namespace HomeTask_WindowsForms
 
         void Statistic_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LocalAppData.TimerForShowingTestWindow.Start();
+            LocalAppData.Instance.TimerForShowingTestWindow.Start();
         }
 
         private void DrawStatistic()
