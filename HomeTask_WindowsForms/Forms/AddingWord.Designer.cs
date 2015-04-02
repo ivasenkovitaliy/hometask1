@@ -74,6 +74,7 @@ namespace HomeTask_WindowsForms.Forms
             this.textBoxOriginal.Name = "textBoxOriginal";
             this.textBoxOriginal.Size = new System.Drawing.Size(152, 20);
             this.textBoxOriginal.TabIndex = 2;
+            this.textBoxOriginal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GetTranslation);
             // 
             // textBoxRU1
             // 
@@ -81,6 +82,7 @@ namespace HomeTask_WindowsForms.Forms
             this.textBoxRU1.Name = "textBoxRU1";
             this.textBoxRU1.Size = new System.Drawing.Size(152, 20);
             this.textBoxRU1.TabIndex = 3;
+            this.textBoxRU1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GetTranslation);
             // 
             // label3
             // 

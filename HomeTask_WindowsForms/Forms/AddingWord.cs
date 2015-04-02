@@ -11,10 +11,14 @@ namespace HomeTask_WindowsForms.Forms
     public partial class AddingWord : Form
     {
         private readonly WordRepository _wordRepository = new WordRepository();
+        private readonly ITranslator _translator;
+
         public AddingWord()
         {
             InitializeComponent();
             PrepareForm();
+
+            _translator = new YandexTranslator(Properties.Settings.Default.YandexTranslatorApiKey, new XmlWebRequester());
         }
 
         private void PrepareForm()
@@ -71,6 +75,31 @@ namespace HomeTask_WindowsForms.Forms
 
                 PrepareForm();
             }
+        }
+
+        private void GetTranslation(object sender, KeyEventArgs e)
+        {
+            string fromLanguage = string.Empty;
+            string toLanguage = string.Empty;
+
+            var textBox = (TextBox)sender;
+            var textBoxToInsertText = new TextBox();
+
+            if (textBox.Name == textBoxOriginal.Name)
+            {
+                fromLanguage = "en";
+                toLanguage = "ru";
+                textBoxToInsertText = textBoxRU1;
+            }
+            else if (textBox.Name == textBoxRU1.Name)
+            {
+                fromLanguage = "ru";
+                toLanguage = "en";
+                textBoxToInsertText = textBoxOriginal;
+            }
+
+            var translation = _translator.GetTranslation(textBox.Text, fromLanguage, toLanguage);
+            textBoxToInsertText.Text = translation;
         }
     }
 }

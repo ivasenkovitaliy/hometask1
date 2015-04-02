@@ -99,6 +99,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\StatisticService.cs" />
+    <Compile Include="Infrastructure\Translator.cs" />
+    <Compile Include="Infrastructure\WebRequester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\Settings.cs">
