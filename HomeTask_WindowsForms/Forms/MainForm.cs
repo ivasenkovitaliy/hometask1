@@ -71,7 +71,7 @@ namespace HomeTask_WindowsForms.Forms
         {
             WelcomeTextLabel.Visible = false;
             LocalAppData.Instance.TimerForShowingTestWindow.Stop();
-            
+
             //preparing form
             this.WelcomeTextLabel.Visible = false;
             this.labelResult.Visible = false;
@@ -81,7 +81,7 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonCancel.Visible = true;
             this.buttonSubmit.Visible = true;
             this.buttonDontSure.Visible = true;
-            
+
             // initializing
             _testingWordsHashSet = new HashSet<Word>();
             _wordToTranslate = new Word();
@@ -89,26 +89,46 @@ namespace HomeTask_WindowsForms.Forms
 
             var categories = LocalAppData.Instance.Categories;
             var words = LocalAppData.Instance.Words;
-            // making list of words using nedded categories
-            var wordsWithCategories = categories.Where(x=>x.IsUsed).SelectMany(x=>words.Where(w=>w.CategoryId == x.CategoryId)).ToList();
-            foreach (var word in wordsWithCategories)
-                word.Translate = word.GetRandomTranslate;
-            
-
-            if (wordsWithCategories.Count < 5)
+            var wordsInUsedCategories = categories.Where(x => x.IsUsed).SelectMany(x => words.Where(w => w.CategoryId == x.CategoryId)).ToList();
+            if (wordsInUsedCategories.Count < 5)
             {
                 Hide();
                 MessageBox.Show("There are few then 5 words in selected categories, please add words or use more categories");
+                return;
             }
-            else
+
+
+            var requiredWords = new List<Word>();
+            while (requiredWords.Count < 5)
             {
+                // making list of words using nedded categories
+                requiredWords = new List<Word>(wordsInUsedCategories);
+                requiredWords.RemoveAll(x => _englishStep ? x.IsLearnedEnglish : x.IsLearnedRussian);
+
+                if (requiredWords.Count() < 5)
+                {
+                    if (_englishStep) _wordRepository.ResetAllEnglishLearnedWords();
+                    else _wordRepository.ResetAllRussianLearnedWords();
+
+                    var allWords = _wordRepository.GetAllWords().ToList();
+
+                    LocalAppData.Instance.Words = allWords;
+                    wordsInUsedCategories = allWords;
+                }
+
+            }
+
+            foreach (var word in requiredWords)
+                word.Translate = word.GetRandomTranslate;
+
+
                 // put word to translate first in hashset
-                _testingWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
+                _testingWordsHashSet.Add(requiredWords[_rndCounter.Next(requiredWords.Count)]);
 
                 // select another 5 un-repeating words
                 while (_testingWordsHashSet.Count < 5)
                 {
-                    _testingWordsHashSet.Add(wordsWithCategories[_rndCounter.Next(wordsWithCategories.Count)]);
+                    _testingWordsHashSet.Add(requiredWords[_rndCounter.Next(requiredWords.Count)]);
                 }
 
                 _wordToTranslate = _testingWordsHashSet.First();  // making one word as original
@@ -126,14 +146,11 @@ namespace HomeTask_WindowsForms.Forms
 
                 // displaying test word
                 CategoryNameLabel.Text = _wordToTranslate.Category;
-                
-                if (_englishStep)
-                    OriginaWordLabel.Text = _wordToTranslate.Original;
-                else 
-                    OriginaWordLabel.Text = _wordToTranslate.Translate;
 
-                this.Show();
-            }
+                OriginaWordLabel.Text = _englishStep ? _wordToTranslate.Original : _wordToTranslate.Translate;
+
+                Show();
+            
         }
 
         void CancelTest()
@@ -239,11 +256,20 @@ namespace HomeTask_WindowsForms.Forms
             else if (checkedRadioButton.Text == correctTranslation)
             {
                 labelResult.Visible = true;
-                _englishStep = !_englishStep;
+
                 labelResult.Text = "Correct!";
 
                 // adding "right" answer to statistic
                 _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Right));
+
+                var wordFromSet = LocalAppData.Instance.Words.Find(x => x.Id == _wordToTranslate.Id);
+                if (_englishStep)
+                    wordFromSet.IsLearnedEnglish = true;
+                else wordFromSet.IsLearnedRussian = true;
+
+                _wordRepository.UpdateWord(wordFromSet);
+
+                _englishStep = !_englishStep;
 
                 _timerAfterAnswers.Start();
             }

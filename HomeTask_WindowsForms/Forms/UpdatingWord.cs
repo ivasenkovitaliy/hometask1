@@ -61,8 +61,10 @@ namespace HomeTask_WindowsForms.Forms
             
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
+                var notEditedWord = LocalAppData.Instance.Words.Find(x => x.Id == _updatingWord.Id);
+
                 var updatedWord = new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text,
-                    textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text);
+                    textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text, notEditedWord.IsLearnedEnglish, notEditedWord.IsLearnedRussian);
 
                 _wordRepository.UpdateWord(updatedWord);
                 LocalAppData.Instance.Words[LocalAppData.Instance.Words.IndexOf(_updatingWord)] = updatedWord;

@@ -13,7 +13,7 @@ namespace HomeTask_WindowsForms.Forms
     public partial class WordsManagement : Form
     {
         readonly private WordRepository _wordRepository = new WordRepository();
-        
+
         public WordsManagement()
         {
             InitializeComponent();
@@ -44,10 +44,10 @@ namespace HomeTask_WindowsForms.Forms
 
             buttonDeleteWord.Enabled = false;
             buttonEditWord.Enabled = false;
-            
+
             textBoxWordForSearching.Text = "search";
             textBoxWordForSearching.ForeColor = Color.Gray;
-            
+
             DrawTable(LocalAppData.Instance.Words);
         }
 
@@ -68,7 +68,7 @@ namespace HomeTask_WindowsForms.Forms
             textBoxWordForSearching.Text = "";
             textBoxWordForSearching.ForeColor = Color.Black;
         }
-        
+
         void WordsManagement_FormClosing(object sender, FormClosingEventArgs e)
         {
             LocalAppData.Instance.TimerForShowingTestWindow.Start();
@@ -84,12 +84,15 @@ namespace HomeTask_WindowsForms.Forms
             var allWords = LocalAppData.Instance.Words;
             var searchingValue = textBoxWordForSearching.Text;
 
-            if (string.IsNullOrEmpty(searchingValue)||string.IsNullOrWhiteSpace(searchingValue))
+            if (string.IsNullOrEmpty(searchingValue) || string.IsNullOrWhiteSpace(searchingValue))
                 DrawTable(allWords);
 
             var filteredWords = allWords.Where(x => x.IsOriginalOrTranslation(searchingValue) &&
                 string.Equals(x.Category, comboBoxSelectCategoryForSearching.Text)
                 );
+
+            if (checkShowOnlyLearnedWords.Checked)
+                filteredWords = filteredWords.Where(x => x.IsLearnedRussian && x.IsLearnedEnglish);
 
             DrawTable(filteredWords);
         }
@@ -100,7 +103,10 @@ namespace HomeTask_WindowsForms.Forms
                 from word in LocalAppData.Instance.Words
                 where comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
                 select word;
-         
+
+            if (checkShowOnlyLearnedWords.Checked)
+                wordsSelectedWithCategory = wordsSelectedWithCategory.Where(x => x.IsLearnedRussian && x.IsLearnedEnglish);
+
             DrawTable(wordsSelectedWithCategory);
         }
 
@@ -114,12 +120,12 @@ namespace HomeTask_WindowsForms.Forms
         {
             if (dataGridViewWordsManagement.CurrentRow != null)
             {
-                var deletingWord = (Word) dataGridViewWordsManagement.CurrentRow.DataBoundItem;
+                var deletingWord = (Word)dataGridViewWordsManagement.CurrentRow.DataBoundItem;
 
                 _wordRepository.RemoveWord(deletingWord);
                 LocalAppData.Instance.Words.Remove(deletingWord);
             }
-                
+
             PrepareForm();
         }
 
@@ -135,6 +141,15 @@ namespace HomeTask_WindowsForms.Forms
         private void textBoxWordForSearching_KeyPress(object sender, KeyPressEventArgs e)
         {
             buttonFilter_Click(null, null);
+        }
+
+        private void checkShowOnlyLearnedWords_CheckedChanged(object sender, EventArgs e)
+        {
+            var allWords = LocalAppData.Instance.Words;
+            if (((CheckBox) sender).Checked)
+                allWords = allWords.Where(x => x.IsLearnedRussian && x.IsLearnedEnglish).ToList();
+
+            DrawTable(allWords);
         }
     }
 }

@@ -40,6 +40,8 @@ namespace HomeTask_WindowsForms.DAL
                             TranslateSecond NVARCHAR(40),
                             TranslateThird NVARCHAR(40),
                             Category_Id INT NOT NULL,
+                            IsLearnedEnglish bit NOT NULL DEFAULT(0),
+                            IsLearnedRussian bit NOT NULL DEFAULT(0),
                             FOREIGN KEY (Category_Id) REFERENCES Category (Id)
                             );";
 

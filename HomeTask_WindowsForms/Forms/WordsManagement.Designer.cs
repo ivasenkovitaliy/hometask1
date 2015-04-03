@@ -48,6 +48,7 @@ namespace HomeTask_WindowsForms.Forms
             this.TranslateThird = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSourceWordsManagement = new System.Windows.Forms.BindingSource(this.components);
+            this.checkShowOnlyLearnedWords = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWordsManagement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceWordsManagement)).BeginInit();
@@ -203,11 +204,23 @@ namespace HomeTask_WindowsForms.Forms
             // 
             this.bindingSourceWordsManagement.DataSource = typeof(HomeTask_WindowsForms.Entities.Word);
             // 
+            // checkShowOnlyLearnedWords
+            // 
+            this.checkShowOnlyLearnedWords.AutoSize = true;
+            this.checkShowOnlyLearnedWords.Location = new System.Drawing.Point(308, 38);
+            this.checkShowOnlyLearnedWords.Name = "checkShowOnlyLearnedWords";
+            this.checkShowOnlyLearnedWords.Size = new System.Drawing.Size(144, 17);
+            this.checkShowOnlyLearnedWords.TabIndex = 9;
+            this.checkShowOnlyLearnedWords.Text = "Show only learned words";
+            this.checkShowOnlyLearnedWords.UseVisualStyleBackColor = true;
+            this.checkShowOnlyLearnedWords.CheckedChanged += new System.EventHandler(this.checkShowOnlyLearnedWords_CheckedChanged);
+            // 
             // WordsManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 334);
+            this.Controls.Add(this.checkShowOnlyLearnedWords);
             this.Controls.Add(this.dataGridViewWordsManagement);
             this.Controls.Add(this.buttonDeleteWord);
             this.Controls.Add(this.buttonFormClose);
@@ -248,6 +261,7 @@ namespace HomeTask_WindowsForms.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn TranslateSecond;
         private System.Windows.Forms.DataGridViewTextBoxColumn TranslateThird;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.CheckBox checkShowOnlyLearnedWords;
 
     }
 }

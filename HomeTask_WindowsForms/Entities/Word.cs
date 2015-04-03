@@ -13,12 +13,16 @@ namespace HomeTask_WindowsForms.Entities
         public string TranslateThird { get; set; }
         public string Category { get; set; }
         public string Original { get; set; }
+
+        public bool IsLearnedRussian { get; set; }
+
+        public bool IsLearnedEnglish { get; set; }
         
         public Word()
         {
         }
       
-        public Word(int id, string original, string translate, string translateSecond, string translateThird, int categoryId, string category)
+        public Word(int id, string original, string translate, string translateSecond, string translateThird, int categoryId, string category, bool isLearnedEnglish, bool isLearnedRussian)
         {
             this.Id = id;
             this.Original = original;
@@ -27,9 +31,11 @@ namespace HomeTask_WindowsForms.Entities
             this.TranslateThird = translateThird;
             this.CategoryId = categoryId;
             this.Category = category;
+            this.IsLearnedEnglish = isLearnedEnglish;
+            this.IsLearnedRussian = isLearnedRussian;
         }
 
-        public Word(string original, string translate, string translateSecond, string translateThird, int categoryId) : this(0, original, translate, translateSecond, translateThird, categoryId, string.Empty) { }
+        public Word(string original, string translate, string translateSecond, string translateThird, int categoryId) : this(0, original, translate, translateSecond, translateThird, categoryId, string.Empty, false, false) { }
 
         public string GetRandomTranslate
         {
