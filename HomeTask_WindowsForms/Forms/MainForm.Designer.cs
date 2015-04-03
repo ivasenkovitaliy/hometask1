@@ -46,6 +46,7 @@ namespace HomeTask_WindowsForms.Forms
             this.PanelWelcomeYesButton = new System.Windows.Forms.Button();
             this.WelcomeTextLabel = new System.Windows.Forms.Label();
             this.PanelTest = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.radioButtonAnswer1 = new System.Windows.Forms.RadioButton();
             this.buttonAnotherTryNo = new System.Windows.Forms.Button();
             this.radioButtonAnswer2 = new System.Windows.Forms.RadioButton();
@@ -59,7 +60,9 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonSubmit = new System.Windows.Forms.Button();
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.addNewWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripWordSearchTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._iconContextMenuStrip.SuspendLayout();
             this.PanelWelcome.SuspendLayout();
             this.PanelTest.SuspendLayout();
@@ -69,12 +72,15 @@ namespace HomeTask_WindowsForms.Forms
             // 
             this._notifyIcon.ContextMenuStrip = this._iconContextMenuStrip;
             this._notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("_notifyIcon.Icon")));
-            this._notifyIcon.Text = "notifyIcon1";
+            this._notifyIcon.Text = "English Learner";
             this._notifyIcon.Visible = true;
             // 
             // _iconContextMenuStrip
             // 
             this._iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripWordSearchTextBox,
+            this.addNewWordToolStripMenuItem,
+            this.toolStripSeparator1,
             this.тестToolStripMenuItem,
             this.statisticToolStripMenuItem,
             this.CategoriesManagmentToolStripMenuItem,
@@ -82,47 +88,47 @@ namespace HomeTask_WindowsForms.Forms
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(200, 136);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(205, 211);
             // 
             // тестToolStripMenuItem
             // 
             this.тестToolStripMenuItem.Name = "тестToolStripMenuItem";
-            this.тестToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.тестToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.тестToolStripMenuItem.Text = "Start test";
             this.тестToolStripMenuItem.Click += new System.EventHandler(this.StartTestToolStripMenuItem_Click);
             // 
             // statisticToolStripMenuItem
             // 
             this.statisticToolStripMenuItem.Name = "statisticToolStripMenuItem";
-            this.statisticToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.statisticToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.statisticToolStripMenuItem.Text = "Statistic";
             this.statisticToolStripMenuItem.Click += new System.EventHandler(this.statisticToolStripMenuItem_Click);
             // 
             // CategoriesManagmentToolStripMenuItem
             // 
             this.CategoriesManagmentToolStripMenuItem.Name = "CategoriesManagmentToolStripMenuItem";
-            this.CategoriesManagmentToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.CategoriesManagmentToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.CategoriesManagmentToolStripMenuItem.Text = "Categories management";
             this.CategoriesManagmentToolStripMenuItem.Click += new System.EventHandler(this.categoriesManagmentToolStripMenuItem_Click);
             // 
             // wordsManagementToolStripMenuItem
             // 
             this.wordsManagementToolStripMenuItem.Name = "wordsManagementToolStripMenuItem";
-            this.wordsManagementToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.wordsManagementToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.wordsManagementToolStripMenuItem.Text = "Words management";
             this.wordsManagementToolStripMenuItem.Click += new System.EventHandler(this.wordsManagementToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -198,6 +204,15 @@ namespace HomeTask_WindowsForms.Forms
             this.PanelTest.Size = new System.Drawing.Size(303, 238);
             this.PanelTest.TabIndex = 3;
             this.PanelTest.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Categoty of word:";
             // 
             // radioButtonAnswer1
             // 
@@ -336,14 +351,26 @@ namespace HomeTask_WindowsForms.Forms
             this.CategoryNameLabel.TabIndex = 0;
             this.CategoryNameLabel.Text = "CategoryName";
             // 
-            // label2
+            // addNewWordToolStripMenuItem
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Categoty of word:";
+            this.addNewWordToolStripMenuItem.Name = "addNewWordToolStripMenuItem";
+            this.addNewWordToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.addNewWordToolStripMenuItem.Text = "Add new word";
+            this.addNewWordToolStripMenuItem.Click += new System.EventHandler(this.AddNewWord);
+            // 
+            // toolStripWordSearchTextBox
+            // 
+            this.toolStripWordSearchTextBox.Name = "toolStripWordSearchTextBox";
+            this.toolStripWordSearchTextBox.Size = new System.Drawing.Size(100, 23);
+            this.toolStripWordSearchTextBox.Text = "Search you word...";
+            this.toolStripWordSearchTextBox.ToolTipText = "Search you word";
+            this.toolStripWordSearchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripWordSearchTextBox_KeyDown);
+            this.toolStripWordSearchTextBox.Click += new System.EventHandler(this.toolStripWordSearchTextBox_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
             // 
             // MainForm
             // 
@@ -353,11 +380,15 @@ namespace HomeTask_WindowsForms.Forms
             this.Controls.Add(this.PanelTest);
             this.Controls.Add(this.PanelWelcome);
             this.Controls.Add(this.WelcomeTextLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this._iconContextMenuStrip.ResumeLayout(false);
+            this._iconContextMenuStrip.PerformLayout();
             this.PanelWelcome.ResumeLayout(false);
             this.PanelWelcome.PerformLayout();
             this.PanelTest.ResumeLayout(false);
@@ -401,6 +432,9 @@ namespace HomeTask_WindowsForms.Forms
         private ToolStripMenuItem statisticToolStripMenuItem;
         private ToolStripMenuItem wordsManagementToolStripMenuItem;
         private Label label2;
+        private ToolStripMenuItem addNewWordToolStripMenuItem;
+        private ToolStripTextBox toolStripWordSearchTextBox;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }
 

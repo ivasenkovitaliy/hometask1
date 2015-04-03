@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using HomeTask_WindowsForms.Infrastructure.Extensions;
 
 namespace HomeTask_WindowsForms.Forms
 {
@@ -80,12 +81,15 @@ namespace HomeTask_WindowsForms.Forms
 
         private void buttonFilter_Click(object sender, EventArgs e)
         {
-            var filteredWords =
-                from word in LocalAppData.Instance.Words
-                where
-                    textBoxWordForSearching.Text.Equals(word.Original)
-                    && comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
-                select word;
+            var allWords = LocalAppData.Instance.Words;
+            var searchingValue = textBoxWordForSearching.Text;
+
+            if (string.IsNullOrEmpty(searchingValue)||string.IsNullOrWhiteSpace(searchingValue))
+                DrawTable(allWords);
+
+            var filteredWords = allWords.Where(x => x.IsOriginalOrTranslation(searchingValue) &&
+                string.Equals(x.Category, comboBoxSelectCategoryForSearching.Text)
+                );
 
             DrawTable(filteredWords);
         }
@@ -126,6 +130,11 @@ namespace HomeTask_WindowsForms.Forms
                 var form = new UpdatingWord((Word)dataGridViewWordsManagement.CurrentRow.DataBoundItem);
                 form.Show();
             }
+        }
+
+        private void textBoxWordForSearching_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            buttonFilter_Click(null, null);
         }
     }
 }
