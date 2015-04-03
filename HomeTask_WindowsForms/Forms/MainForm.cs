@@ -16,13 +16,15 @@ namespace HomeTask_WindowsForms.Forms
         private readonly Random _rndCounter = new Random();
         private readonly WordRepository _wordRepository = new WordRepository();
         private readonly CategoryRepository _categoryRepository = new CategoryRepository();
-        private readonly AnswerRepository _answerRepository =new AnswerRepository();
+        private readonly AnswerRepository _answerRepository = new AnswerRepository();
         private readonly AnswerService _answerService = new AnswerService();
 
         private HashSet<Word> _testingWordsHashSet;
         private Word _wordToTranslate;
         private int _wrongAnswers;
-        
+
+        private bool _englishStep = true;
+
         public MainForm()
         {
             InitializeComponent();
@@ -33,8 +35,8 @@ namespace HomeTask_WindowsForms.Forms
             _timerForShowingWelcomePanel.Interval = 1700;
             _timerForShowingWelcomePanel.Start();
             _timerForShowingWelcomePanel.Tick += TimerToShowWelcomePanel_Tick;
-            
-            this.FormClosing+=MainForm_FormClosing;
+
+            this.FormClosing += MainForm_FormClosing;
             this.LostFocus += MainForm_LostFocus;
             this.Load += MainForm_Load;
         }
@@ -44,11 +46,13 @@ namespace HomeTask_WindowsForms.Forms
             LocalAppData.Instance.Categories = _categoryRepository.GetAllCategories().ToList();
             LocalAppData.Instance.Words = _wordRepository.GetAllWords().ToList();
             LocalAppData.Instance.Answers = _answerRepository.GetAllAnswers().ToList();
-            
+
             LocalAppData.Instance.TimerForShowingTestWindow.Tick += TimerTest_Tick;
+
+            InitializeAutocompleteForSearchTextBox();
         }
 
-        private void InitializaAutocompleteForSearchTextBox()
+        private void InitializeAutocompleteForSearchTextBox()
         {
             var allWords = LocalAppData.Instance.Words;
 
@@ -62,7 +66,7 @@ namespace HomeTask_WindowsForms.Forms
             toolStripWordSearchTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             toolStripWordSearchTextBox.AutoCompleteCustomSource = autocompleteCollection;
         }
-        
+
         private void StartTesting()
         {
             WelcomeTextLabel.Visible = false;
@@ -83,20 +87,13 @@ namespace HomeTask_WindowsForms.Forms
             _wordToTranslate = new Word();
             _wrongAnswers = 0;
 
+            var categories = LocalAppData.Instance.Categories;
+            var words = LocalAppData.Instance.Words;
             // making list of words using nedded categories
-            var wordsWithCategories = new List<Word>();
+            var wordsWithCategories = categories.Where(x=>x.IsUsed).SelectMany(x=>words.Where(w=>w.CategoryId == x.CategoryId)).ToList();
+            foreach (var word in wordsWithCategories)
+                word.Translate = word.GetRandomTranslate;
             
-            // put words with selected categories
-            foreach (var category in LocalAppData.Instance.Categories)
-            {
-                if (category.IsUsed)
-                    foreach (var word in LocalAppData.Instance.Words)
-                    {
-                        if(word.CategoryId == category.CategoryId)
-                            wordsWithCategories.Add(word);
-                        word.Translate = word.GetRandomTranslate;
-                    }
-            }
 
             if (wordsWithCategories.Count < 5)
             {
@@ -121,13 +118,19 @@ namespace HomeTask_WindowsForms.Forms
                 {
                     var rbutton = this.Controls.Find("radioButtonAnswer" + (i + 1), true);
                     var thisStepRandom = _rndCounter.Next(_testingWordsHashSet.Count);
-                    rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Translate);
+                    if (_englishStep)
+                        rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Translate);
+                    else rbutton[0].Text = (_testingWordsHashSet.ElementAt(thisStepRandom).Original);
                     _testingWordsHashSet.Remove(_testingWordsHashSet.ElementAt(thisStepRandom));
                 }
 
                 // displaying test word
                 CategoryNameLabel.Text = _wordToTranslate.Category;
-                OriginaWordLabel.Text = _wordToTranslate.Original;
+                
+                if (_englishStep)
+                    OriginaWordLabel.Text = _wordToTranslate.Original;
+                else 
+                    OriginaWordLabel.Text = _wordToTranslate.Translate;
 
                 this.Show();
             }
@@ -136,13 +139,13 @@ namespace HomeTask_WindowsForms.Forms
         void CancelTest()
         {
             LocalAppData.Instance.TimerForShowingTestWindow.Start();
-            
+
             this.WelcomeTextLabel.Visible = true;
             this.PanelTest.Visible = false;
-            
+
             this.Hide();
         }
-        
+
         void MainForm_LostFocus(object sender, EventArgs e)
         {
             if (!this.Visible)
@@ -151,7 +154,7 @@ namespace HomeTask_WindowsForms.Forms
                 WelcomeTextLabel.Text = "Programm is already running!";
             }
         }
-        
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -167,11 +170,11 @@ namespace HomeTask_WindowsForms.Forms
 
                 if (this.WelcomeTextLabel.Visible)
                     this.WelcomeTextLabel.Visible = false;
-                
+
                 _timerForShowingWelcomePanel.Stop();
-                
+
                 LocalAppData.Instance.TimerForShowingTestWindow.Start();
-                
+
                 Hide();
             }
         }
@@ -194,12 +197,12 @@ namespace HomeTask_WindowsForms.Forms
 
             this.Hide();
         }
-        
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        
+
         private void FirstLayoutYesButton_Click(object sender, EventArgs e)
         {
             this.PanelWelcome.Visible = false;
@@ -215,7 +218,7 @@ namespace HomeTask_WindowsForms.Forms
         public void TimerTest_Tick(object sender, EventArgs e)
         {
             // setting non-active user interval as 0,9 of testtimer interval
-            var nonActiveUserInterval = LocalAppData.Instance.TimerForShowingTestWindow.Interval * 0.0009; 
+            var nonActiveUserInterval = LocalAppData.Instance.TimerForShowingTestWindow.Interval * 0.0009;
 
             if (Program.GetLastInputTime() < nonActiveUserInterval)
                 StartTesting();
@@ -228,20 +231,23 @@ namespace HomeTask_WindowsForms.Forms
 
             var checkedRadioButton = PanelTest.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
 
+            string correctTranslation = _englishStep ? _wordToTranslate.Translate : _wordToTranslate.Original;
+
             if (checkedRadioButton == null)
                 MessageBox.Show("choose something!");
-                
-            else if ( checkedRadioButton.Text == _wordToTranslate.Translate)
+
+            else if (checkedRadioButton.Text == correctTranslation)
             {
                 labelResult.Visible = true;
+                _englishStep = !_englishStep;
                 labelResult.Text = "Correct!";
-                
+
                 // adding "right" answer to statistic
                 _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Right));
-                
+
                 _timerAfterAnswers.Start();
             }
-            
+
             else
             {
                 if (_wrongAnswers < 3)
@@ -264,14 +270,14 @@ namespace HomeTask_WindowsForms.Forms
 
                         //adding "wrong" to statistic
                         _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
-                        
+
                         _timerAfterAnswers.Start();
                     }
                 }
             }
 
             // to deactivate selected radiobutton
-            if(checkedRadioButton!=null && checkedRadioButton.Checked)
+            if (checkedRadioButton != null && checkedRadioButton.Checked)
                 checkedRadioButton.Checked = false;
         }
 
@@ -299,14 +305,14 @@ namespace HomeTask_WindowsForms.Forms
         private void buttonAnotherTryNo_Click(object sender, EventArgs e)
         {
             _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
-            
+
             CancelTest();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Cancelled));
-            
+
             CancelTest();
         }
 
@@ -319,10 +325,10 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonAnotherTryYes.Visible = false;
             this.buttonAnotherTryNo.Visible = false;
             labelResult.Text = "sorry, you don't khow....";
-            
+
             // adding "wrong" to statistic
             _answerService.AddAnswer(new Answer(_wordToTranslate.Id, Answer.Type.Wrong));
-            
+
             _timerAfterAnswers.Start();
         }
 
@@ -371,7 +377,7 @@ namespace HomeTask_WindowsForms.Forms
 
         private void toolStripWordSearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var textBox = (ToolStripTextBox) sender;
+            var textBox = (ToolStripTextBox)sender;
 
             if (e.KeyCode == Keys.Enter)
             {
