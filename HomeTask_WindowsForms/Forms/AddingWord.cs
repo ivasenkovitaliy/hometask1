@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using HomeTask_WindowsForms.Infrastructure.Extensions;
 
 namespace HomeTask_WindowsForms.Forms
 {
@@ -63,6 +64,13 @@ namespace HomeTask_WindowsForms.Forms
             // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
+                var allWords = LocalAppData.Instance.Words;
+                if (allWords.Any(x => x.Original.IsSame(textBoxOriginal.Text)))
+                {
+                    MessageBox.Show("This word is already added to your vocabulary.");
+                    return;
+                }
+
                 var addingWord = new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text,
                     (int) comboBoxCategories.SelectedValue);
 

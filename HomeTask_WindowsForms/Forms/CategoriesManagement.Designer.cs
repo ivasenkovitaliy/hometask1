@@ -31,6 +31,7 @@ namespace HomeTask_WindowsForms.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoriesManagement));
             this.dataGridViewCategoriesManagement = new System.Windows.Forms.DataGridView();
             this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WordsInCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,7 +80,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // bindingSourceCategoryManagement
             // 
-            this.bindingSourceCategoryManagement.DataSource = typeof(Category);
+            this.bindingSourceCategoryManagement.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
             // 
             // AddButton
             // 
@@ -143,11 +144,12 @@ namespace HomeTask_WindowsForms.Forms
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.dataGridViewCategoriesManagement);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CategoriesManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CategoriesManagement";
+            this.Text = "Categories Management";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoriesManagement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryManagement)).EndInit();
             this.ResumeLayout(false);

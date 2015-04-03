@@ -91,6 +91,8 @@
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Infrastructure\AnswerService.cs" />
+    <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\WordExtensions.cs" />
     <Compile Include="Infrastructure\LocalAppData.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -206,9 +208,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

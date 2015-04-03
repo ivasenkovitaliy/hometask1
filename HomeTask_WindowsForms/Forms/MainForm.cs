@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using HomeTask_WindowsForms.Infrastructure.Extensions;
 
 namespace HomeTask_WindowsForms.Forms
 {
@@ -45,6 +46,21 @@ namespace HomeTask_WindowsForms.Forms
             LocalAppData.Instance.Answers = _answerRepository.GetAllAnswers().ToList();
             
             LocalAppData.Instance.TimerForShowingTestWindow.Tick += TimerTest_Tick;
+        }
+
+        private void InitializaAutocompleteForSearchTextBox()
+        {
+            var allWords = LocalAppData.Instance.Words;
+
+            var autocompleteCollection = new AutoCompleteStringCollection();
+            autocompleteCollection.AddRange(allWords.Select(x => x.Original).ToArray());
+            autocompleteCollection.AddRange(allWords.Select(x => x.Translate).ToArray());
+            autocompleteCollection.AddRange(allWords.Select(x => x.TranslateSecond).ToArray());
+            autocompleteCollection.AddRange(allWords.Select(x => x.TranslateThird).ToArray());
+
+            toolStripWordSearchTextBox.AutoCompleteMode = AutoCompleteMode.Append;
+            toolStripWordSearchTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            toolStripWordSearchTextBox.AutoCompleteCustomSource = autocompleteCollection;
         }
         
         private void StartTesting()
@@ -338,6 +354,47 @@ namespace HomeTask_WindowsForms.Forms
 
             var form = new WordsManagement();
             form.Show();
+        }
+
+        private void AddNewWord(object sender, EventArgs e)
+        {
+            new AddingWord().Show();
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.L)
+            {
+                AddNewWord(null, null);
+            }
+        }
+
+        private void toolStripWordSearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = (ToolStripTextBox) sender;
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                var searchValue = textBox.Text;
+                if (string.IsNullOrWhiteSpace(searchValue))
+                {
+                    textBox.Text = "Search your word...";
+                    return;
+                }
+
+                var allWords = LocalAppData.Instance.Words;
+
+                var requeryWord = allWords.FirstOrDefault(x => x.IsOriginalOrTranslation(searchValue));
+                if (requeryWord == null)
+                    return;
+
+                new UpdatingWord(requeryWord).Show();
+            }
+        }
+
+        private void toolStripWordSearchTextBox_Click(object sender, EventArgs e)
+        {
+            ((ToolStripTextBox)sender).Text = string.Empty;
         }
     }
 }

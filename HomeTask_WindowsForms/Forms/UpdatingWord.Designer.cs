@@ -31,6 +31,7 @@ namespace HomeTask_WindowsForms.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdatingWord));
             this.textBoxOriginal = new System.Windows.Forms.TextBox();
             this.textBoxRU1 = new System.Windows.Forms.TextBox();
             this.textBoxRU2 = new System.Windows.Forms.TextBox();
@@ -94,7 +95,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // bindingSourceComboBoxCategories
             // 
-            this.bindingSourceComboBoxCategories.DataSource = typeof(Category);
+            this.bindingSourceComboBoxCategories.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
             // 
             // buttonUpdate
             // 
@@ -208,11 +209,12 @@ namespace HomeTask_WindowsForms.Forms
             this.Controls.Add(this.buttonAddTranslate);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UpdatingWord";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UpdatingWord";
+            this.Text = "Edit word";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

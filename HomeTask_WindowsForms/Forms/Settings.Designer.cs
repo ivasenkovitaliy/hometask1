@@ -31,16 +31,17 @@ namespace HomeTask_WindowsForms.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.PanelSetttings = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewSettings = new System.Windows.Forms.DataGridView();
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isUsedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.bindingSourceCategoryToUse = new System.Windows.Forms.BindingSource(this.components);
             this.buttonCancel_PanelSettings = new System.Windows.Forms.Button();
             this.buttonSubmit_PanelSettings = new System.Windows.Forms.Button();
             this.domainUpDownTimeInterval = new System.Windows.Forms.DomainUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.bindingSourceCategoryToUse = new System.Windows.Forms.BindingSource(this.components);
-            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isUsedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.PanelSetttings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryToUse)).BeginInit();
@@ -91,6 +92,25 @@ namespace HomeTask_WindowsForms.Forms
             this.dataGridViewSettings.Size = new System.Drawing.Size(250, 120);
             this.dataGridViewSettings.TabIndex = 4;
             this.dataGridViewSettings.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSettings_CellContentClick);
+            // 
+            // categoryNameDataGridViewTextBoxColumn
+            // 
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.Width = 140;
+            // 
+            // isUsedDataGridViewCheckBoxColumn
+            // 
+            this.isUsedDataGridViewCheckBoxColumn.DataPropertyName = "IsUsed";
+            this.isUsedDataGridViewCheckBoxColumn.HeaderText = "IsUsed";
+            this.isUsedDataGridViewCheckBoxColumn.Name = "isUsedDataGridViewCheckBoxColumn";
+            this.isUsedDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.isUsedDataGridViewCheckBoxColumn.Width = 80;
+            // 
+            // bindingSourceCategoryToUse
+            // 
+            this.bindingSourceCategoryToUse.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
             // 
             // buttonCancel_PanelSettings
             // 
@@ -149,31 +169,13 @@ namespace HomeTask_WindowsForms.Forms
             this.label2.TabIndex = 0;
             this.label2.Text = "Time interval (minutes)";
             // 
-            // bindingSourceCategoryToUse
-            // 
-            this.bindingSourceCategoryToUse.DataSource = typeof(Category);
-            // 
-            // categoryNameDataGridViewTextBoxColumn
-            // 
-            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
-            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "CategoryName";
-            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
-            this.categoryNameDataGridViewTextBoxColumn.Width = 140;
-            // 
-            // isUsedDataGridViewCheckBoxColumn
-            // 
-            this.isUsedDataGridViewCheckBoxColumn.DataPropertyName = "IsUsed";
-            this.isUsedDataGridViewCheckBoxColumn.HeaderText = "IsUsed";
-            this.isUsedDataGridViewCheckBoxColumn.Name = "isUsedDataGridViewCheckBoxColumn";
-            this.isUsedDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.isUsedDataGridViewCheckBoxColumn.Width = 80;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 262);
             this.Controls.Add(this.PanelSetttings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";
