@@ -7,7 +7,6 @@ using HomeTask_WindowsForms.Entities;
 namespace HomeTask_WindowsForms.DAL
 {
     public class WordRepository : RepositoryBase
-
     {
         public IEnumerable<Word> GetAllWords()
         {
@@ -17,17 +16,43 @@ namespace HomeTask_WindowsForms.DAL
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
-                        "SELECT word.Id, original, translate, translateSecond, translateThird, category.Id, name FROM Word JOIN Category " +
+                        "SELECT word.Id, original, translate, translateSecond, translateThird, category.Id, name, isLearnedEnglish, isLearnedRussian FROM Word JOIN Category " +
                         "ON word.category_Id = category.id";
 
                     var reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        var word = new Word(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6));
+                        var word = new Word(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6), reader.GetBoolean(7), reader.GetBoolean(8));
 
                         yield return word;
                     }
+                }
+            }
+        }
+
+        public void ResetAllEnglishLearnedWords()
+        {
+            using (var connection = new SqlCeConnection(ConnectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Word SET IsLearnedEnglish = 0";
+                    command.ExecuteScalar();
+                }
+            }
+        }
+
+        public void ResetAllRussianLearnedWords()
+        {
+            using (var connection = new SqlCeConnection(ConnectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Word SET IsLearnedRussian = 0";
+                    command.ExecuteScalar();
                 }
             }
         }
@@ -79,12 +104,14 @@ namespace HomeTask_WindowsForms.DAL
                 {
                     command.CommandText = "UPDATE word " +
                                           "SET original = @original, translate = @translate, translateSecond = @translateSecond," +
-                                          " translateThird= @translateThird, category_Id = @category_id WHERE id = @oldWordId";
+                                          " translateThird= @translateThird, category_Id = @category_id, isLearnedEnglish = @isLearnedEnglish, isLearnedRussian = @isLearnedRussian WHERE id = @oldWordId";
                     command.Parameters.Add("original", SqlDbType.NVarChar, 40).Value = newWord.Original;
                     command.Parameters.Add("translate", SqlDbType.NVarChar, 40).Value = newWord.Translate;
                     command.Parameters.Add("translateSecond", SqlDbType.NVarChar, 40).Value = newWord.TranslateSecond;
                     command.Parameters.Add("translateThird", SqlDbType.NVarChar, 40).Value = newWord.TranslateThird;
                     command.Parameters.Add("category_id", SqlDbType.Int).Value = newWord.CategoryId;
+                    command.Parameters.Add("isLearnedEnglish", SqlDbType.Bit).Value = newWord.IsLearnedEnglish;
+                    command.Parameters.Add("isLearnedRussian", SqlDbType.Bit).Value = newWord.IsLearnedRussian;
                     command.Parameters.Add("oldWordId", SqlDbType.Int).Value = newWord.Id;
                     command.ExecuteNonQuery();
                 }

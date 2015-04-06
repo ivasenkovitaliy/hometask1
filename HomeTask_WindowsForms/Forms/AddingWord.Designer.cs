@@ -31,6 +31,7 @@ namespace HomeTask_WindowsForms.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddingWord));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxOriginal = new System.Windows.Forms.TextBox();
@@ -44,10 +45,10 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonAddWord = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.comboBoxCategories = new System.Windows.Forms.ComboBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.bindingSourceComboCoxCategory = new System.Windows.Forms.BindingSource(this.components);
-            this.panel1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboCoxCategory)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -74,6 +75,7 @@ namespace HomeTask_WindowsForms.Forms
             this.textBoxOriginal.Name = "textBoxOriginal";
             this.textBoxOriginal.Size = new System.Drawing.Size(152, 20);
             this.textBoxOriginal.TabIndex = 2;
+            this.textBoxOriginal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GetTranslation);
             // 
             // textBoxRU1
             // 
@@ -81,6 +83,7 @@ namespace HomeTask_WindowsForms.Forms
             this.textBoxRU1.Name = "textBoxRU1";
             this.textBoxRU1.Size = new System.Drawing.Size(152, 20);
             this.textBoxRU1.TabIndex = 3;
+            this.textBoxRU1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GetTranslation);
             // 
             // label3
             // 
@@ -147,6 +150,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // buttonClose
             // 
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.Location = new System.Drawing.Point(334, 203);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
@@ -166,6 +170,10 @@ namespace HomeTask_WindowsForms.Forms
             this.comboBoxCategories.TabIndex = 13;
             this.comboBoxCategories.ValueMember = "CategoryId";
             // 
+            // bindingSourceComboCoxCategory
+            // 
+            this.bindingSourceComboCoxCategory.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.textBoxOriginal);
@@ -178,14 +186,12 @@ namespace HomeTask_WindowsForms.Forms
             this.panel1.Size = new System.Drawing.Size(200, 185);
             this.panel1.TabIndex = 14;
             // 
-            // bindingSourceComboCoxCategory
-            // 
-            this.bindingSourceComboCoxCategory.DataSource = typeof(Category);
-            // 
             // AddingWord
             // 
+            this.AcceptButton = this.buttonAddWord;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(416, 238);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonClose);
@@ -196,14 +202,15 @@ namespace HomeTask_WindowsForms.Forms
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddingWord";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddingWord";
+            this.Text = "Add word";
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboCoxCategory)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboCoxCategory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -5,16 +5,21 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using HomeTask_WindowsForms.Infrastructure.Extensions;
 
 namespace HomeTask_WindowsForms.Forms
 {
     public partial class AddingWord : Form
     {
         private readonly WordRepository _wordRepository = new WordRepository();
+        private readonly ITranslator _translator;
+
         public AddingWord()
         {
             InitializeComponent();
             PrepareForm();
+
+            _translator = new YandexTranslator(Properties.Settings.Default.YandexTranslatorApiKey, new XmlWebRequester());
         }
 
         private void PrepareForm()
@@ -63,6 +68,13 @@ namespace HomeTask_WindowsForms.Forms
             // if there are no empty fields then adding word....
             if (panel1.Controls.OfType<TextBox>().FirstOrDefault(r => r.BackColor == color) == null)
             {
+                var allWords = LocalAppData.Instance.Words;
+                if (allWords.Any(x => x.Original.IsSame(textBoxOriginal.Text)))
+                {
+                    MessageBox.Show("This word is already added to your vocabulary.");
+                    return;
+                }
+
                 var addingWord = new Word(textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text, textBoxRU3.Text,
                     (int) comboBoxCategories.SelectedValue);
 
@@ -71,6 +83,31 @@ namespace HomeTask_WindowsForms.Forms
 
                 PrepareForm();
             }
+        }
+
+        private void GetTranslation(object sender, KeyEventArgs e)
+        {
+            string fromLanguage = string.Empty;
+            string toLanguage = string.Empty;
+
+            var textBox = (TextBox)sender;
+            var textBoxToInsertText = new TextBox();
+
+            if (textBox.Name == textBoxOriginal.Name)
+            {
+                fromLanguage = "en";
+                toLanguage = "ru";
+                textBoxToInsertText = textBoxRU1;
+            }
+            else if (textBox.Name == textBoxRU1.Name)
+            {
+                fromLanguage = "ru";
+                toLanguage = "en";
+                textBoxToInsertText = textBoxOriginal;
+            }
+
+            var translation = _translator.GetTranslation(textBox.Text, fromLanguage, toLanguage);
+            textBoxToInsertText.Text = translation;
         }
     }
 }

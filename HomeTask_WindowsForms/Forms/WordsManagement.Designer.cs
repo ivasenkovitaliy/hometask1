@@ -31,6 +31,7 @@ namespace HomeTask_WindowsForms.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WordsManagement));
             this.comboBoxSelectCategoryForSearching = new System.Windows.Forms.ComboBox();
             this.bindingSourceComboBoxCategories = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxWordForSearching = new System.Windows.Forms.TextBox();
@@ -40,13 +41,14 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonFormClose = new System.Windows.Forms.Button();
             this.buttonDeleteWord = new System.Windows.Forms.Button();
             this.dataGridViewWordsManagement = new System.Windows.Forms.DataGridView();
-            this.bindingSourceWordsManagement = new System.Windows.Forms.BindingSource(this.components);
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.translateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TranslateSecond = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TranslateThird = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceWordsManagement = new System.Windows.Forms.BindingSource(this.components);
+            this.checkShowOnlyLearnedWords = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWordsManagement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceWordsManagement)).BeginInit();
@@ -67,7 +69,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // bindingSourceComboBoxCategories
             // 
-            this.bindingSourceComboBoxCategories.DataSource = typeof(Category);
+            this.bindingSourceComboBoxCategories.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
             // 
             // textBoxWordForSearching
             // 
@@ -75,6 +77,7 @@ namespace HomeTask_WindowsForms.Forms
             this.textBoxWordForSearching.Name = "textBoxWordForSearching";
             this.textBoxWordForSearching.Size = new System.Drawing.Size(210, 20);
             this.textBoxWordForSearching.TabIndex = 1;
+            this.textBoxWordForSearching.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxWordForSearching_KeyPress);
             // 
             // buttonFilter
             // 
@@ -102,7 +105,7 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonEditWord.Name = "buttonEditWord";
             this.buttonEditWord.Size = new System.Drawing.Size(75, 23);
             this.buttonEditWord.TabIndex = 5;
-            this.buttonEditWord.Text = "Update";
+            this.buttonEditWord.Text = "Edit";
             this.buttonEditWord.UseVisualStyleBackColor = true;
             this.buttonEditWord.Click += new System.EventHandler(this.buttonEditWord_Click);
             // 
@@ -149,10 +152,6 @@ namespace HomeTask_WindowsForms.Forms
             this.dataGridViewWordsManagement.RowHeadersVisible = false;
             this.dataGridViewWordsManagement.Size = new System.Drawing.Size(756, 214);
             this.dataGridViewWordsManagement.TabIndex = 8;
-            // 
-            // bindingSourceWordsManagement
-            // 
-            this.bindingSourceWordsManagement.DataSource = typeof(Word);
             // 
             // Column1
             // 
@@ -201,11 +200,27 @@ namespace HomeTask_WindowsForms.Forms
             this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
             this.categoryDataGridViewTextBoxColumn.Width = 130;
             // 
+            // bindingSourceWordsManagement
+            // 
+            this.bindingSourceWordsManagement.DataSource = typeof(HomeTask_WindowsForms.Entities.Word);
+            // 
+            // checkShowOnlyLearnedWords
+            // 
+            this.checkShowOnlyLearnedWords.AutoSize = true;
+            this.checkShowOnlyLearnedWords.Location = new System.Drawing.Point(308, 38);
+            this.checkShowOnlyLearnedWords.Name = "checkShowOnlyLearnedWords";
+            this.checkShowOnlyLearnedWords.Size = new System.Drawing.Size(144, 17);
+            this.checkShowOnlyLearnedWords.TabIndex = 9;
+            this.checkShowOnlyLearnedWords.Text = "Show only learned words";
+            this.checkShowOnlyLearnedWords.UseVisualStyleBackColor = true;
+            this.checkShowOnlyLearnedWords.CheckedChanged += new System.EventHandler(this.checkShowOnlyLearnedWords_CheckedChanged);
+            // 
             // WordsManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 334);
+            this.Controls.Add(this.checkShowOnlyLearnedWords);
             this.Controls.Add(this.dataGridViewWordsManagement);
             this.Controls.Add(this.buttonDeleteWord);
             this.Controls.Add(this.buttonFormClose);
@@ -214,11 +229,12 @@ namespace HomeTask_WindowsForms.Forms
             this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this.textBoxWordForSearching);
             this.Controls.Add(this.comboBoxSelectCategoryForSearching);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WordsManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WordsManagement";
+            this.Text = "Words Management";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWordsManagement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceWordsManagement)).EndInit();
@@ -245,6 +261,7 @@ namespace HomeTask_WindowsForms.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn TranslateSecond;
         private System.Windows.Forms.DataGridViewTextBoxColumn TranslateThird;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.CheckBox checkShowOnlyLearnedWords;
 
     }
 }
