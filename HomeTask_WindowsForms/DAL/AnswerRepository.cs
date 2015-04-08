@@ -1,18 +1,16 @@
-﻿using HomeTask_WindowsForms.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlServerCe;
+using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.DAL
+namespace EnglishAssistant.DAL
 {
     public class AnswerRepository : RepositoryBase
     {
         public IEnumerable<Answer> GetAllAnswers()
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
                 
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
@@ -32,9 +30,8 @@ namespace HomeTask_WindowsForms.DAL
 
         public void AddAnswer(Answer answer)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "INSERT INTO Answer (Date, Word_Id, AnswerValue) VALUES (@date, @word_Id, @answerValue)";

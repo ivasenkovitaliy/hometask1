@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HomeTask_WindowsForms.Infrastructure.Extensions
+namespace EnglishAssistant.Infrastructure.Extensions
 {
     public static class StringExtensions
     {

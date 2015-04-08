@@ -1,6 +1,6 @@
-﻿using HomeTask_WindowsForms.Entities;
+﻿using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     partial class AddingWord
     {
@@ -172,7 +172,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // bindingSourceComboCoxCategory
             // 
-            this.bindingSourceComboCoxCategory.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
+            this.bindingSourceComboCoxCategory.DataSource = typeof(Category);
             // 
             // panel1
             // 

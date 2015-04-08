@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HomeTask_WindowsForms.Entities
+namespace EnglishAssistant.Entities
 {
     public class Answer
     {
@@ -18,17 +18,17 @@ namespace HomeTask_WindowsForms.Entities
         
         public Answer(int wordId, Type answer)
         {
-            this.AnswersDate = DateTime.Now;
-            this.WordId = wordId;
-            this.AnswerValue = answer;
+            AnswersDate = DateTime.Now;
+            WordId = wordId;
+            AnswerValue = answer;
         }
 
         public Answer(int id, DateTime date, int wordId, int answerValue)
         {
-            this.AnswerId = id;
-            this.AnswersDate = date;
-            this.WordId = wordId;
-            this.AnswerValue = (Type) answerValue;
+            AnswerId = id;
+            AnswersDate = date;
+            WordId = wordId;
+            AnswerValue = (Type) answerValue;
         }
     }
 }

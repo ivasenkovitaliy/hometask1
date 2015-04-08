@@ -1,4 +1,4 @@
-﻿namespace HomeTask_WindowsForms.Entities
+﻿namespace EnglishAssistant.Entities
 {
     public class Category
     {
@@ -9,9 +9,9 @@
 
         public Category(int categoryId, string categoryName, bool isUsed)
         {
-            this.CategoryId = categoryId;
-            this.CategoryName = categoryName;
-            this.IsUsed = isUsed;
+            CategoryId = categoryId;
+            CategoryName = categoryName;
+            IsUsed = isUsed;
         }
 
         public Category(string categoryName) : this(0, categoryName, false) { }

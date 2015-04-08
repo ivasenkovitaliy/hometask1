@@ -1,12 +1,12 @@
-﻿using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Entities;
-using HomeTask_WindowsForms.Infrastructure;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using EnglishAssistant.DAL;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     public partial class CategoriesManagement : Form
     {
@@ -19,9 +19,9 @@ namespace HomeTask_WindowsForms.Forms
             
             PrepareForm();
             
-            this.Closing += WordsManagment_Closing;
-            this.textBoxNewCategoryName.GotFocus += textBoxNewCategoryName_GotFocus;
-            this.dataGridViewCategoriesManagement.CellClick += dataGridViewCategoriesManagement_CellClick;
+            Closing += WordsManagment_Closing;
+            textBoxNewCategoryName.GotFocus += textBoxNewCategoryName_GotFocus;
+            dataGridViewCategoriesManagement.CellClick += dataGridViewCategoriesManagement_CellClick;
         }
 
         private void PrepareForm()
@@ -60,7 +60,7 @@ namespace HomeTask_WindowsForms.Forms
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void AddButton_Click(object sender, EventArgs e)

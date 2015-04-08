@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Xml;
-namespace HomeTask_WindowsForms.Infrastructure
+
+namespace EnglishAssistant.Infrastructure
 {
     public interface IWebRequester<T>
     {
@@ -17,9 +18,14 @@ namespace HomeTask_WindowsForms.Infrastructure
 
             var document = new XmlDocument();
             using (var response = (HttpWebResponse)request.GetResponse())
-            using (var reader = XmlReader.Create(response.GetResponseStream()))
-                document.Load(reader);
+            {
+                var responseStream = response.GetResponseStream();
+                if (responseStream == null)
+                    return new XmlDocument();
 
+                using (var reader = XmlReader.Create(responseStream))
+                    document.Load(reader);
+            }
             return document;
         }
     }

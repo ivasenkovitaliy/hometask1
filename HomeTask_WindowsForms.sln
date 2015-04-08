@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeTask_WindowsForms", "HomeTask_WindowsForms\HomeTask_WindowsForms.csproj", "{2FF2C237-0E55-4A70-BF17-E006B4B96B4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishAssistant", "HomeTask_WindowsForms\EnglishAssistant.csproj", "{2FF2C237-0E55-4A70-BF17-E006B4B96B4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,14 +1,14 @@
-﻿using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Entities;
-using HomeTask_WindowsForms.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using HomeTask_WindowsForms.Infrastructure.Extensions;
+using EnglishAssistant.DAL;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
+using EnglishAssistant.Infrastructure.Extensions;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     public partial class WordsManagement : Form
     {
@@ -20,16 +20,16 @@ namespace HomeTask_WindowsForms.Forms
 
             PrepareForm();
 
-            this.FormClosing += WordsManagement_FormClosing;
-            this.textBoxWordForSearching.GotFocus += textBoxWordForSearching_GotFocus;
-            this.dataGridViewWordsManagement.CellClick += dataGridViewWordsManagement_CellClick;
-            this.Activated += WordsManagement_Activated;
-            this.dataGridViewWordsManagement.RowPostPaint += dataGridViewWordsManagement_RowPostPaint;
+            FormClosing += WordsManagement_FormClosing;
+            textBoxWordForSearching.GotFocus += textBoxWordForSearching_GotFocus;
+            dataGridViewWordsManagement.CellClick += dataGridViewWordsManagement_CellClick;
+            Activated += WordsManagement_Activated;
+            dataGridViewWordsManagement.RowPostPaint += dataGridViewWordsManagement_RowPostPaint;
         }
 
         void dataGridViewWordsManagement_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            this.dataGridViewWordsManagement.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+            dataGridViewWordsManagement.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
         }
 
         void WordsManagement_Activated(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace HomeTask_WindowsForms.Forms
             buttonDeleteWord.Enabled = false;
             buttonEditWord.Enabled = false;
 
-            textBoxWordForSearching.Text = "search";
+            textBoxWordForSearching.Text = "Search";
             textBoxWordForSearching.ForeColor = Color.Gray;
 
             DrawTable(LocalAppData.Instance.Words);
@@ -76,7 +76,7 @@ namespace HomeTask_WindowsForms.Forms
 
         private void buttonFormClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void buttonFilter_Click(object sender, EventArgs e)
@@ -92,7 +92,7 @@ namespace HomeTask_WindowsForms.Forms
                 );
 
             if (checkShowOnlyLearnedWords.Checked)
-                filteredWords = filteredWords.Where(x => x.IsLearnedRussian && x.IsLearnedEnglish);
+                filteredWords = filteredWords.Where(x => x.IsFullyLearned);
 
             DrawTable(filteredWords);
         }
@@ -105,7 +105,7 @@ namespace HomeTask_WindowsForms.Forms
                 select word;
 
             if (checkShowOnlyLearnedWords.Checked)
-                wordsSelectedWithCategory = wordsSelectedWithCategory.Where(x => x.IsLearnedRussian && x.IsLearnedEnglish);
+                wordsSelectedWithCategory = wordsSelectedWithCategory.Where(x => x.IsFullyLearned);
 
             DrawTable(wordsSelectedWithCategory);
         }
@@ -147,9 +147,14 @@ namespace HomeTask_WindowsForms.Forms
         {
             var allWords = LocalAppData.Instance.Words;
             if (((CheckBox) sender).Checked)
-                allWords = allWords.Where(x => x.IsLearnedRussian && x.IsLearnedEnglish).ToList();
+                allWords = allWords.Where(x => x.IsFullyLearned).ToList();
 
             DrawTable(allWords);
+        }
+
+        private void textBoxWordForSearching_Click(object sender, EventArgs e)
+        {
+            ((TextBox)sender).Text = string.Empty;
         }
     }
 }

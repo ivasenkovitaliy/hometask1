@@ -1,12 +1,12 @@
-﻿using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Entities;
-using HomeTask_WindowsForms.Infrastructure;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using EnglishAssistant.DAL;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     public partial class UpdatingWord : Form
     {
@@ -64,7 +64,7 @@ namespace HomeTask_WindowsForms.Forms
                 var notEditedWord = LocalAppData.Instance.Words.Find(x => x.Id == _updatingWord.Id);
 
                 var updatedWord = new Word(_updatingWord.Id, textBoxOriginal.Text, textBoxRU1.Text, textBoxRU2.Text,
-                    textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text, notEditedWord.IsLearnedEnglish, notEditedWord.IsLearnedRussian);
+                    textBoxRU3.Text, (int) comboBoxCategories.SelectedValue, comboBoxCategories.Text, notEditedWord.IsLearnedEnglishByCheck, notEditedWord.IsLearnedRussianByCheck, notEditedWord.IsLearnedEnglishByTranslation, notEditedWord.IsLearnedRussianByTranslation);
 
                 _wordRepository.UpdateWord(updatedWord);
                 LocalAppData.Instance.Words[LocalAppData.Instance.Words.IndexOf(_updatingWord)] = updatedWord;

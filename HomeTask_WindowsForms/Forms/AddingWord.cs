@@ -1,13 +1,13 @@
-﻿using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Entities;
-using HomeTask_WindowsForms.Infrastructure;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using HomeTask_WindowsForms.Infrastructure.Extensions;
+using EnglishAssistant.DAL;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
+using EnglishAssistant.Infrastructure.Extensions;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     public partial class AddingWord : Form
     {

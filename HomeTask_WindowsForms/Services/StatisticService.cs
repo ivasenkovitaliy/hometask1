@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
-using HomeTask_WindowsForms.Entities;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
 
-namespace HomeTask_WindowsForms.Infrastructure
+namespace EnglishAssistant.Services
 {
     public class StatisticService
     {

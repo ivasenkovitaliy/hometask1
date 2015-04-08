@@ -1,11 +1,11 @@
-﻿using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Entities;
-using HomeTask_WindowsForms.Infrastructure;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using EnglishAssistant.DAL;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     public partial class Settings : Form
     {
@@ -13,19 +13,19 @@ namespace HomeTask_WindowsForms.Forms
         public Settings()
         {
             InitializeComponent();
-            
-            domainUpDownTimeInterval.Text = ( (LocalAppData.Instance.TimerForShowingTestWindow.Interval)/ 60000).ToString();
+
+            domainUpDownTimeInterval.Text = ((LocalAppData.Instance.TimerForShowingTestWindow.Interval) / 60000).ToString();
 
             PrepareForm();
-            
-            this.Closing += Settings_Closing;
+
+            Closing += Settings_Closing;
         }
 
         private void PrepareForm()
         {
             bindingSourceCategoryToUse.ResetBindings(true);
             bindingSourceCategoryToUse.DataSource = LocalAppData.Instance.Categories;
-            
+
             dataGridViewSettings.ClearSelection(); // remove selection from first row
         }
 
@@ -40,13 +40,13 @@ namespace HomeTask_WindowsForms.Forms
 
             Properties.Settings.Default.TestTimerInterval = LocalAppData.Instance.TimerForShowingTestWindow.Interval;
             Properties.Settings.Default.Save();
-            
-            this.Close();
+
+            Close();
         }
 
         private void dataGridViewSettings_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ( dataGridViewSettings.CurrentRow != null)
+            if (dataGridViewSettings.CurrentRow != null)
             {
                 var categoryToChangeUse = (Category)dataGridViewSettings.CurrentRow.DataBoundItem;
 
@@ -56,13 +56,13 @@ namespace HomeTask_WindowsForms.Forms
                 LocalAppData.Instance.Categories[indexOfCategoriesList].IsUsed =
                     !LocalAppData.Instance.Categories[indexOfCategoriesList].IsUsed;
             }
-            
+
             PrepareForm();
         }
 
         private void buttonCancel_PanelSettings_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

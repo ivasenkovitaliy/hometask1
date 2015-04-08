@@ -1,8 +1,10 @@
-﻿using HomeTask_WindowsForms.Infrastructure;
+﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using EnglishAssistant.Infrastructure;
+using EnglishAssistant.Services;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     public partial class Statistic : Form
     {
@@ -14,7 +16,7 @@ namespace HomeTask_WindowsForms.Forms
             
             DrawStatistic();
             
-            this.FormClosing += Statistic_FormClosing;
+            FormClosing += Statistic_FormClosing;
         }
 
         void Statistic_FormClosing(object sender, FormClosingEventArgs e)
@@ -42,12 +44,12 @@ namespace HomeTask_WindowsForms.Forms
             }
         }
 
-        private void dateTimePickerFromDate_ValueChanged(object sender, System.EventArgs e)
+        private void dateTimePickerFromDate_ValueChanged(object sender, EventArgs e)
         {
             DrawStatistic();
         }
 
-        private void dateTimePickerToDate_ValueChanged(object sender, System.EventArgs e)
+        private void dateTimePickerToDate_ValueChanged(object sender, EventArgs e)
         {
             DrawStatistic();
         }
