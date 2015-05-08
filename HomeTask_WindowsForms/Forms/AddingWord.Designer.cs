@@ -172,7 +172,7 @@ namespace EnglishAssistant.Forms
             // 
             // bindingSourceComboCoxCategory
             // 
-            this.bindingSourceComboCoxCategory.DataSource = typeof(Category);
+            this.bindingSourceComboCoxCategory.DataSource = typeof(EnglishAssistant.Entities.Category);
             // 
             // panel1
             // 
@@ -202,6 +202,7 @@ namespace EnglishAssistant.Forms
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

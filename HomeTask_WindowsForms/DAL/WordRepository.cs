@@ -35,6 +35,14 @@ namespace EnglishAssistant.DAL
             ExecuteQuery("UPDATE Word SET IsLearnedEnglishByCheck = 0");
         }
 
+        public void ResetAllLearnedWords()
+        {
+            ResetAllEnglishLearnedWordsByChecking();
+            ResetAllEnglishLearnedWordsByTranslation();
+            ResetAllRussianLearnedWordsByChecking();
+            ResetAllRussianLearnedWordsByTranslation();
+        }
+
         public void ResetAllRussianLearnedWordsByChecking()
         {
             ExecuteQuery("UPDATE Word SET IsLearnedRussianByCheck = 0");

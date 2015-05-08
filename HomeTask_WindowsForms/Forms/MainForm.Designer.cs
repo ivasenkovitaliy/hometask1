@@ -64,6 +64,7 @@ namespace EnglishAssistant.Forms
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
             this.labelResult = new System.Windows.Forms.Label();
+            this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._iconContextMenuStrip.SuspendLayout();
             this.PanelWelcome.SuspendLayout();
             this.PanelTest.SuspendLayout();
@@ -83,13 +84,14 @@ namespace EnglishAssistant.Forms
             this.addNewWordToolStripMenuItem,
             this.toolStripSeparator1,
             this.тестToolStripMenuItem,
+            this.pauseToolStripMenuItem,
             this.statisticToolStripMenuItem,
             this.CategoriesManagmentToolStripMenuItem,
             this.wordsManagementToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(205, 189);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(205, 233);
             // 
             // toolStripWordSearchTextBox
             // 
@@ -383,6 +385,13 @@ namespace EnglishAssistant.Forms
             this.labelResult.Text = "label2";
             this.labelResult.Visible = false;
             // 
+            // pauseToolStripMenuItem
+            // 
+            this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pauseToolStripMenuItem.Text = "Pause";
+            this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonSubmit;
@@ -394,6 +403,7 @@ namespace EnglishAssistant.Forms
             this.Controls.Add(this.PanelWelcome);
             this.Controls.Add(this.WelcomeTextLabel);
             this.Controls.Add(this.labelResult);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -452,6 +462,7 @@ namespace EnglishAssistant.Forms
         private ToolStripTextBox toolStripWordSearchTextBox;
         private ToolStripSeparator toolStripSeparator1;
         private RichTextBox translationRichTextBox;
+        private ToolStripMenuItem pauseToolStripMenuItem;
     }
 }
 

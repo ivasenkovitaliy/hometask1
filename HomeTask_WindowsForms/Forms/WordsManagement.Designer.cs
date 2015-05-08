@@ -41,14 +41,16 @@ namespace EnglishAssistant.Forms
             this.buttonFormClose = new System.Windows.Forms.Button();
             this.buttonDeleteWord = new System.Windows.Forms.Button();
             this.dataGridViewWordsManagement = new System.Windows.Forms.DataGridView();
-            this.bindingSourceWordsManagement = new System.Windows.Forms.BindingSource(this.components);
-            this.checkShowOnlyLearnedWords = new System.Windows.Forms.CheckBox();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.translateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TranslateSecond = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TranslateThird = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceWordsManagement = new System.Windows.Forms.BindingSource(this.components);
+            this.checkShowOnlyLearnedWords = new System.Windows.Forms.CheckBox();
+            this.learnedWordsLabel = new System.Windows.Forms.Label();
+            this.resetLearnedWordsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceComboBoxCategories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWordsManagement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceWordsManagement)).BeginInit();
@@ -154,21 +156,6 @@ namespace EnglishAssistant.Forms
             this.dataGridViewWordsManagement.Size = new System.Drawing.Size(756, 214);
             this.dataGridViewWordsManagement.TabIndex = 8;
             // 
-            // bindingSourceWordsManagement
-            // 
-            this.bindingSourceWordsManagement.DataSource = typeof(EnglishAssistant.Entities.Word);
-            // 
-            // checkShowOnlyLearnedWords
-            // 
-            this.checkShowOnlyLearnedWords.AutoSize = true;
-            this.checkShowOnlyLearnedWords.Location = new System.Drawing.Point(308, 38);
-            this.checkShowOnlyLearnedWords.Name = "checkShowOnlyLearnedWords";
-            this.checkShowOnlyLearnedWords.Size = new System.Drawing.Size(144, 17);
-            this.checkShowOnlyLearnedWords.TabIndex = 9;
-            this.checkShowOnlyLearnedWords.Text = "Show only learned words";
-            this.checkShowOnlyLearnedWords.UseVisualStyleBackColor = true;
-            this.checkShowOnlyLearnedWords.CheckedChanged += new System.EventHandler(this.checkShowOnlyLearnedWords_CheckedChanged);
-            // 
             // Column1
             // 
             this.Column1.FillWeight = 150F;
@@ -217,11 +204,47 @@ namespace EnglishAssistant.Forms
             this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
             this.categoryDataGridViewTextBoxColumn.Width = 130;
             // 
+            // bindingSourceWordsManagement
+            // 
+            this.bindingSourceWordsManagement.DataSource = typeof(EnglishAssistant.Entities.Word);
+            // 
+            // checkShowOnlyLearnedWords
+            // 
+            this.checkShowOnlyLearnedWords.AutoSize = true;
+            this.checkShowOnlyLearnedWords.Location = new System.Drawing.Point(308, 38);
+            this.checkShowOnlyLearnedWords.Name = "checkShowOnlyLearnedWords";
+            this.checkShowOnlyLearnedWords.Size = new System.Drawing.Size(144, 17);
+            this.checkShowOnlyLearnedWords.TabIndex = 9;
+            this.checkShowOnlyLearnedWords.Text = "Show only learned words";
+            this.checkShowOnlyLearnedWords.UseVisualStyleBackColor = true;
+            this.checkShowOnlyLearnedWords.CheckedChanged += new System.EventHandler(this.checkShowOnlyLearnedWords_CheckedChanged);
+            // 
+            // learnedWordsLabel
+            // 
+            this.learnedWordsLabel.AutoSize = true;
+            this.learnedWordsLabel.Location = new System.Drawing.Point(175, 42);
+            this.learnedWordsLabel.Name = "learnedWordsLabel";
+            this.learnedWordsLabel.Size = new System.Drawing.Size(35, 13);
+            this.learnedWordsLabel.TabIndex = 10;
+            this.learnedWordsLabel.Text = "label1";
+            // 
+            // resetLearnedWordsButton
+            // 
+            this.resetLearnedWordsButton.Location = new System.Drawing.Point(12, 7);
+            this.resetLearnedWordsButton.Name = "resetLearnedWordsButton";
+            this.resetLearnedWordsButton.Size = new System.Drawing.Size(145, 23);
+            this.resetLearnedWordsButton.TabIndex = 11;
+            this.resetLearnedWordsButton.Text = "Reset all learned words";
+            this.resetLearnedWordsButton.UseVisualStyleBackColor = true;
+            this.resetLearnedWordsButton.Click += new System.EventHandler(this.resetLearnedWordsButton_Click);
+            // 
             // WordsManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 334);
+            this.Controls.Add(this.resetLearnedWordsButton);
+            this.Controls.Add(this.learnedWordsLabel);
             this.Controls.Add(this.checkShowOnlyLearnedWords);
             this.Controls.Add(this.dataGridViewWordsManagement);
             this.Controls.Add(this.buttonDeleteWord);
@@ -231,6 +254,7 @@ namespace EnglishAssistant.Forms
             this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this.textBoxWordForSearching);
             this.Controls.Add(this.comboBoxSelectCategoryForSearching);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -264,6 +288,8 @@ namespace EnglishAssistant.Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn TranslateSecond;
         private System.Windows.Forms.DataGridViewTextBoxColumn TranslateThird;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label learnedWordsLabel;
+        private System.Windows.Forms.Button resetLearnedWordsButton;
 
     }
 }
