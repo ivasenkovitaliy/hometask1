@@ -95,7 +95,7 @@ namespace EnglishAssistant.Forms
             // 
             // bindingSourceComboBoxCategories
             // 
-            this.bindingSourceComboBoxCategories.DataSource = typeof(Category);
+            this.bindingSourceComboBoxCategories.DataSource = typeof(EnglishAssistant.Entities.Category);
             // 
             // buttonUpdate
             // 
@@ -209,6 +209,7 @@ namespace EnglishAssistant.Forms
             this.Controls.Add(this.buttonAddTranslate);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

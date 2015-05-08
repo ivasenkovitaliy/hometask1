@@ -12,7 +12,8 @@ namespace EnglishAssistant.Forms
 {
     public partial class WordsManagement : Form
     {
-        readonly private WordRepository _wordRepository = new WordRepository();
+        private readonly WordRepository _wordRepository = new WordRepository();
+        private readonly LocalAppData _localData = LocalAppData.Instance;
 
         public WordsManagement()
         {
@@ -25,6 +26,14 @@ namespace EnglishAssistant.Forms
             dataGridViewWordsManagement.CellClick += dataGridViewWordsManagement_CellClick;
             Activated += WordsManagement_Activated;
             dataGridViewWordsManagement.RowPostPaint += dataGridViewWordsManagement_RowPostPaint;
+        }
+
+        private void InitializeLearnedWordsLabel()
+        {
+            int totalWordsCount = _localData.Words.Count;
+            int learnedWordsCount = _localData.Words.Count(x => x.IsFullyLearned);
+
+            learnedWordsLabel.Text = string.Format("Learned {0} from {1}", learnedWordsCount, totalWordsCount);
         }
 
         void dataGridViewWordsManagement_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -40,7 +49,7 @@ namespace EnglishAssistant.Forms
         private void PrepareForm()
         {
             //preparing combobox of categories
-            bindingSourceComboBoxCategories.DataSource = LocalAppData.Instance.Categories;
+            bindingSourceComboBoxCategories.DataSource = _localData.Categories;
 
             buttonDeleteWord.Enabled = false;
             buttonEditWord.Enabled = false;
@@ -48,7 +57,8 @@ namespace EnglishAssistant.Forms
             textBoxWordForSearching.Text = "Search";
             textBoxWordForSearching.ForeColor = Color.Gray;
 
-            DrawTable(LocalAppData.Instance.Words);
+            DrawTable(_localData.Words);
+            InitializeLearnedWordsLabel();
         }
 
         private void DrawTable(IEnumerable<Word> wordsToFillTable)
@@ -71,7 +81,7 @@ namespace EnglishAssistant.Forms
 
         void WordsManagement_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LocalAppData.Instance.TimerForShowingTestWindow.Start();
+            _localData.TimerForShowingTestWindow.Start();
         }
 
         private void buttonFormClose_Click(object sender, EventArgs e)
@@ -81,7 +91,7 @@ namespace EnglishAssistant.Forms
 
         private void buttonFilter_Click(object sender, EventArgs e)
         {
-            var allWords = LocalAppData.Instance.Words;
+            var allWords = _localData.Words;
             var searchingValue = textBoxWordForSearching.Text;
 
             if (string.IsNullOrEmpty(searchingValue) || string.IsNullOrWhiteSpace(searchingValue))
@@ -100,7 +110,7 @@ namespace EnglishAssistant.Forms
         private void comboBoxSelectCategoryForSearching_SelectedIndexChanged(object sender, EventArgs e)
         {
             var wordsSelectedWithCategory =
-                from word in LocalAppData.Instance.Words
+                from word in _localData.Words
                 where comboBoxSelectCategoryForSearching.Text.Equals(word.Category)
                 select word;
 
@@ -123,7 +133,7 @@ namespace EnglishAssistant.Forms
                 var deletingWord = (Word)dataGridViewWordsManagement.CurrentRow.DataBoundItem;
 
                 _wordRepository.RemoveWord(deletingWord);
-                LocalAppData.Instance.Words.Remove(deletingWord);
+                _localData.Words.Remove(deletingWord);
             }
 
             PrepareForm();
@@ -145,7 +155,7 @@ namespace EnglishAssistant.Forms
 
         private void checkShowOnlyLearnedWords_CheckedChanged(object sender, EventArgs e)
         {
-            var allWords = LocalAppData.Instance.Words;
+            var allWords = _localData.Words;
             if (((CheckBox) sender).Checked)
                 allWords = allWords.Where(x => x.IsFullyLearned).ToList();
 
@@ -155,6 +165,13 @@ namespace EnglishAssistant.Forms
         private void textBoxWordForSearching_Click(object sender, EventArgs e)
         {
             ((TextBox)sender).Text = string.Empty;
+        }
+
+        private void resetLearnedWordsButton_Click(object sender, EventArgs e)
+        {
+            _wordRepository.ResetAllLearnedWords();
+            _localData.Words = _wordRepository.GetAllWords().ToList();
+            PrepareForm();
         }
     }
 }

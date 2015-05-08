@@ -152,5 +152,20 @@ namespace EnglishAssistant.Forms
         {
             return translationRichTextBox.Text.Equals(correctTranslation, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var button = (ToolStripMenuItem) sender;
+            if (button.Text == "Pause")
+            {
+                _localData.TimerForShowingTestWindow.Enabled = false;
+                button.Text = "Resume";
+            }
+            else
+            {
+                _localData.TimerForShowingTestWindow.Enabled = true;
+                button.Text = "Pause";
+            }
+        }
     }
 }

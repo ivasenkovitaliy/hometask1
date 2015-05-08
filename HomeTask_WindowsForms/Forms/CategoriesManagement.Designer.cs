@@ -33,14 +33,14 @@ namespace EnglishAssistant.Forms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoriesManagement));
             this.dataGridViewCategoriesManagement = new System.Windows.Forms.DataGridView();
-            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WordsInCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bindingSourceCategoryManagement = new System.Windows.Forms.BindingSource(this.components);
             this.AddButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.textBoxNewCategoryName = new System.Windows.Forms.TextBox();
             this.buttonDeleteCategory = new System.Windows.Forms.Button();
             this.buttonUpdateCategory = new System.Windows.Forms.Button();
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceCategoryManagement = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoriesManagement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCategoryManagement)).BeginInit();
             this.SuspendLayout();
@@ -65,22 +65,11 @@ namespace EnglishAssistant.Forms
             this.dataGridViewCategoriesManagement.Size = new System.Drawing.Size(296, 180);
             this.dataGridViewCategoriesManagement.TabIndex = 1;
             // 
-            // categoryNameDataGridViewTextBoxColumn
-            // 
-            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
-            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "Category";
-            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
-            this.categoryNameDataGridViewTextBoxColumn.Width = 170;
-            // 
             // WordsInCategory
             // 
             this.WordsInCategory.DataPropertyName = "WordsInCategory";
             this.WordsInCategory.HeaderText = "Words In Category";
             this.WordsInCategory.Name = "WordsInCategory";
-            // 
-            // bindingSourceCategoryManagement
-            // 
-            this.bindingSourceCategoryManagement.DataSource = typeof(Category);
             // 
             // AddButton
             // 
@@ -133,6 +122,17 @@ namespace EnglishAssistant.Forms
             this.buttonUpdateCategory.UseVisualStyleBackColor = true;
             this.buttonUpdateCategory.Click += new System.EventHandler(this.buttonUpdateCategory_Click);
             // 
+            // categoryNameDataGridViewTextBoxColumn
+            // 
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "Category";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.Width = 170;
+            // 
+            // bindingSourceCategoryManagement
+            // 
+            this.bindingSourceCategoryManagement.DataSource = typeof(EnglishAssistant.Entities.Category);
+            // 
             // CategoriesManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,6 +144,7 @@ namespace EnglishAssistant.Forms
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.dataGridViewCategoriesManagement);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

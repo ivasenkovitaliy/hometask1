@@ -9,6 +9,7 @@ namespace EnglishAssistant.Forms
     public partial class Statistic : Form
     {
         private readonly StatisticService _statisticService = new StatisticService();
+        private readonly LocalAppData _localAppData = LocalAppData.Instance;
 
         public Statistic()
         {
@@ -21,7 +22,7 @@ namespace EnglishAssistant.Forms
 
         void Statistic_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LocalAppData.Instance.TimerForShowingTestWindow.Start();
+            _localAppData.TimerForShowingTestWindow.Start();
         }
 
         private void DrawStatistic()
@@ -51,6 +52,13 @@ namespace EnglishAssistant.Forms
 
         private void dateTimePickerToDate_ValueChanged(object sender, EventArgs e)
         {
+            DrawStatistic();
+        }
+
+        private void clearStatisticButton_Click(object sender, EventArgs e)
+        {
+            _statisticService.ClearStatistic();
+            _localAppData.Answers.Clear();
             DrawStatistic();
         }
     }

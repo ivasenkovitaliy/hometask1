@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerToDate = new System.Windows.Forms.DateTimePicker();
+            this.clearStatisticButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,16 +94,28 @@
             this.dateTimePickerToDate.TabIndex = 4;
             this.dateTimePickerToDate.ValueChanged += new System.EventHandler(this.dateTimePickerToDate_ValueChanged);
             // 
+            // clearStatisticButton
+            // 
+            this.clearStatisticButton.Location = new System.Drawing.Point(426, 143);
+            this.clearStatisticButton.Name = "clearStatisticButton";
+            this.clearStatisticButton.Size = new System.Drawing.Size(134, 23);
+            this.clearStatisticButton.TabIndex = 5;
+            this.clearStatisticButton.Text = "Clear statistic";
+            this.clearStatisticButton.UseVisualStyleBackColor = true;
+            this.clearStatisticButton.Click += new System.EventHandler(this.clearStatisticButton_Click);
+            // 
             // Statistic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 386);
+            this.Controls.Add(this.clearStatisticButton);
             this.Controls.Add(this.dateTimePickerToDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePickerFromDate);
             this.Controls.Add(this.chart1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -122,5 +135,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerToDate;
+        private System.Windows.Forms.Button clearStatisticButton;
     }
 }

@@ -28,6 +28,11 @@ namespace EnglishAssistant.DAL
             }
         }
 
+        public void ClearStatistic()
+        {
+            ExecuteQuery("DELETE FROM Answer");
+        }
+
         public void AddAnswer(Answer answer)
         {
             using (var connection = GetOpenConnection())
