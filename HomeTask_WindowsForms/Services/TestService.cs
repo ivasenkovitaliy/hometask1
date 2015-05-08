@@ -70,7 +70,7 @@ namespace EnglishAssistant.Services
             foreach (var word in requiredWords)
                 word.Translate = word.GetRandomTranslate;
 
-            requiredWords = requiredWords.Shuffle().Take(Settings.MinAllowedWordsForTest).ToList();
+            requiredWords = requiredWords.Take(10).ToList().Shuffle().Take(Settings.MinAllowedWordsForTest).ToList();
 
             return requiredWords;
         }
