@@ -1,18 +1,16 @@
-﻿using HomeTask_WindowsForms.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlServerCe;
+using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.DAL
+namespace EnglishAssistant.DAL
 {
     public class CategoryRepository : RepositoryBase
     {
         public IEnumerable<Category> GetAllCategories()
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
@@ -32,9 +30,8 @@ namespace HomeTask_WindowsForms.DAL
         
         public void AddCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "INSERT INTO Category (Name, IsUsed) VALUES (@categoryName, @isUsed)";
@@ -52,9 +49,8 @@ namespace HomeTask_WindowsForms.DAL
 
         public void RemoveCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "DELETE FROM Category WHERE Id = @categoryId";
@@ -66,9 +62,8 @@ namespace HomeTask_WindowsForms.DAL
 
         public void UpdateCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE Category SET Name = @categoryName WHERE Id = @categoryId";
@@ -81,9 +76,8 @@ namespace HomeTask_WindowsForms.DAL
 
         public void ChangeUsingCategory(Category category)
         {
-            using (var connection = new SqlCeConnection(ConnectionString))
+            using (var connection = GetOpenConnection())
             {
-                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE Category SET IsUsed = @isUsed WHERE Id = @categoryId";

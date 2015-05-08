@@ -7,8 +7,8 @@
     <ProjectGuid>{2FF2C237-0E55-4A70-BF17-E006B4B96B4F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HomeTask_WindowsForms</RootNamespace>
-    <AssemblyName>HomeTask_WindowsForms</AssemblyName>
+    <RootNamespace>EnglishAssistant</RootNamespace>
+    <AssemblyName>EnglishAssistant</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -93,7 +93,14 @@
     </Compile>
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Category.cs" />
-    <Compile Include="Infrastructure\AnswerService.cs" />
+    <Compile Include="Forms\MainFormHandlers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainFormVisualManagment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Extensions\ListExtensions.cs" />
+    <Compile Include="Services\AnswerService.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\WordExtensions.cs" />
     <Compile Include="Infrastructure\LocalAppData.cs" />
@@ -103,8 +110,10 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\StatisticService.cs" />
+    <Compile Include="Infrastructure\Settings.cs" />
+    <Compile Include="Services\StatisticService.cs" />
     <Compile Include="Infrastructure\Translator.cs" />
+    <Compile Include="Infrastructure\TypeTest.cs" />
     <Compile Include="Infrastructure\WebRequester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,6 +149,7 @@
     <Compile Include="Forms\WordsManagement.Designer.cs">
       <DependentUpon>WordsManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\TestService.cs" />
     <EmbeddedResource Include="Forms\AddingWord.resx">
       <DependentUpon>AddingWord.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +164,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>

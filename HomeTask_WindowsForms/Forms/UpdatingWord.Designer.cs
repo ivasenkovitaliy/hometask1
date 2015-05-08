@@ -1,6 +1,6 @@
-﻿using HomeTask_WindowsForms.Entities;
+﻿using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     partial class UpdatingWord
     {
@@ -95,7 +95,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // bindingSourceComboBoxCategories
             // 
-            this.bindingSourceComboBoxCategories.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
+            this.bindingSourceComboBoxCategories.DataSource = typeof(Category);
             // 
             // buttonUpdate
             // 

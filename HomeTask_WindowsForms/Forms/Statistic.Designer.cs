@@ -1,4 +1,4 @@
-﻿namespace HomeTask_WindowsForms.Forms
+﻿namespace EnglishAssistant.Forms
 {
     partial class Statistic
     {

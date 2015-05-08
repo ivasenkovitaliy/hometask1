@@ -1,7 +1,8 @@
-﻿using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Entities;
+﻿using EnglishAssistant.DAL;
+using EnglishAssistant.Entities;
+using EnglishAssistant.Infrastructure;
 
-namespace HomeTask_WindowsForms.Infrastructure
+namespace EnglishAssistant.Services
 {
     public class AnswerService
     {

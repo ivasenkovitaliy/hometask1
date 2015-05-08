@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HomeTask_WindowsForms.Entities;
-using Timer = System.Windows.Forms.Timer;
+using System.Windows.Forms;
+using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.Infrastructure
+namespace EnglishAssistant.Infrastructure
 {
     public interface ILocalAppData
     {
@@ -22,12 +22,11 @@ namespace HomeTask_WindowsForms.Infrastructure
         public List<Category> Categories { get; set; }
         public List<Word> Words { get; set; }
         public List<Answer> Answers { get; set; }
-        
-        
+
+
         private LocalAppData()
         {
-            TimerForShowingTestWindow = new Timer();
-            TimerForShowingTestWindow.Interval = Properties.Settings.Default.TestTimerInterval;
+            TimerForShowingTestWindow = new Timer { Interval = Properties.Settings.Default.TestTimerInterval };
         }
 
         public static LocalAppData Instance
@@ -45,9 +44,9 @@ namespace HomeTask_WindowsForms.Infrastructure
 
                 return _instance;
             }
-            
+
         }
-        
+
         public void CountWordsInCategories()
         {
             foreach (var category in Instance.Categories)
@@ -56,7 +55,7 @@ namespace HomeTask_WindowsForms.Infrastructure
                     from word in Instance.Words
                     where word.CategoryId == category.CategoryId
                     select word;
-                
+
                 category.WordsInCategory = wordsInCategory.ToList().Count;  // adding in category count of words in this category
             }
         }
@@ -65,7 +64,7 @@ namespace HomeTask_WindowsForms.Infrastructure
         {
             foreach (var word in Instance.Words)
             {
-                if (word.CategoryId==categoryToDelete.CategoryId)
+                if (word.CategoryId == categoryToDelete.CategoryId)
                 {
                     word.Category = Instance.Categories[0].CategoryName;
                     word.CategoryId = Instance.Categories[0].CategoryId;

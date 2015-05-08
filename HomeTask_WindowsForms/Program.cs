@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlServerCe;
-using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using HomeTask_WindowsForms.DAL;
-using HomeTask_WindowsForms.Forms;
+using EnglishAssistant.DAL;
+using EnglishAssistant.Forms;
+using EnglishAssistant.Infrastructure;
 
-namespace HomeTask_WindowsForms
+namespace EnglishAssistant
 {
     
     static class Program
     {
         // using to run single application   ---------------------------------
-        
-        private static Mutex _mInstance;
+
         private const string MAppName = "Testing Words";
         
         [DllImport("User32.DLL", CharSet = CharSet.Unicode)]
@@ -70,7 +67,7 @@ namespace HomeTask_WindowsForms
         {
              
             bool tryCreateNewApp;
-            _mInstance = new Mutex(true, MAppName, out tryCreateNewApp);
+            new Mutex(true, MAppName, out tryCreateNewApp);
             var tempHandle = FindWindow(null, MAppName);
 
             Properties.Settings.Default.ProgrammWindowName = MAppName;
@@ -82,6 +79,10 @@ namespace HomeTask_WindowsForms
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
+                LocalAppData.Instance.Categories = new CategoryRepository().GetAllCategories().ToList();
+                LocalAppData.Instance.Words = new WordRepository().GetAllWords().ToList();
+                LocalAppData.Instance.Answers = new AnswerRepository().GetAllAnswers().ToList();
                 Application.Run(new MainForm());
             }
             else

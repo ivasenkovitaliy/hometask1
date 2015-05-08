@@ -1,7 +1,7 @@
 ﻿using System;
-using HomeTask_WindowsForms.Entities;
+using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.Infrastructure.Extensions
+namespace EnglishAssistant.Infrastructure.Extensions
 {
     public static class WordExtensions
     {

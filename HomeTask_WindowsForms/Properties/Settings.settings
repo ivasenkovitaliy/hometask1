@@ -14,5 +14,8 @@
     <Setting Name="YandexTranslatorApiKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">trnsl.1.1.20150402T180852Z.bc02f3bcb4c2386d.9b408f85b138d81d86fc704a698913b6e0ee7684</Value>
     </Setting>
+    <Setting Name="MinAllowedWordsForTest" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using System.Text;
 using System.Xml;
-using HomeTask_WindowsForms.Entities;
 
-namespace HomeTask_WindowsForms.Infrastructure
+namespace EnglishAssistant.Infrastructure
 {
     public interface ITranslator
     {
@@ -21,7 +17,7 @@ namespace HomeTask_WindowsForms.Infrastructure
         public YandexTranslator(string apiKey, IWebRequester<XmlDocument> requester)
         {
             if (string.IsNullOrEmpty(apiKey))
-                throw new ArgumentNullException("api key");
+                throw new ArgumentNullException("apiKey");
             if (requester == null)
                 throw new ArgumentNullException("requester");
 
@@ -43,7 +39,8 @@ namespace HomeTask_WindowsForms.Infrastructure
                 return string.Empty;
             }
 
-            return document["Translation"].InnerText;
+            var xmlElement = document["Translation"];
+            return xmlElement != null ? xmlElement.InnerText : string.Empty;
         }
 
 

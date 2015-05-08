@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     partial class MainForm
     {
@@ -34,6 +34,9 @@ namespace HomeTask_WindowsForms.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this._notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this._iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripWordSearchTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.addNewWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.тестToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CategoriesManagmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +49,7 @@ namespace HomeTask_WindowsForms.Forms
             this.PanelWelcomeYesButton = new System.Windows.Forms.Button();
             this.WelcomeTextLabel = new System.Windows.Forms.Label();
             this.PanelTest = new System.Windows.Forms.Panel();
+            this.translationRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButtonAnswer1 = new System.Windows.Forms.RadioButton();
             this.buttonAnotherTryNo = new System.Windows.Forms.Button();
@@ -53,16 +57,13 @@ namespace HomeTask_WindowsForms.Forms
             this.buttonAnotherTryYes = new System.Windows.Forms.Button();
             this.radioButtonAnswer3 = new System.Windows.Forms.RadioButton();
             this.radioButtonAnswer4 = new System.Windows.Forms.RadioButton();
-            this.labelResult = new System.Windows.Forms.Label();
             this.radioButtonAnswer5 = new System.Windows.Forms.RadioButton();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonDontSure = new System.Windows.Forms.Button();
             this.buttonSubmit = new System.Windows.Forms.Button();
             this.OriginaWordLabel = new System.Windows.Forms.Label();
             this.CategoryNameLabel = new System.Windows.Forms.Label();
-            this.addNewWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripWordSearchTextBox = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.labelResult = new System.Windows.Forms.Label();
             this._iconContextMenuStrip.SuspendLayout();
             this.PanelWelcome.SuspendLayout();
             this.PanelTest.SuspendLayout();
@@ -88,7 +89,28 @@ namespace HomeTask_WindowsForms.Forms
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this._iconContextMenuStrip.Name = "contextMenuStrip1";
-            this._iconContextMenuStrip.Size = new System.Drawing.Size(205, 211);
+            this._iconContextMenuStrip.Size = new System.Drawing.Size(205, 189);
+            // 
+            // toolStripWordSearchTextBox
+            // 
+            this.toolStripWordSearchTextBox.Name = "toolStripWordSearchTextBox";
+            this.toolStripWordSearchTextBox.Size = new System.Drawing.Size(100, 23);
+            this.toolStripWordSearchTextBox.Text = "Search you word...";
+            this.toolStripWordSearchTextBox.ToolTipText = "Search you word";
+            this.toolStripWordSearchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripWordSearchTextBox_KeyDown);
+            this.toolStripWordSearchTextBox.Click += new System.EventHandler(this.toolStripWordSearchTextBox_Click);
+            // 
+            // addNewWordToolStripMenuItem
+            // 
+            this.addNewWordToolStripMenuItem.Name = "addNewWordToolStripMenuItem";
+            this.addNewWordToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.addNewWordToolStripMenuItem.Text = "Add new word";
+            this.addNewWordToolStripMenuItem.Click += new System.EventHandler(this.AddNewWord);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
             // 
             // тестToolStripMenuItem
             // 
@@ -185,6 +207,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // PanelTest
             // 
+            this.PanelTest.Controls.Add(this.translationRichTextBox);
             this.PanelTest.Controls.Add(this.label2);
             this.PanelTest.Controls.Add(this.radioButtonAnswer1);
             this.PanelTest.Controls.Add(this.buttonAnotherTryNo);
@@ -192,7 +215,6 @@ namespace HomeTask_WindowsForms.Forms
             this.PanelTest.Controls.Add(this.buttonAnotherTryYes);
             this.PanelTest.Controls.Add(this.radioButtonAnswer3);
             this.PanelTest.Controls.Add(this.radioButtonAnswer4);
-            this.PanelTest.Controls.Add(this.labelResult);
             this.PanelTest.Controls.Add(this.radioButtonAnswer5);
             this.PanelTest.Controls.Add(this.buttonCancel);
             this.PanelTest.Controls.Add(this.buttonDontSure);
@@ -204,6 +226,15 @@ namespace HomeTask_WindowsForms.Forms
             this.PanelTest.Size = new System.Drawing.Size(303, 238);
             this.PanelTest.TabIndex = 3;
             this.PanelTest.Visible = false;
+            // 
+            // translationRichTextBox
+            // 
+            this.translationRichTextBox.Location = new System.Drawing.Point(19, 69);
+            this.translationRichTextBox.Name = "translationRichTextBox";
+            this.translationRichTextBox.Size = new System.Drawing.Size(267, 108);
+            this.translationRichTextBox.TabIndex = 14;
+            this.translationRichTextBox.Text = "";
+            this.translationRichTextBox.Visible = false;
             // 
             // label2
             // 
@@ -279,17 +310,6 @@ namespace HomeTask_WindowsForms.Forms
             this.radioButtonAnswer4.Text = "radioButton4";
             this.radioButtonAnswer4.UseVisualStyleBackColor = true;
             // 
-            // labelResult
-            // 
-            this.labelResult.AutoSize = true;
-            this.labelResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelResult.Location = new System.Drawing.Point(128, 113);
-            this.labelResult.Name = "labelResult";
-            this.labelResult.Size = new System.Drawing.Size(51, 20);
-            this.labelResult.TabIndex = 10;
-            this.labelResult.Text = "label2";
-            this.labelResult.Visible = false;
-            // 
             // radioButtonAnswer5
             // 
             this.radioButtonAnswer5.AutoSize = true;
@@ -313,6 +333,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // buttonDontSure
             // 
+            this.buttonDontSure.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonDontSure.Location = new System.Drawing.Point(101, 192);
             this.buttonDontSure.Name = "buttonDontSure";
             this.buttonDontSure.Size = new System.Drawing.Size(103, 23);
@@ -351,41 +372,36 @@ namespace HomeTask_WindowsForms.Forms
             this.CategoryNameLabel.TabIndex = 0;
             this.CategoryNameLabel.Text = "CategoryName";
             // 
-            // addNewWordToolStripMenuItem
+            // labelResult
             // 
-            this.addNewWordToolStripMenuItem.Name = "addNewWordToolStripMenuItem";
-            this.addNewWordToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.addNewWordToolStripMenuItem.Text = "Add new word";
-            this.addNewWordToolStripMenuItem.Click += new System.EventHandler(this.AddNewWord);
-            // 
-            // toolStripWordSearchTextBox
-            // 
-            this.toolStripWordSearchTextBox.Name = "toolStripWordSearchTextBox";
-            this.toolStripWordSearchTextBox.Size = new System.Drawing.Size(100, 23);
-            this.toolStripWordSearchTextBox.Text = "Search you word...";
-            this.toolStripWordSearchTextBox.ToolTipText = "Search you word";
-            this.toolStripWordSearchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripWordSearchTextBox_KeyDown);
-            this.toolStripWordSearchTextBox.Click += new System.EventHandler(this.toolStripWordSearchTextBox_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
+            this.labelResult.AutoSize = true;
+            this.labelResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelResult.Location = new System.Drawing.Point(31, 271);
+            this.labelResult.Name = "labelResult";
+            this.labelResult.Size = new System.Drawing.Size(51, 20);
+            this.labelResult.TabIndex = 10;
+            this.labelResult.Text = "label2";
+            this.labelResult.Visible = false;
             // 
             // MainForm
             // 
+            this.AcceptButton = this.buttonSubmit;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 262);
+            this.CancelButton = this.buttonDontSure;
+            this.ClientSize = new System.Drawing.Size(336, 316);
             this.Controls.Add(this.PanelTest);
             this.Controls.Add(this.PanelWelcome);
             this.Controls.Add(this.WelcomeTextLabel);
+            this.Controls.Add(this.labelResult);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this._iconContextMenuStrip.ResumeLayout(false);
             this._iconContextMenuStrip.PerformLayout();
@@ -435,6 +451,7 @@ namespace HomeTask_WindowsForms.Forms
         private ToolStripMenuItem addNewWordToolStripMenuItem;
         private ToolStripTextBox toolStripWordSearchTextBox;
         private ToolStripSeparator toolStripSeparator1;
+        private RichTextBox translationRichTextBox;
     }
 }
 

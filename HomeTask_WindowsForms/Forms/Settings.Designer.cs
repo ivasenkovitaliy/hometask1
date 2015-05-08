@@ -1,6 +1,6 @@
-﻿using HomeTask_WindowsForms.Entities;
+﻿using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.Forms
+namespace EnglishAssistant.Forms
 {
     partial class Settings
     {
@@ -110,7 +110,7 @@ namespace HomeTask_WindowsForms.Forms
             // 
             // bindingSourceCategoryToUse
             // 
-            this.bindingSourceCategoryToUse.DataSource = typeof(HomeTask_WindowsForms.Entities.Category);
+            this.bindingSourceCategoryToUse.DataSource = typeof(Category);
             // 
             // buttonCancel_PanelSettings
             // 

@@ -1,9 +1,9 @@
-﻿using HomeTask_WindowsForms.Entities;
-using System.Data.SqlServerCe;
+﻿using System.Data.SqlServerCe;
 using System.IO;
 using System.Reflection;
+using EnglishAssistant.Entities;
 
-namespace HomeTask_WindowsForms.DAL
+namespace EnglishAssistant.DAL
 {
     public class DataBaseInitializer : RepositoryBase
     {
@@ -17,10 +17,8 @@ namespace HomeTask_WindowsForms.DAL
                 var engine = new SqlCeEngine(ConnectionString);
                 engine.CreateDatabase();
 
-                using (var connection = new SqlCeConnection(ConnectionString))
+                using (var connection = GetOpenConnection())
                 {
-                    connection.Open();
-                    
                     using (var query = connection.CreateCommand())
                     {
                         query.CommandText = @"CREATE TABLE Category (
@@ -40,8 +38,10 @@ namespace HomeTask_WindowsForms.DAL
                             TranslateSecond NVARCHAR(40),
                             TranslateThird NVARCHAR(40),
                             Category_Id INT NOT NULL,
-                            IsLearnedEnglish bit NOT NULL DEFAULT(0),
-                            IsLearnedRussian bit NOT NULL DEFAULT(0),
+                            IsLearnedEnglishByCheck bit NOT NULL DEFAULT(0),
+                            IsLearnedRussianByCheck bit NOT NULL DEFAULT(0),
+                            IsLearnedEnglishByTranslation bit NOT NULL DEFAULT(0),
+                            IsLearnedRussianByTranslation bit NOT NULL DEFAULT(0),
                             FOREIGN KEY (Category_Id) REFERENCES Category (Id)
                             );";
 
